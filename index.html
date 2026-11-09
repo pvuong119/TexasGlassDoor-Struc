@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhật ký công việc · Texas Glass Door · 09/11/2026</title>
+<meta name="description" content="Tổng hợp toàn bộ công việc tối ưu giao diện, SEO và tốc độ cho website Texas Glass Door trong ngày 09/11/2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8F5; --bg2:#FDF1F4; --ink:#2B2340; --text:#5D5672; --muted:#9A92AE;
+  --pink:#F7A8C4; --pink2:#EF6F9C; --rose:#E2457A; --leaf:#7CC89A; --leaf2:#3FA36B;
+  --sky:#9CC9F5; --lav:#C7B5F5; --sun:#FFD58A; --line:rgba(43,35,64,.08);
+  --glass:rgba(255,255,255,.62); --shadow:0 30px 60px -35px rgba(120,60,110,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden;line-height:1.65}
+a{color:inherit}
+h1,h2,h3{color:var(--ink);line-height:1.12;letter-spacing:-.02em}
+.serif{font-family:'Playfair Display',Georgia,serif}
+
+/* ===== Ambient background ===== */
+.sky{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(60% 50% at 10% 0%,#FFE3EC 0%,transparent 60%),
+  radial-gradient(50% 45% at 95% 10%,#E6F4EA 0%,transparent 60%),
+  radial-gradient(60% 60% at 80% 100%,#EDE6FF 0%,transparent 60%),
+  linear-gradient(180deg,#FFF8F5 0%,#FFF4F7 50%,#F6FBF7 100%)}
+.blob{position:fixed;z-index:-2;border-radius:50%;filter:blur(60px);opacity:.55;animation:float 18s ease-in-out infinite alternate}
+.blob.b1{width:420px;height:420px;background:#FFC7DA;top:-120px;left:-80px}
+.blob.b2{width:360px;height:360px;background:#C9EFD6;top:30vh;right:-120px;animation-delay:-6s}
+.blob.b3{width:380px;height:380px;background:#DCD0FF;bottom:-140px;left:30vw;animation-delay:-11s}
+@keyframes float{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}100%{transform:translate(-30px,40px) scale(.96)}}
+#petals{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(247,168,196,.35),transparent 65%);transform:translate(-50%,-50%);transition:opacity .4s}
+
+/* ===== Progress + nav ===== */
+.progress{position:fixed;top:0;left:0;height:4px;width:0;z-index:50;background:linear-gradient(90deg,var(--pink2),var(--sun),var(--leaf));box-shadow:0 0 14px rgba(239,111,156,.6)}
+nav.top{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(255,248,245,.7);border-bottom:1px solid var(--line)}
+nav.top .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:12px 24px;overflow-x:auto;scrollbar-width:none}
+nav.top .in::-webkit-scrollbar{display:none}
+nav.top b{font-weight:800;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:8px}
+nav.top a{text-decoration:none;font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;position:relative;padding:4px 0}
+nav.top a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--pink2);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+nav.top a:hover::after,nav.top a.on::after{transform:scaleX(1)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:96px 0;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+.kicker::before{content:"✿";font-size:16px;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.h2{font-size:clamp(32px,4.4vw,52px);font-weight:800;margin:12px 0 14px}
+.lead{font-size:clamp(16px,1.4vw,18.5px);max-width:720px}
+
+/* ===== Hero ===== */
+.hero{min-height:92vh;display:flex;align-items:center;padding:80px 0 60px}
+.hero h1{font-size:clamp(44px,7.4vw,96px);font-weight:800;letter-spacing:-.035em}
+.shimmer{background:linear-gradient(100deg,var(--rose) 0%,var(--pink) 25%,var(--sun) 45%,var(--leaf) 65%,var(--rose) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 7s linear infinite}
+@keyframes shim{to{background-position:-250% 0}}
+.hero .date{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);font-weight:700;color:var(--ink);font-size:14px;margin-bottom:26px;backdrop-filter:blur(10px)}
+.hero .date i{width:9px;height:9px;border-radius:50%;background:var(--leaf2);box-shadow:0 0 0 0 rgba(63,163,107,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 12px rgba(63,163,107,0)}100%{box-shadow:0 0 0 0 rgba(63,163,107,0)}}
+.typed{min-height:2em;font-size:clamp(18px,2vw,23px);color:var(--text);margin:22px 0 40px;max-width:760px}
+.typed .cur{display:inline-block;width:2px;height:1.1em;background:var(--rose);vertical-align:-3px;margin-left:3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.stat{padding:22px 20px;border-radius:22px;background:var(--glass);border:1px solid rgba(255,255,255,.85);box-shadow:var(--shadow);backdrop-filter:blur(12px);position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;inset:-60% -30%;background:conic-gradient(from 0deg,transparent 0 70%,rgba(255,255,255,.7) 80%,transparent 90%);animation:spin 6s linear infinite;opacity:.35}
+.stat b{display:block;font-size:clamp(30px,3.6vw,44px);font-weight:800;color:var(--ink);position:relative;z-index:1}
+.stat span{font-size:14px;font-weight:600;position:relative;z-index:1}
+.scroll-cue{margin-top:48px;display:inline-flex;align-items:center;gap:10px;font-weight:700;color:var(--rose);text-decoration:none}
+.scroll-cue .m{width:26px;height:40px;border:2px solid var(--rose);border-radius:14px;position:relative}
+.scroll-cue .m::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;border-radius:4px;background:var(--rose);transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* ===== Marquee ===== */
+.marquee{overflow:hidden;padding:18px 0;border-block:1px solid var(--line);background:rgba(255,255,255,.5)}
+.marquee .tr{display:flex;gap:46px;width:max-content;animation:mq 38s linear infinite}
+.marquee span{font-weight:800;font-size:20px;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:46px}
+.marquee span::after{content:"❀";color:var(--pink2)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ===== Reveal ===== */
+.rv{opacity:0;transform:translateY(40px) scale(.98);filter:blur(6px);transition:opacity 1s cubic-bezier(.19,1,.22,1),transform 1s cubic-bezier(.19,1,.22,1),filter 1s ease}
+.rv.in{opacity:1;transform:none;filter:none}
+
+/* ===== Timeline ===== */
+.tl{position:relative;margin-top:56px}
+.tl::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--pink),var(--sun),var(--leaf),var(--lav))}
+.tl .fill{position:absolute;left:28px;top:0;width:3px;height:0;border-radius:3px;background:var(--rose);box-shadow:0 0 16px var(--pink2)}
+.item{position:relative;padding-left:84px;margin-bottom:28px}
+.item .dot{position:absolute;left:10px;top:24px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:#fff;border:3px solid var(--pink);box-shadow:0 8px 20px -8px rgba(226,69,122,.6);z-index:1;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .4s}
+.item.in .dot{transform:scale(1.08)}
+.card{position:relative;padding:26px 28px;border-radius:26px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);backdrop-filter:blur(14px);transform-style:preserve-3d;transition:transform .25s ease,box-shadow .4s ease;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(130deg,rgba(247,168,196,.9),rgba(255,213,138,.6),rgba(124,200,154,.8));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.card:hover::before{opacity:1}
+.card .shine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 40%);opacity:0;transition:opacity .3s}
+.card:hover .shine{opacity:1}
+.card h3{font-size:clamp(20px,2vw,25px);font-weight:800;margin-bottom:8px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.tag{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em}
+.t-fix{background:#FFE4EC;color:var(--rose)}.t-new{background:#E2F5E9;color:var(--leaf2)}.t-seo{background:#EAE3FF;color:#7254D8}.t-speed{background:#FFF1D6;color:#B7791F}
+.card p{margin-bottom:10px}
+.card ul{list-style:none;display:grid;gap:7px;margin:12px 0}
+.card li{position:relative;padding-left:24px}
+.card li::before{content:"";position:absolute;left:4px;top:10px;width:9px;height:9px;border-radius:50% 0 50% 0;background:linear-gradient(135deg,var(--pink2),var(--leaf));transform:rotate(45deg)}
+.files{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.files code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;padding:5px 10px;border-radius:9px;background:rgba(43,35,64,.06);color:var(--ink);border:1px solid var(--line)}
+
+/* ===== Architecture SVG ===== */
+.arch{margin-top:46px;border-radius:30px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);padding:22px;backdrop-filter:blur(14px);overflow-x:auto}
+.arch svg{display:block;width:100%;min-width:900px;height:auto}
+.arch .node rect{fill:#fff;stroke:rgba(43,35,64,.12);stroke-width:1.2;filter:drop-shadow(0 10px 18px rgba(120,60,110,.14));transition:transform .4s}
+.arch .node:hover rect{stroke:var(--pink2);stroke-width:2}
+.arch .node text{font-family:'Be Vietnam Pro',sans-serif;fill:var(--ink);font-weight:700;font-size:14px}
+.arch .node text.s{font-weight:500;font-size:12px;fill:var(--text)}
+.arch .link{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:7 7;animation:dash 1.4s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-28}}
+.arch svg .link{opacity:0;transition:opacity 1.2s ease}
+.arch.in svg .link{opacity:.95}
+.arch svg .node{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s cubic-bezier(.19,1,.22,1)}
+.arch.in svg .node{opacity:1;transform:none}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:13.5px;font-weight:600}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+
+/* ===== Home block stack ===== */
+.stackwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start;margin-top:46px}
+.phone{position:sticky;top:90px;margin:0 auto;width:min(340px,100%);padding:14px;border-radius:44px;background:linear-gradient(160deg,#2B2340,#4A3A6A);box-shadow:0 40px 80px -40px rgba(43,35,64,.7)}
+.phone .scr{border-radius:32px;background:#fff;padding:14px 12px;display:grid;gap:8px;max-height:640px;overflow:hidden;position:relative}
+.phone .scr::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(transparent,#fff)}
+.blk{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:14px;font-size:13px;font-weight:700;color:var(--ink);background:#F7F4FA;border:1px solid var(--line);transform-origin:left;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .4s,box-shadow .4s}
+.blk em{font-style:normal;margin-left:auto;font-size:11px;padding:2px 8px;border-radius:999px}
+.blk.new{background:#EDF9F1}.blk.new em{background:#C9EFD6;color:#1F7A47}
+.blk.old em{background:#FFE4EC;color:var(--rose)}
+.blk.act{transform:scale(1.04) translateX(6px);box-shadow:0 12px 26px -12px rgba(226,69,122,.55);background:#fff}
+.steplist{display:grid;gap:14px}
+.steplist .card{cursor:default}
+
+/* ===== Speed chart ===== */
+.speed{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:46px}
+.bars{margin-top:12px;display:grid;gap:12px}
+.bar{position:relative;height:38px;border-radius:12px;background:rgba(43,35,64,.06);overflow:hidden}
+.bar span{position:absolute;inset:0 auto 0 0;width:0;min-width:0;border-radius:12px;display:flex;align-items:center;padding:0 12px;font-weight:800;font-size:13.5px;color:#fff;white-space:nowrap;transition:width 2s cubic-bezier(.19,1,.22,1)}
+.bar .before{background:linear-gradient(90deg,#F27A9E,#E2457A)}
+.bar .after{background:linear-gradient(90deg,#6FCB95,#2E9C5E)}
+.bar.dark span{color:var(--ink)}
+
+/* ===== Rules ===== */
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:46px}
+.rule{padding:22px;border-radius:22px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.rule:hover{transform:translateY(-6px) rotate(-.6deg)}
+.rule .ic{font-size:26px;display:inline-block;margin-bottom:8px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(8deg)}}
+.rule b{display:block;color:var(--ink);font-size:16.5px;margin-bottom:4px}
+
+/* ===== Files grid ===== */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:40px}
+.f{padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 30px -24px rgba(120,60,110,.5);display:flex;gap:12px;align-items:flex-start;transition:transform .3s ease,box-shadow .3s}
+.f:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgba(226,69,122,.5)}
+.f .ext{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pink2),var(--lav))}
+.f .ext.j{background:linear-gradient(135deg,var(--sun),#F59E0B)}
+.f b{display:block;color:var(--ink);font-size:14px;word-break:break-all}
+.f small{font-size:12.5px}
+
+footer{padding:70px 0 90px;text-align:center}
+footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out infinite}
+
+@media (max-width:900px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stackwrap{grid-template-columns:1fr}
+  .phone{position:relative;top:0}
+  .speed,.rules{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  section{padding:70px 0}
+  .wrap{padding:0 16px}
+  .item{padding-left:62px}
+  .tl::before,.tl .fill{left:20px}
+  .item .dot{left:2px;width:38px;height:38px;font-size:16px}
+  .card{padding:20px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<canvas id="petals" aria-hidden="true"></canvas>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="progress" id="progress"></div>
+
+<nav class="top"><div class="in">
+  <b>🌸 TGD · 09/11</b>
+  <a href="#timeline">Dòng thời gian</a>
+  <a href="#arch">Cấu trúc</a>
+  <a href="#home">Trang chủ</a>
+  <a href="#speed">Tốc độ</a>
+  <a href="#rules">Quy tắc</a>
+  <a href="#files">File</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="date rv"><i></i> Thứ Hai · 09/11/2026 · texasglassdoor.com</div>
+  <h1 class="rv">Một ngày <span class="shimmer serif">nở hoa</span><br>cho Texas Glass Door</h1>
+  <p class="typed rv" id="typed" aria-live="polite"></p>
+  <div class="stats">
+    <div class="stat rv"><b data-count="14">0</b><span>hạng mục đã làm</span></div>
+    <div class="stat rv"><b data-count="6">0</b><span>section chỉnh được mới</span></div>
+    <div class="stat rv"><b data-count="13">0</b><span>block trên trang chủ</span></div>
+    <div class="stat rv"><b data-count="78" data-suffix="%">0</b><span>video trang chủ nhẹ hơn</span></div>
+  </div>
+  <a class="scroll-cue" href="#timeline"><span class="m"></span> Cuộn xuống xem chi tiết</a>
+</div></header>
+
+<div class="marquee" aria-hidden="true"><div class="tr" id="mq">
+  <span>Section chỉnh được</span><span>Schema ≤ 25 ký tự</span><span>FAQ đồng nhất</span><span>CTA dùng chung</span><span>Breadcrumb toàn site</span><span>JSON-LD</span><span>Video nhẹ</span><span>Lật trang PDF</span><span>Nút đỏ thống nhất</span><span>Mobile không tràn</span>
+</div></div>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline"><div class="wrap">
+  <span class="kicker rv">Dòng thời gian</span>
+  <h2 class="h2 rv">Từ sáng tới giờ đã làm gì?</h2>
+  <p class="lead rv">Mỗi mục ghi rõ <b>vấn đề → cách làm → file bàn giao</b>. Nhãn màu: <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-speed">Tốc độ</span></p>
+
+  <div class="tl" id="tl"><div class="fill" id="tlfill"></div>
+
+    <div class="item rv"><div class="dot">🔧</div><div class="card"><div class="shine"></div>
+      <h3>Rà CSS toàn theme <span class="tag t-fix">Sửa lỗi</span></h3>
+      <p>Phát hiện file <b>base.css</b> thiếu 1 dấu <code>}</code> khiến cả khối CSS phía sau bị "nhốt" trong media query reduced-motion → nhiều trình duyệt hiển thị sai.</p>
+      <div class="files"><code>assets/base.css</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🖱️</div><div class="card"><div class="shine"></div>
+      <h3>Menu header <span class="tag t-fix">Sửa lỗi</span></h3>
+      <ul><li>Bỏ gạch chân đỏ (do <code>::after</code>), không đổi giao diện khi rê chuột.</li><li>Con trỏ giữ mặc định thay vì biến thành hình bàn tay.</li></ul>
+    </div></div>
+
+    <div class="item rv"><div class="dot">💳</div><div class="card"><div class="shine"></div>
+      <h3>USA Cabinets – Payment & Delivery Policy <span class="tag t-new">Làm mới</span></h3>
+      <p>Dựng trang chính sách thanh toán & giao hàng đúng giao diện site USA Cabinets Outlet.</p>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🎨</div><div class="card"><div class="shine"></div>
+      <h3>Trang Collection TGD <span class="tag t-new">Làm mới</span></h3>
+      <ul><li>Tinh chỉnh bảng màu navy/đỏ, giữ gradient chỗ cần, nút nổi bật hơn.</li><li>FAQ dạng thẻ đánh số — sau này trở thành <b>chuẩn FAQ chung</b>.</li></ul>
+      <div class="files"><code>blocks/ai_gen_block_05f8c3a.liquid</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">📦</div><div class="card"><div class="shine"></div>
+      <h3>Trang In-Stock Door <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
+      <ul><li>Đếm số cửa, nhãn % tiết kiệm đặt góc ảnh, nút <b>Load More</b>.</li><li>FAQ 8 câu cùng kiểu Collection + FAQPage schema.</li><li>CTA gọn "Need Help Choosing the Right Door?" → về sau thành snippet dùng chung.</li></ul>
+      <div class="files"><code>InStockDoor.liquid</code><code>ai_gen_block_8614c9f.liquid</code><code>custom liquid bottom</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">📐</div><div class="card"><div class="shine"></div>
+      <h3>Door Specifications → section <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span></h3>
+      <ul><li>Dựng lại toàn bộ giao diện, ảnh không bị thấp/lệch, chữ không rớt dòng.</li><li>Chuyển thành section chỉnh được + <b>nội dung dự phòng</b> (không có block vẫn hiện đủ ảnh/chữ).</li><li>Thêm bộ kiểm tra tự động: tên block/section ≤ 25 ký tự → hết lỗi Save.</li></ul>
+      <div class="files"><code>sections/tgd-door-specifications.liquid</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🧩</div><div class="card"><div class="shine"></div>
+      <h3>2 snippet CTA dùng chung <span class="tag t-new">Làm mới</span></h3>
+      <p>Viết 1 lần, gọi ở mọi trang bằng <code>{% render %}</code> → sửa 1 chỗ, cả web đổi theo.</p>
+      <div class="files"><code>snippets/tgd-cta-help.liquid</code><code>snippets/tgd-cta-project.liquid</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🧭</div><div class="card"><div class="shine"></div>
+      <h3>Breadcrumb toàn site <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
+      <ul><li>1 snippet gọi trong <code>theme.liquid</code> → mọi trang tự có "Home › …" (trừ trang chủ).</li><li>Kèm BreadcrumbList JSON-LD cho Google.</li><li>Thiết kế lại 2 lần → bản tối giản nền trắng, thẳng lề logo.</li></ul>
+      <div class="files"><code>snippets/tgd-breadcrumbs.liquid</code><code>layout/theme.liquid</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🚚</div><div class="card"><div class="shine"></div>
+      <h3>Pickup Instructions → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
+      <ul><li>Custom liquid → section chỉnh được (facts, 4 bước, yêu cầu xe, thẻ thông tin).</li><li>FAQ 8 câu thực tế + CTA chung + LocalBusiness/FAQPage schema.</li><li>Hết khoảng trắng 40px dưới breadcrumb.</li></ul>
+      <div class="files"><code>sections/tgd-pickup-instructions.liquid</code><code>templates/page.pickup.json</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">📏</div><div class="card"><div class="shine"></div>
+      <h3>Measuring Guide → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-fix">Sửa lỗi</span></h3>
+      <ul><li>45 block chỉnh được, 2 ảnh chọn được, form báo giá giữ nguyên.</li><li>Rà giao diện: bỏ nội dung lặp, cân cột ảnh, đổi nhịp màu nền, icon nổi hơn, bảng gọn trên mobile.</li><li>FAQ có link nội bộ, bấm câu trả lời cũng đóng được. FAQPage + Article schema.</li><li>Sửa thẻ đóng thừa & link trỏ nhầm.</li></ul>
+      <div class="files"><code>sections/tgd-measuring-guide.liquid</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">📖</div><div class="card"><div class="shine"></div>
+      <h3>Catalog Library → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
+      <ul><li>2 catalog PDF lật trang, tải lười khi cuộn tới, nút toàn màn hình.</li><li>Bìa nằm giữa (hết trang trắng bên trái), xuất sẵn ảnh bìa từ PDF.</li><li>Mô tả viết theo nội dung thật trong PDF, FAQ 7 câu, CollectionPage + FAQPage schema.</li></ul>
+      <div class="files"><code>sections/tgd-catalog-library.liquid</code><code>catalog-1-cover.jpg</code><code>catalog-2-cover.jpg</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">⚡</div><div class="card"><div class="shine"></div>
+      <h3>Đo tốc độ trang chủ <span class="tag t-speed">Tốc độ</span></h3>
+      <p>Trang chủ tải <b>~63 MB</b>, trong đó video đầu trang chiếm ~60 MB (file gốc 1080p 50 MB, phát lặp). Đổi sang bản Shopify đã nén: <b>720p cho máy tính, 480p cho điện thoại</b>, chỉ tải sau khi trang hiện xong, có ảnh poster, tự dừng khi cuộn qua.</p>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🏠</div><div class="card"><div class="shine"></div>
+      <h3>Trang chủ → 1 section "TGD Home" <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
+      <ul><li>Gộp 7 phần cũ thành block (kéo thả được), hero sửa được hết chữ/nút/video.</li><li>Thêm 6 block mới: Why us, How it works, In-stock & Catalog (ảnh thật), Service areas (14 thành phố), FAQ 8 câu, CTA chung.</li><li>Thẻ sản phẩm có ô <b>thay ảnh riêng</b>.</li></ul>
+      <div class="files"><code>sections/tgd-home.liquid</code><code>templates/index.json</code></div>
+    </div></div>
+
+    <div class="item rv"><div class="dot">🔴</div><div class="card"><div class="shine"></div>
+      <h3>Thống nhất màu nút <span class="tag t-fix">Sửa lỗi</span></h3>
+      <p>Quy tắc chung: <b>nút chính màu đỏ #E31B23</b>, nút phụ trắng viền xanh. Đã đổi nút "Get a Free Quote" & "Explore Doors" trên trang chủ từ xanh sang đỏ.</p>
+    </div></div>
+
+  </div>
+</div></section>
+
+<!-- ============ ARCHITECTURE ============ -->
+<section id="arch"><div class="wrap">
+  <span class="kicker rv">Cấu trúc</span>
+  <h2 class="h2 rv">Theme được tổ chức như thế nào</h2>
+  <p class="lead rv">Mọi trang đi qua <b>theme.liquid</b> → breadcrumb chung → template JSON của từng trang → section chỉnh được. Các khối lặp lại (CTA, FAQ) dùng chung một nguồn để luôn đồng nhất.</p>
+  <div class="arch rv" id="archbox">
+  <svg viewBox="0 0 1120 600" role="img" aria-label="Sơ đồ cấu trúc theme Texas Glass Door">
+    <defs>
+      <linearGradient id="gPink" x1="0" x2="1"><stop offset="0" stop-color="#F7A8C4"/><stop offset="1" stop-color="#E2457A"/></linearGradient>
+      <linearGradient id="gLeaf" x1="0" x2="1"><stop offset="0" stop-color="#9FDDB6"/><stop offset="1" stop-color="#3FA36B"/></linearGradient>
+      <linearGradient id="gLav" x1="0" x2="1"><stop offset="0" stop-color="#DCD0FF"/><stop offset="1" stop-color="#8E6FE6"/></linearGradient>
+      <linearGradient id="gSun" x1="0" x2="1"><stop offset="0" stop-color="#FFE1A6"/><stop offset="1" stop-color="#F0A500"/></linearGradient>
+    </defs>
+    <!-- links -->
+    <g>
+      <path class="link" stroke="#EF6F9C" d="M560 92 V140"/>
+      <path class="link" stroke="#EF6F9C" d="M560 192 V230"/>
+      <path class="link" stroke="url(#gLeaf)" d="M560 230 H120 V262"/>
+      <path class="link" stroke="url(#gLeaf)" d="M560 230 H340 V262"/>
+      <path class="link" stroke="#3FA36B" d="M560 230 V262"/>
+      <path class="link" stroke="url(#gLeaf)" d="M560 230 H780 V262"/>
+      <path class="link" stroke="url(#gLeaf)" d="M560 230 H1000 V262"/>
+      <path class="link" stroke="#8E6FE6" d="M120 318 V370"/>
+      <path class="link" stroke="#8E6FE6" d="M340 318 V370"/>
+      <path class="link" stroke="#8E6FE6" d="M560 318 V370"/>
+      <path class="link" stroke="#8E6FE6" d="M780 318 V370"/>
+      <path class="link" stroke="#8E6FE6" d="M1000 318 V370"/>
+      <path class="link" stroke="url(#gSun)" d="M120 432 C120 490 380 470 420 506"/>
+      <path class="link" stroke="url(#gSun)" d="M340 432 C340 470 400 480 420 506"/>
+      <path class="link" stroke="#F0A500" d="M560 432 V506"/>
+      <path class="link" stroke="url(#gSun)" d="M780 432 C780 470 720 480 700 506"/>
+      <path class="link" stroke="url(#gSun)" d="M1000 432 C1000 490 740 470 700 506"/>
+    </g>
+    <!-- nodes -->
+    <g class="node"><rect x="430" y="36" width="260" height="56" rx="16"/><text x="560" y="62" text-anchor="middle">layout/theme.liquid</text><text class="s" x="560" y="80" text-anchor="middle">khung chung mọi trang</text></g>
+    <g class="node"><rect x="400" y="140" width="320" height="52" rx="16" style="stroke:#EF6F9C"/><text x="560" y="164" text-anchor="middle">snippets/tgd-breadcrumbs</text><text class="s" x="560" y="181" text-anchor="middle">Home › … + BreadcrumbList</text></g>
+    <g class="node"><rect x="40" y="262" width="160" height="56" rx="16"/><text x="120" y="286" text-anchor="middle">index.json</text><text class="s" x="120" y="304" text-anchor="middle">Trang chủ</text></g>
+    <g class="node"><rect x="260" y="262" width="160" height="56" rx="16"/><text x="340" y="286" text-anchor="middle">page.measuring…</text><text class="s" x="340" y="304" text-anchor="middle">Measuring Guide</text></g>
+    <g class="node"><rect x="480" y="262" width="160" height="56" rx="16"/><text x="560" y="286" text-anchor="middle">page.pickup.json</text><text class="s" x="560" y="304" text-anchor="middle">Pickup</text></g>
+    <g class="node"><rect x="700" y="262" width="160" height="56" rx="16"/><text x="780" y="286" text-anchor="middle">page.catalog…</text><text class="s" x="780" y="304" text-anchor="middle">Catalog</text></g>
+    <g class="node"><rect x="920" y="262" width="160" height="56" rx="16"/><text x="1000" y="286" text-anchor="middle">page.door-spec…</text><text class="s" x="1000" y="304" text-anchor="middle">Door Specs</text></g>
+    <g class="node"><rect x="30" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="120" y="396" text-anchor="middle">tgd-home</text><text class="s" x="120" y="414" text-anchor="middle">13 block kéo thả</text></g>
+    <g class="node"><rect x="250" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="340" y="396" text-anchor="middle">tgd-measuring-guide</text><text class="s" x="340" y="414" text-anchor="middle">45 block + form</text></g>
+    <g class="node"><rect x="470" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="560" y="396" text-anchor="middle">tgd-pickup-instructions</text><text class="s" x="560" y="414" text-anchor="middle">facts · steps · FAQ</text></g>
+    <g class="node"><rect x="690" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="780" y="396" text-anchor="middle">tgd-catalog-library</text><text class="s" x="780" y="414" text-anchor="middle">PDF lật trang</text></g>
+    <g class="node"><rect x="910" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="1000" y="396" text-anchor="middle">tgd-door-specifications</text><text class="s" x="1000" y="414" text-anchor="middle">thông số cửa</text></g>
+    <g class="node"><rect x="330" y="506" width="460" height="62" rx="18" style="stroke:#F0A500;stroke-width:2"/><text x="560" y="532" text-anchor="middle">Khối dùng chung</text><text class="s" x="560" y="550" text-anchor="middle">tgd-cta-help · tgd-cta-project · FAQ chuẩn (.tgd-isfaq) · nút đỏ #E31B23</text></g>
+  </svg>
+  <div class="legend"><span><i style="background:#EF6F9C"></i>Layout & snippet toàn site</span><span><i style="background:#3FA36B"></i>Template JSON từng trang</span><span><i style="background:#8E6FE6"></i>Section chỉnh được</span><span><i style="background:#F0A500"></i>Khối dùng chung</span></div>
+  </div>
+</div></section>
+
+<!-- ============ HOME BLOCKS ============ -->
+<section id="home"><div class="wrap">
+  <span class="kicker rv">Trang chủ</span>
+  <h2 class="h2 rv">13 block — sắp theo hướng mắt khách đọc</h2>
+  <p class="lead rv">Cuộn bên phải, khung điện thoại bên trái sẽ sáng block tương ứng. <b style="color:#1F7A47">Xanh lá</b> = mới thêm, <b style="color:#E2457A">hồng</b> = giữ từ trang cũ.</p>
+  <div class="stackwrap">
+    <div class="phone rv"><div class="scr" id="scr">
+      <div class="blk old" data-b="0">🎬 Hero video <em>giữ + tối ưu</em></div>
+      <div class="blk new" data-b="1">✨ Why choose us <em>mới</em></div>
+      <div class="blk old" data-b="2">🛍️ Product collections <em>+ thay ảnh</em></div>
+      <div class="blk new" data-b="3">🪜 How it works <em>mới</em></div>
+      <div class="blk old" data-b="4">🏗️ Projects slider <em>giữ</em></div>
+      <div class="blk old" data-b="5">↔️ Before & after <em>giữ</em></div>
+      <div class="blk old" data-b="6">🔎 Find a door strip <em>nút đỏ</em></div>
+      <div class="blk new" data-b="7">📦 In-stock & catalog <em>mới</em></div>
+      <div class="blk old" data-b="8">💵 Financing (Acorn) <em>giữ</em></div>
+      <div class="blk old" data-b="9">⭐ Reviews & map <em>giữ</em></div>
+      <div class="blk new" data-b="10">📍 Service areas <em>mới</em></div>
+      <div class="blk new" data-b="11">❓ Home FAQ <em>mới</em></div>
+      <div class="blk new" data-b="12">📣 Help CTA bar <em>mới</em></div>
+    </div></div>
+    <div class="steplist">
+      <div class="card rv" data-s="0"><div class="shine"></div><h3>🎬 Hero video</h3><p>Ấn tượng đầu tiên + H1. Sửa chữ, nút, số liệu, đổi video trong editor. Video tải sau, có poster.</p></div>
+      <div class="card rv" data-s="1"><div class="shine"></div><h3>✨ Why choose us</h3><p>Trả lời ngay "vì sao chọn mình": giá xưởng, làm theo size + CAD, bảo hành, nhận/giao.</p></div>
+      <div class="card rv" data-s="2"><div class="shine"></div><h3>🛍️ Product collections</h3><p>11 dòng sản phẩm dạng slider; mỗi thẻ có thể đặt ảnh riêng.</p></div>
+      <div class="card rv" data-s="3"><div class="shine"></div><h3>🪜 How it works</h3><p>Đo → Báo giá → Duyệt & sản xuất (~12–20 tuần) → Nhận/giao. Mỗi bước có link.</p></div>
+      <div class="card rv" data-s="4"><div class="shine"></div><h3>🏗️ Projects slider</h3><p>Dự án thật ở Houston, Austin, Frisco… tạo niềm tin.</p></div>
+      <div class="card rv" data-s="5"><div class="shine"></div><h3>↔️ Before & after</h3><p>3 slider trước/sau của app Slidr, ID sửa được.</p></div>
+      <div class="card rv" data-s="6"><div class="shine"></div><h3>🔎 Find a door strip</h3><p>Dải CTA giữa trang — nút chính đã chuyển đỏ.</p></div>
+      <div class="card rv" data-s="7"><div class="shine"></div><h3>📦 In-stock & catalog</h3><p>2 thẻ ảnh thật phủ kín, lớp phủ xanh, chữ trắng — lối vào 2 trang chưa từng có link từ home.</p></div>
+      <div class="card rv" data-s="8"><div class="shine"></div><h3>💵 Financing</h3><p>Trả góp qua Acorn Finance.</p></div>
+      <div class="card rv" data-s="9"><div class="shine"></div><h3>⭐ Reviews & map</h3><p>Đánh giá khách + bản đồ showroom Anna, giữ y hệt toàn site.</p></div>
+      <div class="card rv" data-s="10"><div class="shine"></div><h3>📍 Service areas</h3><p>14 thành phố, mỗi tên link sang trang thành phố — mạnh cho SEO địa phương.</p></div>
+      <div class="card rv" data-s="11"><div class="shine"></div><h3>❓ Home FAQ</h3><p>8 câu khách hay hỏi, có link nội bộ, FAQPage schema.</p></div>
+      <div class="card rv" data-s="12"><div class="shine"></div><h3>📣 Help CTA bar</h3><p>Thanh "Need Help Choosing the Right Door?" — giống mọi trang khác.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ SPEED ============ -->
+<section id="speed"><div class="wrap">
+  <span class="kicker rv">Tốc độ</span>
+  <h2 class="h2 rv">Video trang chủ: trước & sau</h2>
+  <p class="lead rv">Đo trực tiếp trên texasglassdoor.com. Thanh hồng = trước, thanh xanh = sau khi đổi sang bản nén Shopify.</p>
+  <div class="speed">
+    <div class="card rv"><div class="shine"></div><h3>🖥️ Máy tính</h3>
+      <div class="bars"><div class="bar"><span class="before" data-w="100">~60 MB tải</span></div><div class="bar dark"><span class="after" data-w="22">13 MB</span></div></div></div>
+    <div class="card rv"><div class="shine"></div><h3>📱 Điện thoại</h3>
+      <div class="bars"><div class="bar"><span class="before" data-w="100">~60 MB tải</span></div><div class="bar dark"><span class="after" data-w="18">4,7 MB</span></div></div></div>
+    <div class="card rv"><div class="shine"></div><h3>⏱️ Lúc mở trang</h3>
+      <div class="bars"><div class="bar"><span class="before" data-w="100">video tải ngay</span></div><div class="bar dark"><span class="after" data-w="34">poster ~0,2 MB</span></div></div>
+      <p style="margin-top:12px;font-size:14px">Video chỉ tải sau sự kiện <code>load</code>, tự dừng khi cuộn qua, bỏ qua khi khách bật tiết kiệm dữ liệu.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ RULES ============ -->
+<section id="rules"><div class="wrap">
+  <span class="kicker rv">Quy tắc đã thống nhất</span>
+  <h2 class="h2 rv">Những điều mọi trang mới phải tuân theo</h2>
+  <div class="rules">
+    <div class="rule rv"><span class="ic">🧱</span><b>Section chỉnh được</b>Có schema, chọn ảnh, block; luôn có nội dung dự phòng để không mất chữ/ảnh.</div>
+    <div class="rule rv"><span class="ic">✅</span><b>Không lỗi Save</b>Tên block/section ≤ 25 ký tự, không dùng richtext sai chuẩn — kiểm tự động trước khi gửi.</div>
+    <div class="rule rv"><span class="ic">🎨</span><b>CSS trước HTML</b>Trang không bị "nháy" chưa có style khi mới tải.</div>
+    <div class="rule rv"><span class="ic">🔁</span><b>Khối lặp phải giống hệt</b>CTA, FAQ, bản đồ showroom dùng chung một nguồn.</div>
+    <div class="rule rv"><span class="ic">❓</span><b>FAQ cuối trang</b>Câu hỏi thật của khách, trả lời chung chung không hứa tuyệt đối; bấm câu trả lời cũng đóng được.</div>
+    <div class="rule rv"><span class="ic">🔴</span><b>Nút chính màu đỏ</b>Xanh – đỏ là màu thương hiệu; hiệu ứng chậm, mượt, nút không quá chậm.</div>
+  </div>
+</div></section>
+
+<!-- ============ FILES ============ -->
+<section id="files"><div class="wrap">
+  <span class="kicker rv">File bàn giao</span>
+  <h2 class="h2 rv">Danh sách file trong ngày</h2>
+  <div class="fgrid">
+    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-home.liquid</b><small>Trang chủ 13 block</small></div></div>
+    <div class="f rv"><span class="ext j">JSON</span><div><b>templates/index.json</b><small>Template trang chủ</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-measuring-guide.liquid</b><small>Measuring Guide</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-pickup-instructions.liquid</b><small>Pickup</small></div></div>
+    <div class="f rv"><span class="ext j">JSON</span><div><b>templates/page.pickup.json</b><small>Template Pickup</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-catalog-library.liquid</b><small>Catalog PDF</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-door-specifications.liquid</b><small>Door Specs</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-breadcrumbs.liquid</b><small>Breadcrumb toàn site</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-cta-help.liquid</b><small>CTA chung</small></div></div>
+    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-cta-project.liquid</b><small>CTA "Ready to Start"</small></div></div>
+    <div class="f rv"><span class="ext" style="background:linear-gradient(135deg,#7CC89A,#9CC9F5)">JPG</span><div><b>catalog-1/2-cover.jpg</b><small>Ảnh bìa catalog</small></div></div>
+  </div>
+</div></section>
+
+<footer><span class="bloom">🌸</span><p style="margin-top:12px;font-weight:700;color:var(--ink)">Texas Glass Door · Nhật ký 09/11/2026</p><p style="font-size:14px">Mùa xuân cho website — gọn hơn, nhanh hơn, đồng nhất hơn.</p></footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Falling petals ---------- */
+  var cv=document.getElementById('petals'), ctx=cv.getContext('2d'), W,H,P=[];
+  function size(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px'}
+  size(); addEventListener('resize',size);
+  var colors=['#F7A8C4','#FBC6D8','#FFD9E5','#EF6F9C','#FFE7B8','#CFEFD9'];
+  function petal(init){return{x:Math.random()*W,y:init?Math.random()*H:-30*devicePixelRatio,s:(6+Math.random()*10)*devicePixelRatio,vy:(.4+Math.random()*1)*devicePixelRatio,vx:(-.3+Math.random()*.8)*devicePixelRatio,r:Math.random()*6.28,vr:-.02+Math.random()*.04,sw:Math.random()*6.28,c:colors[Math.floor(Math.random()*colors.length)],o:.5+Math.random()*.45}}
+  var N=innerWidth<700?26:48; for(var i=0;i<N;i++)P.push(petal(true));
+  var wind=0, scrollV=0, lastY=scrollY;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    scrollV+= (scrollY-lastY)*.02; lastY=scrollY; scrollV*=.92;
+    P.forEach(function(p){
+      p.sw+=.02; p.x+=p.vx+Math.sin(p.sw)*.6*devicePixelRatio+wind; p.y+=p.vy+scrollV*devicePixelRatio*.3; p.r+=p.vr;
+      if(p.y>H+40||p.x<-60||p.x>W+60){Object.assign(p,petal(false))}
+      ctx.save();ctx.globalAlpha=p.o;ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.scale(1,.62+Math.sin(p.sw*2)*.25);
+      ctx.fillStyle=p.c;ctx.beginPath();ctx.moveTo(0,-p.s);ctx.bezierCurveTo(p.s,-p.s,p.s*.9,p.s*.5,0,p.s);ctx.bezierCurveTo(-p.s*.9,p.s*.5,-p.s,-p.s,0,-p.s);ctx.fill();
+      ctx.globalAlpha=p.o*.5;ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(-p.s*.2,-p.s*.25,p.s*.18,p.s*.38,0,0,6.28);ctx.fill();ctx.restore();
+    });
+    wind*=.96; requestAnimationFrame(draw);
+  }
+  if(!reduce) draw();
+  addEventListener('mousemove',function(e){wind+=(e.movementX||0)*.004});
+
+  /* ---------- Cursor glow ---------- */
+  var g=document.getElementById('glow');
+  addEventListener('pointermove',function(e){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'});
+
+  /* ---------- Scroll progress + nav ---------- */
+  var bar=document.getElementById('progress'), links=[].slice.call(document.querySelectorAll('nav.top a'));
+  var tl=document.getElementById('tl'), fill=document.getElementById('tlfill');
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
+    var r=tl.getBoundingClientRect(); var f=Math.min(Math.max((innerHeight*.6-r.top)/r.height,0),1); fill.style.height=(f*100)+'%';
+    var cur=null; links.forEach(function(a){var s=document.querySelector(a.getAttribute('href')); if(s&&s.getBoundingClientRect().top<innerHeight*.4)cur=a}); links.forEach(function(a){a.classList.toggle('on',a===cur)});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* ---------- Reveal ---------- */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+    e.target.querySelectorAll && e.target.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w+'%'});
+  }})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)});
+  document.querySelectorAll('.arch .node').forEach(function(n,i){n.style.transitionDelay=(i*90)+'ms'});
+  var arch=document.getElementById('archbox'); new IntersectionObserver(function(e,o){if(e[0].isIntersecting){arch.classList.add('in');o.disconnect()}},{threshold:.25}).observe(arch);
+
+  /* ---------- Counters ---------- */
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,to=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
+    function step(t){if(!t0)t0=t;var k=Math.min((t-t0)/1600,1);k=1-Math.pow(1-k,3);el.textContent=Math.round(to*k)+suf;if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step);cio.unobserve(el)})},{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
+
+  /* ---------- Typewriter ---------- */
+  var lines=['Rà lỗi CSS, sửa menu, dựng 6 section chỉnh được trong Theme editor.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).'];
+  var te=document.getElementById('typed'), li=0, ci=0, del=false;
+  function type(){var s=lines[li]; te.innerHTML=s.slice(0,ci)+'<span class="cur"></span>';
+    if(!del){ci++; if(ci>s.length){del=true; return setTimeout(type,2200)}} else {ci-=2; if(ci<=0){del=false; ci=0; li=(li+1)%lines.length}}
+    setTimeout(type, del?18:34)}
+  if(reduce) te.textContent=lines[0]; else type();
+
+  /* ---------- Tilt + shine ---------- */
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
+      if(!reduce) c.style.transform='perspective(900px) rotateX('+((.5-y)*5)+'deg) rotateY('+((x-.5)*6)+'deg) translateY(-3px)'});
+    c.addEventListener('pointerleave',function(){c.style.transform=''});
+  });
+
+  /* ---------- Phone block highlight ---------- */
+  var blks=[].slice.call(document.querySelectorAll('.blk')), scr=document.getElementById('scr');
+  var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.s;blks.forEach(function(b,k){b.classList.toggle('act',k===i)});
+    var b=blks[i]; if(b && innerWidth>900){scr.scrollTo({top:Math.max(0,b.offsetTop-200),behavior:'smooth'})}}})},{rootMargin:'-45% 0px -45% 0px'});
+  document.querySelectorAll('[data-s]').forEach(function(el){sio.observe(el)});
+
+  /* ---------- Marquee duplicate ---------- */
+  var mq=document.getElementById('mq'); mq.innerHTML+=mq.innerHTML;
+
+  /* ---------- Click bloom ---------- */
+  addEventListener('click',function(e){ if(reduce) return; for(var i=0;i<8;i++){var s=document.createElement('span');s.textContent=['🌸','✿','❀'][i%3];
+    s.style.cssText='position:fixed;left:'+e.clientX+'px;top:'+e.clientY+'px;pointer-events:none;z-index:60;font-size:'+(12+Math.random()*12)+'px;transition:transform 1s cubic-bezier(.19,1,.22,1),opacity 1s';
+    document.body.appendChild(s); var a=Math.random()*6.28,d=40+Math.random()*60;
+    requestAnimationFrame(function(s,a,d){return function(){s.style.transform='translate('+Math.cos(a)*d+'px,'+Math.sin(a)*d+'px) rotate('+(a*90)+'deg)';s.style.opacity='0'}}(s,a,d));
+    setTimeout(function(s){return function(){s.remove()}}(s),1100)}});
+})();
+</script>
+</body>
+</html>
