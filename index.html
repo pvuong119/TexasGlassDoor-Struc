@@ -213,6 +213,31 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 .gl b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
 .gl b::before{content:"🌱 "}
 @media (max-width:900px){.sum,.gloss{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row>div{border-left:0!important;border-top:1px solid var(--line)}.row .w{border-top:0}.row.head{display:none}}
+
+/* ===== Day picker ===== */
+.daypick{position:relative;display:inline-flex;align-items:center;gap:6px;margin-bottom:26px;z-index:30}
+.dp-cur,.dp-arrow{font:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.85);background:var(--glass);backdrop-filter:blur(10px);box-shadow:var(--shadow);color:var(--ink);transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
+.dp-cur{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px}
+.dp-cur i{width:9px;height:9px;border-radius:50%;background:var(--leaf2);animation:ping 2s infinite}
+.dp-cur b{font-size:11px;color:var(--rose);transition:transform .3s ease}
+.dp-cur[aria-expanded="true"] b{transform:rotate(180deg)}
+.dp-arrow{width:38px;height:38px;border-radius:50%;font-size:20px;font-weight:700;line-height:1;display:grid;place-items:center}
+.dp-cur:hover,.dp-arrow:hover:not(:disabled){transform:translateY(-2px);background:#fff}
+.dp-arrow:disabled{opacity:.35;cursor:default}
+.dp-menu{position:absolute;top:calc(100% + 10px);left:44px;min-width:290px;list-style:none;padding:8px;border-radius:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);box-shadow:0 30px 60px -25px rgba(120,60,110,.45);border:1px solid var(--line);opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.19,1,.22,1)}
+.dp-menu.open{opacity:1;transform:none;pointer-events:auto}
+.dp-menu li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-radius:14px;cursor:pointer;font-weight:700;color:var(--ink);font-size:14px;transition:background .2s ease}
+.dp-menu li:hover,.dp-menu li[aria-selected="true"]{background:#FFF0F5}
+.dp-menu li small{font-size:12px;font-weight:600;color:var(--muted)}
+.dp-menu li .now{white-space:nowrap;flex:none;font-size:11px;padding:2px 8px;border-radius:999px;background:#E2F5E9;color:var(--leaf2)}
+.live{display:inline-block;vertical-align:middle;font-size:14px;font-weight:700;color:var(--leaf2);padding:4px 12px;border-radius:999px;background:#E2F5E9;letter-spacing:0;margin-left:8px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55}}
+.day{animation:dayIn .7s cubic-bezier(.19,1,.22,1)}
+@keyframes dayIn{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.stats.swap .stat{animation:statIn .6s cubic-bezier(.19,1,.22,1) both}
+.stats.swap .stat:nth-child(2){animation-delay:.06s}.stats.swap .stat:nth-child(3){animation-delay:.12s}.stats.swap .stat:nth-child(4){animation-delay:.18s}
+@keyframes statIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@media (max-width:600px){.dp-site{display:none}.dp-menu{left:0;min-width:0;width:calc(100vw - 32px)}}
 </style>
 </head>
 <body>
@@ -223,37 +248,38 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 <div class="progress" id="progress"></div>
 
 <nav class="top"><div class="in">
-  <b>🌸 TGD · 09/11</b>
-  <a href="#report">Báo cáo nhanh</a>
-  <a href="#timeline">Dòng thời gian</a>
-  <a href="#arch">Cấu trúc</a>
-  <a href="#home">Trang chủ</a>
-  <a href="#speed">Tốc độ</a>
-  <a href="#rules">Quy tắc</a>
-  <a href="#next">Việc tiếp theo</a>
-  <a href="#gloss">Giải thích từ</a>
-  <a href="#files">File</a>
+  <b>🌸 TGD · <span id="navDate"></span></b>
+  <a href="#report" data-go="report">Báo cáo nhanh</a>
+  <a href="#timeline" data-go="timeline">Dòng thời gian</a>
+  <a href="#arch" data-go="arch">Cấu trúc</a>
+  <a href="#home" data-go="home">Trang chủ</a>
+  <a href="#speed" data-go="speed">Tốc độ</a>
+  <a href="#rules" data-go="rules">Quy tắc</a>
+  <a href="#next" data-go="next">Việc tiếp theo</a>
+  <a href="#gloss" data-go="gloss">Giải thích từ</a>
+  <a href="#files" data-go="files">File</a>
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <div class="date rv"><i></i> Thứ Hai · 09/11/2026 · texasglassdoor.com</div>
+  <div class="daypick rv" id="daypick">
+    <button type="button" class="dp-arrow" data-dir="-1" aria-label="Ngày trước">‹</button>
+    <button type="button" class="dp-cur" id="dpCur" aria-haspopup="listbox" aria-expanded="false"><i></i><span id="dpLabel"></span><b aria-hidden="true">▾</b></button>
+    <button type="button" class="dp-arrow" data-dir="1" aria-label="Ngày sau">›</button>
+    <ul class="dp-menu" id="dpMenu" role="listbox"></ul>
+  </div>
   <h1 class="rv">Một ngày <span class="shimmer serif">nở hoa</span><br>cho Texas Glass Door</h1>
   <p class="typed rv" id="typed" aria-live="polite"></p>
-  <div class="stats">
-    <div class="stat rv"><b data-count="14">0</b><span>hạng mục đã làm</span></div>
-    <div class="stat rv"><b data-count="5">0</b><span>trang tự sửa được</span></div>
-    <div class="stat rv"><b data-count="13">0</b><span>block trên trang chủ</span></div>
-    <div class="stat rv"><b data-count="78" data-suffix="%">0</b><span>video trang chủ nhẹ hơn</span></div>
-  </div>
-  <a class="scroll-cue" href="#timeline"><span class="m"></span> Cuộn xuống xem chi tiết</a>
+  <div class="stats" id="stats"></div>
+  <a class="scroll-cue" href="#report" data-go="report"><span class="m"></span> Cuộn xuống xem chi tiết</a>
 </div></header>
 
 <div class="marquee" aria-hidden="true"><div class="tr" id="mq">
   <span>Section chỉnh được</span><span>Schema ≤ 25 ký tự</span><span>FAQ đồng nhất</span><span>CTA dùng chung</span><span>Breadcrumb toàn site</span><span>JSON-LD</span><span>Video nhẹ</span><span>Lật trang PDF</span><span>Nút đỏ thống nhất</span><span>Mobile không tràn</span>
 </div></div>
 
+<div class="day" data-day="2026-11-09">
 <!-- ============ REPORT ============ -->
-<section id="report"><div class="wrap">
+<section data-sec="report"><div class="wrap">
   <span class="kicker rv">Báo cáo nhanh</span>
   <h2 class="h2 rv">Tóm tắt trong 1 phút</h2>
   <p class="lead rv">Dành cho người không làm kỹ thuật: hôm nay website được làm <b>đẹp hơn, nhanh hơn, dễ tìm thấy trên Google hơn</b> và <b>tự sửa nội dung dễ hơn</b>.</p>
@@ -276,12 +302,12 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 </div></section>
 
 <!-- ============ TIMELINE ============ -->
-<section id="timeline"><div class="wrap">
+<section data-sec="timeline"><div class="wrap">
   <span class="kicker rv">Dòng thời gian</span>
   <h2 class="h2 rv">Từ sáng tới giờ đã làm gì?</h2>
   <p class="lead rv">Mỗi mục ghi rõ <b>vấn đề → cách làm → file bàn giao</b>. Nhãn màu: <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-speed">Tốc độ</span></p>
 
-  <div class="tl" id="tl"><div class="fill" id="tlfill"></div>
+  <div class="tl"><div class="fill"></div>
 
     <div class="item rv"><div class="dot">🔧</div><div class="card"><div class="shine"></div>
       <h3>Rà CSS toàn theme <span class="tag t-fix">Sửa lỗi</span></h3>
@@ -367,11 +393,11 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 </div></section>
 
 <!-- ============ ARCHITECTURE ============ -->
-<section id="arch"><div class="wrap">
+<section data-sec="arch"><div class="wrap">
   <span class="kicker rv">Cấu trúc</span>
   <h2 class="h2 rv">Theme được tổ chức như thế nào</h2>
   <p class="lead rv">Mọi trang đi qua <b>theme.liquid</b> → breadcrumb chung → template JSON của từng trang → section chỉnh được. Các khối lặp lại (CTA, FAQ) dùng chung một nguồn để luôn đồng nhất.</p>
-  <div class="arch rv" id="archbox">
+  <div class="arch rv">
   <svg viewBox="0 0 1120 600" role="img" aria-label="Sơ đồ cấu trúc theme Texas Glass Door">
     <defs>
       <linearGradient id="gPink" x1="0" x2="1"><stop offset="0" stop-color="#F7A8C4"/><stop offset="1" stop-color="#E2457A"/></linearGradient>
@@ -419,12 +445,12 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 </div></section>
 
 <!-- ============ HOME BLOCKS ============ -->
-<section id="home"><div class="wrap">
+<section data-sec="home"><div class="wrap">
   <span class="kicker rv">Trang chủ</span>
   <h2 class="h2 rv">13 block — sắp theo hướng mắt khách đọc</h2>
   <p class="lead rv">Cuộn bên phải, khung điện thoại bên trái sẽ sáng block tương ứng. <b style="color:#1F7A47">Xanh lá</b> = mới thêm, <b style="color:#E2457A">hồng</b> = giữ từ trang cũ.</p>
   <div class="stackwrap">
-    <div class="phone rv"><div class="scr" id="scr">
+    <div class="phone rv"><div class="scr">
       <div class="blk old" data-b="0">🎬 Hero video <em>giữ + tối ưu</em></div>
       <div class="blk new" data-b="1">✨ Why choose us <em>mới</em></div>
       <div class="blk old" data-b="2">🛍️ Product collections <em>+ thay ảnh</em></div>
@@ -458,7 +484,7 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 </div></section>
 
 <!-- ============ SPEED ============ -->
-<section id="speed"><div class="wrap">
+<section data-sec="speed"><div class="wrap">
   <span class="kicker rv">Tốc độ</span>
   <h2 class="h2 rv">Video trang chủ: trước & sau</h2>
   <p class="lead rv">Đo trực tiếp trên texasglassdoor.com. Thanh hồng = trước, thanh xanh = sau khi đổi sang bản nén Shopify.</p>
@@ -473,22 +499,8 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   </div>
 </div></section>
 
-<!-- ============ RULES ============ -->
-<section id="rules"><div class="wrap">
-  <span class="kicker rv">Quy tắc đã thống nhất</span>
-  <h2 class="h2 rv">Những điều mọi trang mới phải tuân theo</h2>
-  <div class="rules">
-    <div class="rule rv"><span class="ic">🧱</span><b>Section chỉnh được</b>Có schema, chọn ảnh, block; luôn có nội dung dự phòng để không mất chữ/ảnh.</div>
-    <div class="rule rv"><span class="ic">✅</span><b>Không lỗi Save</b>Tên block/section ≤ 25 ký tự, không dùng richtext sai chuẩn — kiểm tự động trước khi gửi.</div>
-    <div class="rule rv"><span class="ic">🎨</span><b>CSS trước HTML</b>Trang không bị "nháy" chưa có style khi mới tải.</div>
-    <div class="rule rv"><span class="ic">🔁</span><b>Khối lặp phải giống hệt</b>CTA, FAQ, bản đồ showroom dùng chung một nguồn.</div>
-    <div class="rule rv"><span class="ic">❓</span><b>FAQ cuối trang</b>Câu hỏi thật của khách, trả lời chung chung không hứa tuyệt đối; bấm câu trả lời cũng đóng được.</div>
-    <div class="rule rv"><span class="ic">🔴</span><b>Nút chính màu đỏ</b>Xanh – đỏ là màu thương hiệu; hiệu ứng chậm, mượt, nút không quá chậm.</div>
-  </div>
-</div></section>
-
 <!-- ============ NEXT ============ -->
-<section id="next"><div class="wrap">
+<section data-sec="next"><div class="wrap">
   <span class="kicker rv">Việc tiếp theo</span>
   <h2 class="h2 rv">Còn lại cần làm</h2>
   <ul class="todo">
@@ -501,22 +513,8 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   </ul>
 </div></section>
 
-<!-- ============ GLOSSARY ============ -->
-<section id="gloss"><div class="wrap">
-  <span class="kicker rv">Giải thích từ</span>
-  <h2 class="h2 rv">Các từ trong báo cáo nghĩa là gì?</h2>
-  <div class="gloss">
-    <div class="gl rv"><b>Section / Block</b>Các "mảnh ghép" của một trang. Có thể kéo lên xuống, ẩn hiện, sửa chữ ngay trong Shopify.</div>
-    <div class="gl rv"><b>SEO</b>Làm cho Google dễ hiểu và dễ đưa trang web lên kết quả tìm kiếm.</div>
-    <div class="gl rv"><b>FAQ</b>Câu hỏi thường gặp. Khách tự tìm câu trả lời, đỡ phải gọi hỏi.</div>
-    <div class="gl rv"><b>CTA</b>Nút kêu gọi hành động, ví dụ "Get a Free Quote" (nhận báo giá).</div>
-    <div class="gl rv"><b>Breadcrumb</b>Dòng "Home › Tên trang" cho biết khách đang ở đâu trên web.</div>
-    <div class="gl rv"><b>Schema / dữ liệu cho Google</b>Thông tin ẩn giúp Google hiển thị câu hỏi, địa chỉ… đẹp hơn trên kết quả tìm kiếm.</div>
-  </div>
-</div></section>
-
 <!-- ============ FILES ============ -->
-<section id="files"><div class="wrap">
+<section data-sec="files"><div class="wrap">
   <span class="kicker rv">File bàn giao</span>
   <h2 class="h2 rv">Danh sách file trong ngày</h2>
   <div class="fgrid">
@@ -534,7 +532,76 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   </div>
 </div></section>
 
-<footer><span class="bloom">🌸</span><p style="margin-top:12px;font-weight:700;color:var(--ink)">Texas Glass Door · Nhật ký 09/11/2026</p><p style="font-size:14px">Mùa xuân cho website — gọn hơn, nhanh hơn, đồng nhất hơn.</p></footer>
+</div>
+<div class="day" data-day="2026-11-10" hidden>
+<section data-sec="report"><div class="wrap">
+  <span class="kicker rv">Báo cáo nhanh</span>
+  <h2 class="h2 rv">Hôm nay đã làm gì? <span class="live">● đang cập nhật</span></h2>
+  <p class="lead rv">Buổi sáng tập trung làm <b>trang nhật ký này dễ đọc hơn</b> cho người không làm kỹ thuật, và cho phép <b>xem lại từng ngày</b>.</p>
+  <div class="sum">
+    <div class="card rv"><div class="shine"></div><h3>📝 Báo cáo dễ hiểu</h3><p class="big">Thêm bảng Trước → Sau → Lợi ích</p><p>Ai đọc cũng hiểu web đã thay đổi gì và có lợi gì cho khách.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>📅 Chọn ngày</h3><p class="big">Xem nhật ký theo từng ngày</p><p>Bấm vào ô ngày ở đầu trang để chuyển giữa hôm qua và hôm nay.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>✅ Sửa số liệu</h3><p class="big">5 trang tự sửa được</p><p>Đếm lại cho đúng: Trang chủ, Đo cửa, Nhận hàng, Catalog, Thông số cửa.</p></div>
+  </div>
+</div></section>
+<section data-sec="timeline"><div class="wrap">
+  <span class="kicker rv">Dòng thời gian</span>
+  <h2 class="h2 rv">Chi tiết trong ngày</h2>
+  <div class="tl"><div class="fill"></div>
+    <div class="item rv"><div class="dot">📝</div><div class="card"><div class="shine"></div>
+      <h3>Báo cáo cho người không chuyên <span class="tag t-new">Làm mới</span></h3>
+      <ul><li>Tóm tắt 1 phút: Nhanh hơn · Tự sửa được · Lên Google tốt hơn.</li><li>Bảng 7 hạng mục Trước → Sau → Lợi ích, tự xếp dọc trên điện thoại.</li><li>Danh sách việc còn lại (ai làm) và phần giải thích từ.</li></ul>
+    </div></div>
+    <div class="item rv"><div class="dot">📅</div><div class="card"><div class="shine"></div>
+      <h3>Chọn ngày xem nhật ký <span class="tag t-new">Làm mới</span></h3>
+      <ul><li>Ô ngày ở đầu trang thành nút chọn: bấm ‹ › hoặc mở danh sách ngày.</li><li>Mỗi ngày có số liệu, báo cáo, dòng thời gian riêng; link có thể gửi thẳng đến 1 ngày.</li></ul>
+    </div></div>
+    <div class="item rv"><div class="dot">🔢</div><div class="card"><div class="shine"></div>
+      <h3>Chỉnh lại số liệu <span class="tag t-fix">Sửa lỗi</span></h3>
+      <p>Đổi "6 section" thành "5 trang tự sửa được" cho đúng thực tế.</p>
+    </div></div>
+  </div>
+</div></section>
+<section data-sec="next"><div class="wrap">
+  <span class="kicker rv">Việc tiếp theo</span>
+  <h2 class="h2 rv">Còn lại cần làm</h2>
+  <ul class="todo">
+    <li class="rv"><b>Đưa trang nhật ký lên GitHub</b> — chờ tên kho. <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Dán các file mới vào Shopify</b> và kiểm tra web (từ hôm qua). <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Chọn 2 ảnh bìa catalog</b>, thay ảnh "trước / sau" đã nén. <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Đổi nút trang About Us sang đỏ</b>, nén 2 video nặng còn lại. <em class="who-ai">Claude</em></li>
+  </ul>
+</div></section>
+</div>
+<!-- ============ RULES ============ -->
+<section data-sec="rules"><div class="wrap">
+  <span class="kicker rv">Quy tắc đã thống nhất</span>
+  <h2 class="h2 rv">Những điều mọi trang mới phải tuân theo</h2>
+  <div class="rules">
+    <div class="rule rv"><span class="ic">🧱</span><b>Section chỉnh được</b>Có schema, chọn ảnh, block; luôn có nội dung dự phòng để không mất chữ/ảnh.</div>
+    <div class="rule rv"><span class="ic">✅</span><b>Không lỗi Save</b>Tên block/section ≤ 25 ký tự, không dùng richtext sai chuẩn — kiểm tự động trước khi gửi.</div>
+    <div class="rule rv"><span class="ic">🎨</span><b>CSS trước HTML</b>Trang không bị "nháy" chưa có style khi mới tải.</div>
+    <div class="rule rv"><span class="ic">🔁</span><b>Khối lặp phải giống hệt</b>CTA, FAQ, bản đồ showroom dùng chung một nguồn.</div>
+    <div class="rule rv"><span class="ic">❓</span><b>FAQ cuối trang</b>Câu hỏi thật của khách, trả lời chung chung không hứa tuyệt đối; bấm câu trả lời cũng đóng được.</div>
+    <div class="rule rv"><span class="ic">🔴</span><b>Nút chính màu đỏ</b>Xanh – đỏ là màu thương hiệu; hiệu ứng chậm, mượt, nút không quá chậm.</div>
+  </div>
+</div></section>
+
+<!-- ============ GLOSSARY ============ -->
+<section data-sec="gloss"><div class="wrap">
+  <span class="kicker rv">Giải thích từ</span>
+  <h2 class="h2 rv">Các từ trong báo cáo nghĩa là gì?</h2>
+  <div class="gloss">
+    <div class="gl rv"><b>Section / Block</b>Các "mảnh ghép" của một trang. Có thể kéo lên xuống, ẩn hiện, sửa chữ ngay trong Shopify.</div>
+    <div class="gl rv"><b>SEO</b>Làm cho Google dễ hiểu và dễ đưa trang web lên kết quả tìm kiếm.</div>
+    <div class="gl rv"><b>FAQ</b>Câu hỏi thường gặp. Khách tự tìm câu trả lời, đỡ phải gọi hỏi.</div>
+    <div class="gl rv"><b>CTA</b>Nút kêu gọi hành động, ví dụ "Get a Free Quote" (nhận báo giá).</div>
+    <div class="gl rv"><b>Breadcrumb</b>Dòng "Home › Tên trang" cho biết khách đang ở đâu trên web.</div>
+    <div class="gl rv"><b>Schema / dữ liệu cho Google</b>Thông tin ẩn giúp Google hiển thị câu hỏi, địa chỉ… đẹp hơn trên kết quả tìm kiếm.</div>
+  </div>
+</div></section>
+
+<footer><span class="bloom">🌸</span><p style="margin-top:12px;font-weight:700;color:var(--ink)">Texas Glass Door · Nhật ký <span id="ftDate"></span></p><p style="font-size:14px">Mùa xuân cho website — gọn hơn, nhanh hơn, đồng nhất hơn.</p></footer>
 
 <script>
 (function(){
@@ -567,50 +634,98 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   var g=document.getElementById('glow');
   addEventListener('pointermove',function(e){g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'});
 
-  /* ---------- Scroll progress + nav ---------- */
-  var bar=document.getElementById('progress'), links=[].slice.call(document.querySelectorAll('nav.top a'));
-  var tl=document.getElementById('tl'), fill=document.getElementById('tlfill');
-  function onScroll(){
-    var h=document.documentElement; bar.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
-    var r=tl.getBoundingClientRect(); var f=Math.min(Math.max((innerHeight*.6-r.top)/r.height,0),1); fill.style.height=(f*100)+'%';
-    var cur=null; links.forEach(function(a){var s=document.querySelector(a.getAttribute('href')); if(s&&s.getBoundingClientRect().top<innerHeight*.4)cur=a}); links.forEach(function(a){a.classList.toggle('on',a===cur)});
-  }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  /* ---------- Day data ---------- */
+  var DAYS={
+    '2026-11-09':{label:'Thứ Hai · 09/11/2026',short:'09/11',
+      stats:[[14,'','hạng mục đã làm'],[5,'','trang tự sửa được'],[13,'','block trên trang chủ'],[78,'%','video trang chủ nhẹ hơn']],
+      lines:['Rà lỗi CSS, sửa menu, dựng 5 trang tự sửa được trong Shopify.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).']},
+    '2026-11-10':{label:'Thứ Ba · 10/11/2026',short:'10/11',
+      stats:[[3,'','hạng mục hôm nay'],[7,'','hạng mục có bảng Trước/Sau'],[2,'','ngày trong nhật ký'],[6,'','việc còn chờ làm']],
+      lines:['Viết báo cáo dễ hiểu cho người không làm kỹ thuật.','Thêm nút chọn ngày để xem nhật ký từng ngày.','Đang cập nhật tiếp trong ngày…']}
+  };
+  var keys=Object.keys(DAYS).sort(), cur=null, active=null;
+  var dpLabel=document.getElementById('dpLabel'), dpMenu=document.getElementById('dpMenu'), dpCur=document.getElementById('dpCur');
+  var statsEl=document.getElementById('stats'), arrows=[].slice.call(document.querySelectorAll('.dp-arrow'));
+  keys.forEach(function(k,i){var li=document.createElement('li');li.setAttribute('role','option');li.dataset.k=k;
+    li.innerHTML='<span>'+DAYS[k].label+'<br><small>'+DAYS[k].lines[0]+'</small></span>'+(i===keys.length-1?'<span class="now">Hôm nay</span>':'');
+    li.addEventListener('click',function(){setDay(k,true);closeMenu()});dpMenu.appendChild(li)});
+  function closeMenu(){dpMenu.classList.remove('open');dpCur.setAttribute('aria-expanded','false')}
+  dpCur.addEventListener('click',function(e){e.stopPropagation();var o=!dpMenu.classList.contains('open');dpMenu.classList.toggle('open',o);dpCur.setAttribute('aria-expanded',String(o))});
+  document.addEventListener('click',function(e){if(!e.target.closest('#daypick'))closeMenu()});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
+  arrows.forEach(function(b){b.addEventListener('click',function(){var i=keys.indexOf(cur)+(+b.dataset.dir);if(i>=0&&i<keys.length)setDay(keys[i],true)})});
+
+  function runCounters(scope){scope.querySelectorAll('[data-count]').forEach(function(el){var to=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
+    if(reduce){el.textContent=to+suf;return}
+    function step(t){if(!t0)t0=t;var k=Math.min((t-t0)/1400,1);k=1-Math.pow(1-k,3);el.textContent=Math.round(to*k)+suf;if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
 
   /* ---------- Reveal ---------- */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
     e.target.querySelectorAll && e.target.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w+'%'});
   }})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)});
-  document.querySelectorAll('.arch .node').forEach(function(n,i){n.style.transitionDelay=(i*90)+'ms'});
-  var arch=document.getElementById('archbox'); new IntersectionObserver(function(e,o){if(e[0].isIntersecting){arch.classList.add('in');o.disconnect()}},{threshold:.25}).observe(arch);
-
-  /* ---------- Counters ---------- */
-  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,to=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
-    function step(t){if(!t0)t0=t;var k=Math.min((t-t0)/1600,1);k=1-Math.pow(1-k,3);el.textContent=Math.round(to*k)+suf;if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step);cio.unobserve(el)})},{threshold:.6});
-  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
-
-  /* ---------- Typewriter ---------- */
-  var lines=['Rà lỗi CSS, sửa menu, dựng 5 trang tự sửa được trong Theme editor.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).'];
-  var te=document.getElementById('typed'), li=0, ci=0, del=false;
-  function type(){var s=lines[li]; te.innerHTML=s.slice(0,ci)+'<span class="cur"></span>';
-    if(!del){ci++; if(ci>s.length){del=true; return setTimeout(type,2200)}} else {ci-=2; if(ci<=0){del=false; ci=0; li=(li+1)%lines.length}}
-    setTimeout(type, del?18:34)}
-  if(reduce) te.textContent=lines[0]; else type();
+  function observe(scope){scope.querySelectorAll('.rv:not(.in)').forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)})}
+  observe(document.querySelector('header.hero')); document.querySelectorAll('section[data-sec="rules"],section[data-sec="gloss"]').forEach(observe);
 
   /* ---------- Tilt + shine ---------- */
-  document.querySelectorAll('.card').forEach(function(c){
+  function tilt(scope){scope.querySelectorAll('.card:not([data-t])').forEach(function(c){c.dataset.t=1;
     c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
       c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
       if(!reduce) c.style.transform='perspective(900px) rotateX('+((.5-y)*5)+'deg) rotateY('+((x-.5)*6)+'deg) translateY(-3px)'});
-    c.addEventListener('pointerleave',function(){c.style.transform=''});
-  });
+    c.addEventListener('pointerleave',function(){c.style.transform=''})})}
 
-  /* ---------- Phone block highlight ---------- */
-  var blks=[].slice.call(document.querySelectorAll('.blk')), scr=document.getElementById('scr');
-  var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.s;blks.forEach(function(b,k){b.classList.toggle('act',k===i)});
-    var b=blks[i]; if(b && innerWidth>900){scr.scrollTo({top:Math.max(0,b.offsetTop-200),behavior:'smooth'})}}})},{rootMargin:'-45% 0px -45% 0px'});
-  document.querySelectorAll('[data-s]').forEach(function(el){sio.observe(el)});
+  /* ---------- Per-day widgets (arch, phone) ---------- */
+  function widgets(day){
+    var arch=day.querySelector('.arch');
+    if(arch&&!arch.dataset.w){arch.dataset.w=1;arch.querySelectorAll('.node').forEach(function(n,i){n.style.transitionDelay=(i*90)+'ms'});
+      new IntersectionObserver(function(e,o){if(e[0].isIntersecting){arch.classList.add('in');o.disconnect()}},{threshold:.25}).observe(arch)}
+    var scr=day.querySelector('.scr');
+    if(scr&&!scr.dataset.w){scr.dataset.w=1;var blks=[].slice.call(scr.querySelectorAll('.blk'));
+      var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.s;blks.forEach(function(b,k){b.classList.toggle('act',k===i)});
+        var b=blks[i]; if(b&&innerWidth>900){scr.scrollTo({top:Math.max(0,b.offsetTop-200),behavior:'smooth'})}}})},{rootMargin:'-45% 0px -45% 0px'});
+      day.querySelectorAll('[data-s]').forEach(function(el){sio.observe(el)})}
+  }
+
+  /* ---------- Typewriter ---------- */
+  var te=document.getElementById('typed'), lines=[], li=0, ci=0, del=false, tTimer=null;
+  function type(){var s=lines[li]; te.innerHTML=s.slice(0,ci)+'<span class="cur"></span>';
+    if(!del){ci++; if(ci>s.length){del=true; tTimer=setTimeout(type,2200); return}} else {ci-=2; if(ci<=0){del=false; ci=0; li=(li+1)%lines.length}}
+    tTimer=setTimeout(type, del?18:34)}
+
+  /* ---------- Switch day ---------- */
+  function setDay(k,user){
+    if(!DAYS[k]||k===cur)return; cur=k; var d=DAYS[k];
+    dpLabel.innerHTML=d.label+'<span class="dp-site"> · texasglassdoor.com</span>';
+    document.getElementById('navDate').textContent=d.short;
+    document.getElementById('ftDate').textContent=d.label.split('· ')[1];
+    document.title='Nhật ký '+d.short+' · Texas Glass Door';
+    dpMenu.querySelectorAll('li').forEach(function(x){x.setAttribute('aria-selected',String(x.dataset.k===k))});
+    var i=keys.indexOf(k); arrows[0].disabled=i<=0; arrows[1].disabled=i>=keys.length-1;
+    statsEl.classList.remove('swap'); void statsEl.offsetWidth;
+    statsEl.innerHTML=d.stats.map(function(x){return '<div class="stat in"><b data-count="'+x[0]+'" data-suffix="'+x[1]+'">0</b><span>'+x[2]+'</span></div>'}).join('');
+    statsEl.classList.add('swap'); runCounters(statsEl);
+    document.querySelectorAll('.day').forEach(function(el){el.hidden=el.dataset.day!==k});
+    active=document.querySelector('.day[data-day="'+k+'"]');
+    observe(active); tilt(active); widgets(active);
+    clearTimeout(tTimer); lines=d.lines; li=0; ci=0; del=false; if(reduce) te.textContent=lines[0]; else type();
+    try{history.replaceState(null,'','#d='+k)}catch(e){}
+    if(user){var top=document.querySelector('header.hero').getBoundingClientRect().top+scrollY; if(scrollY>innerHeight) scrollTo({top:top,behavior:'smooth'})}
+    onScroll();
+  }
+
+  /* ---------- Scroll progress + nav ---------- */
+  var bar=document.getElementById('progress'), links=[].slice.call(document.querySelectorAll('nav.top a[data-go]'));
+  function target(n){return (active&&active.querySelector('[data-sec="'+n+'"]'))||document.querySelector('section[data-sec="'+n+'"]:not(.day section)')}
+  document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){var t=target(a.dataset.go);if(t){e.preventDefault();scrollTo({top:t.getBoundingClientRect().top+scrollY-60,behavior:'smooth'})}})});
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';
+    if(active){var tl=active.querySelector('.tl'),fill=active.querySelector('.tl .fill');
+      if(tl){var r=tl.getBoundingClientRect();var f=Math.min(Math.max((innerHeight*.6-r.top)/r.height,0),1);fill.style.height=(f*100)+'%'}}
+    var c=null; links.forEach(function(a){var t=target(a.dataset.go); a.style.display=t?'':'none'; if(t&&t.getBoundingClientRect().top<innerHeight*.4)c=a}); links.forEach(function(a){a.classList.toggle('on',a===c)});
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+
+  var m=(location.hash.match(/d=(\d{4}-\d{2}-\d{2})/)||[])[1];
+  setDay(DAYS[m]?m:keys[keys.length-1],false);
 
   /* ---------- Marquee duplicate ---------- */
   var mq=document.getElementById('mq'); mq.innerHTML+=mq.innerHTML;
