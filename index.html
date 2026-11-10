@@ -184,6 +184,35 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none;filter:none}
 }
+
+/* ===== Report (plain language) ===== */
+.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+.sum .card h3{font-size:19px}
+.sum .big{font-size:15px;font-weight:700;color:var(--ink);margin:6px 0 2px}
+.cmp{margin-top:40px;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:1.05fr 1fr 1fr 1.15fr;gap:0;border-radius:20px;overflow:hidden;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);backdrop-filter:blur(12px);transition:transform .35s ease}
+.row:hover{transform:translateX(6px)}
+.row>div{padding:16px 18px;font-size:14.5px;line-height:1.55}
+.row .w{font-weight:800;color:var(--ink);display:flex;gap:10px;align-items:flex-start}
+.row .b{background:rgba(242,122,158,.08);border-left:1px solid var(--line)}
+.row .a{background:rgba(111,203,149,.10);border-left:1px solid var(--line)}
+.row .g{border-left:1px solid var(--line)}
+.row small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.row .b small{color:var(--rose)}.row .a small{color:var(--leaf2)}.row .g small{color:#7254D8}
+.row.head{background:transparent;box-shadow:none;border:0;backdrop-filter:none}
+.row.head>div{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 18px}
+.row.head:hover{transform:none}
+.todo{display:grid;gap:12px;margin-top:36px;counter-reset:td}
+.todo li{list-style:none;position:relative;padding:16px 18px 16px 64px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 30px -24px rgba(120,60,110,.5)}
+.todo li::before{counter-increment:td;content:counter(td);position:absolute;left:16px;top:14px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pink2),var(--sun))}
+.todo li b{color:var(--ink)}
+.todo li em{font-style:normal;font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;margin-left:6px}
+.who-me{background:#FFE4EC;color:var(--rose)}.who-ai{background:#E2F5E9;color:var(--leaf2)}
+.gloss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px}
+.gl{padding:18px;border-radius:18px;background:var(--glass);border:1px dashed rgba(226,69,122,.35)}
+.gl b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+.gl b::before{content:"🌱 "}
+@media (max-width:900px){.sum,.gloss{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row>div{border-left:0!important;border-top:1px solid var(--line)}.row .w{border-top:0}.row.head{display:none}}
 </style>
 </head>
 <body>
@@ -195,21 +224,24 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 
 <nav class="top"><div class="in">
   <b>🌸 TGD · 09/11</b>
+  <a href="#report">Báo cáo nhanh</a>
   <a href="#timeline">Dòng thời gian</a>
   <a href="#arch">Cấu trúc</a>
   <a href="#home">Trang chủ</a>
   <a href="#speed">Tốc độ</a>
   <a href="#rules">Quy tắc</a>
+  <a href="#next">Việc tiếp theo</a>
+  <a href="#gloss">Giải thích từ</a>
   <a href="#files">File</a>
 </div></nav>
 
 <header class="hero"><div class="wrap">
   <div class="date rv"><i></i> Thứ Hai · 09/11/2026 · texasglassdoor.com</div>
-  <h1 class="rv">Báo cáo<span class="shimmer serif">Texas Glass Door</span><br></h1>
+  <h1 class="rv">Một ngày <span class="shimmer serif">nở hoa</span><br>cho Texas Glass Door</h1>
   <p class="typed rv" id="typed" aria-live="polite"></p>
   <div class="stats">
     <div class="stat rv"><b data-count="14">0</b><span>hạng mục đã làm</span></div>
-    <div class="stat rv"><b data-count="6">0</b><span>section chỉnh được mới</span></div>
+    <div class="stat rv"><b data-count="5">0</b><span>trang tự sửa được</span></div>
     <div class="stat rv"><b data-count="13">0</b><span>block trên trang chủ</span></div>
     <div class="stat rv"><b data-count="78" data-suffix="%">0</b><span>video trang chủ nhẹ hơn</span></div>
   </div>
@@ -219,6 +251,29 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 <div class="marquee" aria-hidden="true"><div class="tr" id="mq">
   <span>Section chỉnh được</span><span>Schema ≤ 25 ký tự</span><span>FAQ đồng nhất</span><span>CTA dùng chung</span><span>Breadcrumb toàn site</span><span>JSON-LD</span><span>Video nhẹ</span><span>Lật trang PDF</span><span>Nút đỏ thống nhất</span><span>Mobile không tràn</span>
 </div></div>
+
+<!-- ============ REPORT ============ -->
+<section id="report"><div class="wrap">
+  <span class="kicker rv">Báo cáo nhanh</span>
+  <h2 class="h2 rv">Tóm tắt trong 1 phút</h2>
+  <p class="lead rv">Dành cho người không làm kỹ thuật: hôm nay website được làm <b>đẹp hơn, nhanh hơn, dễ tìm thấy trên Google hơn</b> và <b>tự sửa nội dung dễ hơn</b>.</p>
+  <div class="sum">
+    <div class="card rv"><div class="shine"></div><h3>🚀 Nhanh hơn</h3><p class="big">Trang chủ nhẹ hơn khoảng 4 lần (máy tính), hơn 10 lần (điện thoại)</p><p>Video đầu trang trước nặng ~60 MB, giờ chỉ 13 MB / 4,7 MB. Khách vào là thấy hình ngay, không phải chờ.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>✏️ Tự sửa được</h3><p class="big">5 trang chuyển sang dạng "kéo – thả – gõ chữ"</p><p>Đổi chữ, ảnh, câu hỏi, link ngay trong Shopify, không cần đụng code hay nhờ thợ.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>🔎 Lên Google tốt hơn</h3><p class="big">Thêm FAQ, đường dẫn trang và dữ liệu cho Google</p><p>Google hiểu rõ trang nói về gì, có thể hiện câu hỏi thường gặp ngay trên kết quả tìm kiếm.</p></div>
+  </div>
+
+  <div class="cmp">
+    <div class="row head"><div>Hạng mục</div><div>Trước đây</div><div>Bây giờ</div><div>Lợi ích</div></div>
+    <div class="row rv"><div class="w">🏠 Trang chủ</div><div class="b"><small>Trước</small>Ít nội dung, video rất nặng, nút màu không đồng nhất.</div><div class="a"><small>Sau</small>13 phần rõ ràng: vì sao chọn chúng tôi, quy trình 4 bước, khu vực phục vụ, câu hỏi thường gặp…</div><div class="g"><small>Lợi ích</small>Khách hiểu nhanh công ty làm gì, tin tưởng hơn và dễ bấm "Báo giá".</div></div>
+    <div class="row rv"><div class="w">📏 Hướng dẫn đo cửa</div><div class="b"><small>Trước</small>Một trang dài, nội dung lặp, khó sửa.</div><div class="a"><small>Sau</small>Bố cục gọn, bảng kích thước dễ đọc trên điện thoại, có câu hỏi thường gặp.</div><div class="g"><small>Lợi ích</small>Khách tự đo đúng hơn → báo giá nhanh, ít sai kích thước.</div></div>
+    <div class="row rv"><div class="w">🚚 Nhận hàng tại kho</div><div class="b"><small>Trước</small>Chỉ là trang hướng dẫn tĩnh.</div><div class="a"><small>Sau</small>Có bước chuẩn bị, yêu cầu xe, câu hỏi thường gặp, nút gọi/email.</div><div class="g"><small>Lợi ích</small>Khách đến kho đúng giờ, đủ xe, giảm cuộc gọi hỏi lại.</div></div>
+    <div class="row rv"><div class="w">📖 Catalog</div><div class="b"><small>Trước</small>Phải chọn từng catalog, tải lại trang.</div><div class="a"><small>Sau</small>Cả 2 catalog lật trang như sách thật, có bìa, có nút tải PDF.</div><div class="g"><small>Lợi ích</small>Khách xem mẫu ngay trên web, dễ gửi cho người nhà/kiến trúc sư.</div></div>
+    <div class="row rv"><div class="w">🧭 Đường dẫn trang</div><div class="b"><small>Trước</small>Khách không biết mình đang ở đâu.</div><div class="a"><small>Sau</small>Mọi trang có dòng "Home › Tên trang".</div><div class="g"><small>Lợi ích</small>Dễ quay lại, Google hiểu cấu trúc web.</div></div>
+    <div class="row rv"><div class="w">🎨 Đồng nhất giao diện</div><div class="b"><small>Trước</small>Mỗi trang một kiểu nút, kiểu câu hỏi.</div><div class="a"><small>Sau</small>Nút chính luôn màu đỏ, khung câu hỏi và thanh liên hệ giống nhau ở mọi trang.</div><div class="g"><small>Lợi ích</small>Trông chuyên nghiệp, khách quen tay bấm.</div></div>
+    <div class="row rv"><div class="w">🛠️ Lỗi kỹ thuật</div><div class="b"><small>Trước</small>Thiếu 1 ký tự làm sai hiển thị; menu nhấp nháy khi rê chuột.</div><div class="a"><small>Sau</small>Đã sửa, hiển thị đúng trên mọi trình duyệt.</div><div class="g"><small>Lợi ích</small>Web ổn định, không lỗi vặt.</div></div>
+  </div>
+</div></section>
 
 <!-- ============ TIMELINE ============ -->
 <section id="timeline"><div class="wrap">
@@ -432,6 +487,34 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   </div>
 </div></section>
 
+<!-- ============ NEXT ============ -->
+<section id="next"><div class="wrap">
+  <span class="kicker rv">Việc tiếp theo</span>
+  <h2 class="h2 rv">Còn lại cần làm</h2>
+  <ul class="todo">
+    <li class="rv"><b>Dán các file mới vào Shopify</b> (trang chủ, đo cửa, nhận hàng, catalog) rồi mở web kiểm tra. <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Chọn 2 ảnh bìa catalog</b> trong phần chỉnh trang Catalog (đã có sẵn file ảnh). <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Thay ảnh "trước / sau"</b> bằng bản đã nén (nhẹ hơn 10–30 lần). <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Kiểm tra nút ở trang About Us</b> và đổi sang màu đỏ cho đồng nhất. <em class="who-ai">Claude</em></li>
+    <li class="rv"><b>Nén 2 video nặng còn lại</b> (35 MB và 90 MB) nếu đang dùng ở trang khác. <em class="who-ai">Claude</em></li>
+    <li class="rv"><b>Gỡ các app không còn dùng</b> (chat, popup, theo dõi…) để web nhẹ thêm. <em class="who-me">Chủ web</em></li>
+  </ul>
+</div></section>
+
+<!-- ============ GLOSSARY ============ -->
+<section id="gloss"><div class="wrap">
+  <span class="kicker rv">Giải thích từ</span>
+  <h2 class="h2 rv">Các từ trong báo cáo nghĩa là gì?</h2>
+  <div class="gloss">
+    <div class="gl rv"><b>Section / Block</b>Các "mảnh ghép" của một trang. Có thể kéo lên xuống, ẩn hiện, sửa chữ ngay trong Shopify.</div>
+    <div class="gl rv"><b>SEO</b>Làm cho Google dễ hiểu và dễ đưa trang web lên kết quả tìm kiếm.</div>
+    <div class="gl rv"><b>FAQ</b>Câu hỏi thường gặp. Khách tự tìm câu trả lời, đỡ phải gọi hỏi.</div>
+    <div class="gl rv"><b>CTA</b>Nút kêu gọi hành động, ví dụ "Get a Free Quote" (nhận báo giá).</div>
+    <div class="gl rv"><b>Breadcrumb</b>Dòng "Home › Tên trang" cho biết khách đang ở đâu trên web.</div>
+    <div class="gl rv"><b>Schema / dữ liệu cho Google</b>Thông tin ẩn giúp Google hiển thị câu hỏi, địa chỉ… đẹp hơn trên kết quả tìm kiếm.</div>
+  </div>
+</div></section>
+
 <!-- ============ FILES ============ -->
 <section id="files"><div class="wrap">
   <span class="kicker rv">File bàn giao</span>
@@ -508,7 +591,7 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
 
   /* ---------- Typewriter ---------- */
-  var lines=['Rà lỗi CSS, sửa menu, dựng 6 section chỉnh được trong Theme editor.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).'];
+  var lines=['Rà lỗi CSS, sửa menu, dựng 5 trang tự sửa được trong Theme editor.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).'];
   var te=document.getElementById('typed'), li=0, ci=0, del=false;
   function type(){var s=lines[li]; te.innerHTML=s.slice(0,ci)+'<span class="cur"></span>';
     if(!del){ci++; if(ci>s.length){del=true; return setTimeout(type,2200)}} else {ci-=2; if(ci<=0){del=false; ci=0; li=(li+1)%lines.length}}
