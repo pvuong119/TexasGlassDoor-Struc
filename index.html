@@ -100,9 +100,15 @@ section{padding:96px 0;position:relative}
 .card:hover .shine{opacity:1}
 .card h3{font-size:clamp(20px,2vw,25px);font-weight:800;margin-bottom:8px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .tag{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em}
-.s-ok{background:#DDF4E6;color:#1E7A46}.s-wait{background:#FFF1D6;color:#9A6212}.s-doing{background:#E1ECFF;color:#2D5BBF}.s-no{background:#EEF0F3;color:#5B6472}
+.s-ok{background:#DDF4E6;color:#1E7A46}.s-live{background:#E0F2F1;color:#17756C}.s-wait{background:#FFF1D6;color:#9A6212}.s-doing{background:#E1ECFF;color:#2D5BBF}.s-no{background:#EEF0F3;color:#5B6472}
 .note{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.6);border:1px dashed rgba(0,0,0,.1);font-size:14px;line-height:1.6}
 .note .tag{font-size:11px;padding:3px 9px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 22px}
+.meta{margin:2px 0 8px!important;font-size:13.5px!important;font-weight:700;opacity:.75}
+.stable{display:grid;gap:8px;margin:8px 0 18px}.srow{display:grid;grid-template-columns:1.1fr 1.1fr 1.3fr 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid rgba(0,0,0,.07);font-size:14.5px;line-height:1.55}.srow.head{background:transparent;border:0;padding:4px 16px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.6}.srow small{display:block;font-size:12.5px;opacity:.75;margin-top:4px}.srow code{font-size:12.5px;word-break:break-word}
+.fgh{margin:22px 0 6px;font-size:18px}
+@media(max-width:760px){.srow{grid-template-columns:1fr;gap:6px}.srow.head{display:none}}
+ol.todo{counter-reset:none}
 .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:6px 0 28px}.flow span{padding:10px 14px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.08);font-weight:800;font-size:14px;box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}.flow small{display:block;font-weight:600;font-size:12px;opacity:.7}.flow i{font-style:normal;font-weight:900;opacity:.5}
 .t-fix{background:#FFE4EC;color:var(--rose)}.t-new{background:#E2F5E9;color:var(--leaf2)}.t-seo{background:#EAE3FF;color:#7254D8}.t-speed{background:#FFF1D6;color:#B7791F}
 .card p{margin-bottom:10px}
@@ -258,6 +264,7 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   <a href="#home" data-go="home">Trang chủ</a>
   <a href="#speed" data-go="speed">Tốc độ</a>
   <a href="#rules" data-go="rules">Quy tắc</a>
+  <a href="#auto" data-go="auto">Tự động hoá</a>
   <a href="#extra" data-go="extra">Bổ sung</a>
   <a href="#future" data-go="future">Odoo</a>
   <a href="#next" data-go="next">Việc tiếp theo</a>
@@ -509,10 +516,10 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
   <span class="kicker rv">Việc tiếp theo</span>
   <h2 class="h2 rv">Còn lại cần làm</h2>
   <ul class="todo">
-    <li class="rv"><b>Dán các file mới vào Shopify</b> (trang chủ, đo cửa, nhận hàng, catalog) rồi mở web kiểm tra. <em class="who-me">Chủ web</em></li>
+    <li class="rv"><b>Dán các file mới vào Shopify</b> (trang chủ, đo cửa, nhận hàng, catalog) rồi mở web kiểm tra. <em class="who-me">Chủ web</em> <span class="tag s-live">Trang chủ & đo cửa đã lên web</span></li>
     <li class="rv"><b>Chọn 2 ảnh bìa catalog</b> trong phần chỉnh trang Catalog (đã có sẵn file ảnh). <em class="who-me">Chủ web</em></li>
     <li class="rv"><b>Thay ảnh "trước / sau"</b> bằng bản đã nén (nhẹ hơn 10–30 lần). <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Kiểm tra nút ở trang About Us</b> và đổi sang màu đỏ cho đồng nhất. <em class="who-ai">Claude</em></li>
+    <li class="rv"><b>Kiểm tra nút ở trang About Us</b> và đổi sang màu đỏ cho đồng nhất. <em class="who-ai">Claude</em> <span class="tag s-live">Đã làm 12/11</span></li>
     <li class="rv"><b>Nén 2 video nặng còn lại</b> (35 MB và 90 MB) nếu đang dùng ở trang khác. <em class="who-ai">Claude</em></li>
     <li class="rv"><b>Gỡ các app không còn dùng</b> (chat, popup, theo dõi…) để web nhẹ thêm. <em class="who-me">Chủ web</em></li>
   </ul>
@@ -542,22 +549,22 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 <div class="day" data-day="2026-11-10" hidden>
 <!-- ============ REPORT 10–12/11 ============ -->
 <section data-sec="report"><div class="wrap">
-  <span class="kicker rv">Báo cáo nhanh · 10–12/11</span>
+  <span class="kicker rv">Báo cáo nhanh · 10–12/11/2026</span>
   <h2 class="h2 rv">Tóm tắt trong 1 phút</h2>
-  <p class="lead rv">3 ngày qua tập trung vào <b>khách gửi yêu cầu báo giá dễ hơn</b>, <b>mail về gọn – dễ đọc</b> và <b>web gọn gàng hơn trên Google</b>.</p>
+  <p class="lead rv">Thực hiện <b>10–12/11/2026</b> · Tổng hợp nhật ký <b>12/11/2026</b>. Trọng tâm: <b>khách gửi yêu cầu báo giá dễ hơn</b>, <b>mail về gọn – dễ đọc</b>, <b>web gọn hơn trên Google</b>. Mỗi hạng mục bên dưới ghi rõ ngày, trạng thái kiểm chứng, file và kết quả.</p>
+  <div class="legend rv"><span class="tag s-ok">Đã kiểm thử thành công</span> <span class="tag s-live">Đã lên web, chưa kiểm thử chức năng</span> <span class="tag s-wait">Đã có code, chờ kiểm thử</span> <span class="tag s-doing">Đang xử lý</span> <span class="tag s-no">Chưa triển khai</span></div>
   <div class="sum">
-    <div class="card rv"><div class="shine"></div><h3>📩 Form → mail đẹp</h3><p class="big">Form báo giá gửi thẳng về hệ thống mail của công ty</p><p>Sales nhận mail rõ từng dòng: loại cửa, chiều mở, kích thước, nút gọi nhanh. Khách cũng nhận mail cảm ơn.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>🧭 Trang mới dễ dùng</h3><p class="big">Làm mới trang Liên hệ, Hướng dẫn chiều mở cửa, Tìm kiếm, Danh mục cửa</p><p>Khách bấm chọn thay vì gõ, biết ngay đã gửi thành công, xem sơ đồ cửa rõ ràng.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>🔎 Google gọn hơn</h3><p class="big">Gộp 3 trang bị trùng, thêm 8 ảnh sơ đồ cho Google</p><p>Không còn 2 trang giống nhau tranh nhau trên Google; link cũ tự chuyển sang trang mới.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>📩 Form → mail</h3><p class="big">2 luồng đã kiểm thử: Contact Quote và Door Quote</p><p>Sales nhận mail rõ từng dòng (loại cửa, chiều mở, kích thước, nút gọi nhanh). Product Quote và Trade còn chờ kiểm tra.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>🧭 4 trang làm mới</h3><p class="big">Liên hệ, Door Swing Guide, Tìm kiếm, Danh mục cửa</p><p>Khách bấm chọn thay vì gõ, biết ngay đã gửi, xem sơ đồ cửa rõ ràng.</p></div>
+    <div class="card rv"><div class="shine"></div><h3>🔎 Google gọn hơn</h3><p class="big">Gộp 3 trang trùng, thêm 8 ảnh sơ đồ có mô tả</p><p>Link cũ tự chuyển (301) sang trang chính — đã kiểm tra trên web thật.</p></div>
   </div>
 
   <div class="cmp">
     <div class="row head"><div>Hạng mục</div><div>Trước đây</div><div>Bây giờ</div><div>Lợi ích</div></div>
-    <div class="row rv"><div class="w">✉️ Trang Liên hệ</div><div class="b"><small>Trước</small>Gửi xong nút treo "Submitting…", khách không biết đã gửi chưa.</div><div class="a"><small>Sau</small>Báo "Thank you" ngay, form bấm chọn nhanh, có chiều mở cửa, kích thước Rộng × Cao.</div><div class="g"><small>Lợi ích</small>Khách không gửi trùng hay bỏ đi; sales đủ thông tin để báo giá.</div></div>
-    <div class="row rv"><div class="w">🚪 Hướng dẫn chiều mở cửa</div><div class="b"><small>Trước</small>Sơ đồ vẽ từ PDF, Google không đọc được; có 2 trang trùng nhau.</div><div class="a"><small>Sau</small>Công cụ chọn nhanh, 8 sơ đồ dạng ảnh, so sánh mở vào / mở ra, FAQ; còn 1 link duy nhất.</div><div class="g"><small>Lợi ích</small>Khách chọn đúng chiều mở, ít đặt sai; dễ lên Google Images.</div></div>
-    <div class="row rv"><div class="w">🗂️ Danh mục cửa</div><div class="b"><small>Trước</small>Thẻ cửa ghi "View Details", không có form, chữ rớt dòng.</div><div class="a"><small>Sau</small>Nút "Request Quote" điền sẵn tên cửa vào form báo giá ngay trên trang.</div><div class="g"><small>Lợi ích</small>Khách xin báo giá trong 1 phút, không phải rời trang.</div></div>
+    <div class="row rv"><div class="w">✉️ Trang Liên hệ</div><div class="b"><small>Trước</small>Form nhiều dropdown, ô Location và ZIP tách rời, chữ nhỏ.</div><div class="a"><small>Sau</small>Bấm chọn nhanh, có chiều mở cửa, kích thước Rộng × Cao, báo thành công / lỗi ngay trên trang.</div><div class="g"><small>Lợi ích</small>Khách điền nhanh hơn; sales đủ thông tin để báo giá.</div></div>
+    <div class="row rv"><div class="w">🚪 Hướng dẫn chiều mở cửa</div><div class="b"><small>Trước</small>Sơ đồ vẽ từ PDF, Google không đọc được; có 2 trang trùng nhau.</div><div class="a"><small>Sau</small>Công cụ chọn nhanh, 8 sơ đồ dạng ảnh, so sánh mở vào / mở ra, FAQ; còn 1 link duy nhất.</div><div class="g"><small>Lợi ích</small>Khách chọn đúng chiều mở hơn; ảnh có thể lên Google Images.</div></div>
+    <div class="row rv"><div class="w">🗂️ Danh mục cửa</div><div class="b"><small>Trước</small>Thẻ cửa ghi "View Details", không có form, chữ rớt dòng.</div><div class="a"><small>Sau</small>Nút "Request Quote" điền sẵn tên cửa vào form báo giá ngay trên trang.</div><div class="g"><small>Lợi ích</small>Khách xin báo giá không phải rời trang.</div></div>
     <div class="row rv"><div class="w">🔍 Tìm kiếm</div><div class="b"><small>Trước</small>Ô tìm kiếm lỗi, trang kết quả sơ sài.</div><div class="a"><small>Sau</small>Ô tìm kiếm sổ xuống gọn đẹp, trang kết quả có bộ lọc và thẻ cửa rõ ràng.</div><div class="g"><small>Lợi ích</small>Khách tìm đúng mẫu cửa nhanh hơn.</div></div>
-    <div class="row rv"><div class="w">📨 Mail báo giá</div><div class="b"><small>Trước</small>Mail Shopify thô, thông tin dồn một cục.</div><div class="a"><small>Sau</small>Mail riêng cho sales (nút Call / Reply) + mail cảm ơn cho khách, kèm link hướng dẫn.</div><div class="g"><small>Lợi ích</small>Sales đọc nhanh, gọi lại ngay; khách yên tâm đã gửi.</div></div>
     <div class="row rv"><div class="w">🛠️ Lỗi hiển thị</div><div class="b"><small>Trước</small>Menu tràn ngang trên laptop nhỏ; chữ rớt dòng ở Door Specs và Our Projects.</div><div class="a"><small>Sau</small>Menu vừa 1 hàng, chữ thẳng hàng, tên dự án gọn 1 dòng.</div><div class="g"><small>Lợi ích</small>Web trông chuyên nghiệp trên mọi màn hình.</div></div>
   </div>
 </div></section>
@@ -565,177 +572,184 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 <!-- ============ TIMELINE 10–12/11 ============ -->
 <section data-sec="timeline"><div class="wrap">
   <span class="kicker rv">Dòng thời gian</span>
-  <h2 class="h2 rv">Những việc đã hoàn thành</h2>
-  <p class="lead rv">Mỗi mục ghi rõ <b>vấn đề → cách làm → file bàn giao</b>. Nhãn màu: <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-speed">Tốc độ</span></p>
+  <h2 class="h2 rv">Nhật ký công việc 10–12/11</h2>
+  <p class="lead rv">Mỗi mục ghi <b>ngày → trạng thái → file → kết quả</b>. Việc làm 10/11 và 11/11 không tách được ngày chính xác nên ghi chung <b>10–11/11</b>.</p>
 
   <div class="tl"><div class="fill"></div>
 
     <div class="item rv"><div class="dot">🌸</div><div class="card"><div class="shine"></div>
-      <h3>Trang nhật ký này <span class="tag t-speed">Tốc độ</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p>Trang nhật ký bị giật khi cuộn → giảm hiệu ứng nặng, khung điện thoại nhẹ hơn, cuộn mượt trên máy yếu.</p>
+      <h3>Trang nhật ký này chạy mượt <span class="tag t-speed">Tốc độ</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
+      <p class="meta">📅 10/11 · Kết quả: chủ web xác nhận cuộn mượt, hiển thị đúng.</p>
+      <p>Trang bị giật khi cuộn → giảm hiệu ứng nặng, khung điện thoại nhẹ hơn.</p>
       <div class="files"><code>index.html</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🔍</div><div class="card"><div class="shine"></div>
-      <h3>Ô tìm kiếm & trang kết quả <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đã lên web</span></h3>
-      <ul><li>Sửa ô tìm kiếm ở header bị lỗi, làm lại khung sổ xuống trông cao cấp hơn.</li><li>Trang kết quả mới: ô tìm kiếm lớn, gợi ý phổ biến, bộ lọc, sắp xếp, thẻ cửa có nút báo giá.</li></ul>
+      <h3>Ô tìm kiếm & trang kết quả <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag s-live">Đã lên web</span></h3>
+      <p class="meta">📅 10–11/11 · Kết quả: trang kết quả mới đang hiển thị trên texasglassdoor.com/search.</p>
+      <ul><li>Sửa ô tìm kiếm ở header bị lỗi, làm lại khung sổ xuống.</li><li>Trang kết quả mới: ô tìm lớn, gợi ý phổ biến, bộ lọc, sắp xếp, thẻ cửa có nút báo giá.</li></ul>
       <div class="files"><code>sections/header.liquid</code><code>sections/main-search.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🧹</div><div class="card"><div class="shine"></div>
-      <h3>Gộp trang trùng cửa sắt <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã kiểm thử 301</span></h3>
-      <p>2 trang "Iron Single / Double French Door" dạng Page trùng với Collection → ẩn đi và chuyển hướng 301 sang Collection thật.</p>
+      <h3>Gộp trang trùng cửa sắt <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
+      <p class="meta">📅 10–11/11 · Kết quả: 2 link cũ trả về 301 sang Collection (đã kiểm tra trên web).</p>
+      <p>2 trang "Iron Single / Double French Door" dạng Page trùng Collection → ẩn và chuyển hướng 301.</p>
     </div></div>
 
     <div class="item rv"><div class="dot">🗂️</div><div class="card"><div class="shine"></div>
-      <h3>Trang danh mục cửa (đặt làm theo yêu cầu) <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <ul><li>Cửa làm theo đơn nên bỏ giá, nút chính đổi thành <b>Request Quote</b> (không còn "View Details").</li><li>Form báo giá ngay trên trang, tự điền tên mẫu cửa khách bấm.</li><li>Có H1, mô tả thu gọn, FAQ chung, dữ liệu cho Google.</li></ul>
+      <h3>Trang danh mục cửa (đặt làm theo yêu cầu) <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Form đã kiểm thử</span></h3>
+      <p class="meta">📅 10–11/11, form nối Apps Script 12/11 · Kết quả: form gửi Door Quote chạy tốt (chủ web xác nhận).</p>
+      <ul><li>Bỏ giá; nút chính <b>Request Quote</b> (không còn "View Details").</li><li>Form báo giá ngay trên trang, tự điền tên mẫu cửa; thêm ô Door swing.</li><li>H1, mô tả thu gọn, FAQ chung, dữ liệu cho Google.</li></ul>
       <div class="files"><code>sections/main-collection-product-grid.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🏠</div><div class="card"><div class="shine"></div>
-      <h3>Trang chủ <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã lên web</span></h3>
-      <ul><li>Thẻ "How it works" và khối <b>"Who we work with"</b> (thay link thành phố chưa làm xong).</li><li>Link dạng nút mũi tên tròn, bỏ gạch chân.</li><li>Our Projects: chữ thẳng hàng, tên dự án tự vừa 1 dòng.</li></ul>
+      <h3>Trang chủ <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-live">Đã lên web</span></h3>
+      <p class="meta">📅 10–12/11 · Kết quả: code mới đang chạy trên trang chủ; nội dung thẻ 04 và 09 Our Projects còn cần chỉnh.</p>
+      <ul><li>Thẻ "How it works" và khối <b>"Who we work with"</b> (thay link thành phố chưa làm xong).</li><li>Link dạng nút mũi tên tròn, bỏ gạch chân.</li><li>12/11 — Our Projects: chữ thẳng hàng, tên dự án tự vừa 1 dòng.</li></ul>
       <div class="files"><code>sections/tgd-home.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">📐</div><div class="card"><div class="shine"></div>
-      <h3>Door Specifications <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-wait">Chờ dán file</span></h3>
-      <p>Hết rớt chữ lẻ ở tiêu đề, danh sách, bảng thông số trên máy tính, tablet, điện thoại (đã thử trên trang thật). <b>Bản sửa chưa được dán lên web.</b></p>
+      <h3>Door Specifications — rớt chữ <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-wait">Chờ dán file</span></h3>
+      <p class="meta">📅 12/11 · Kết quả: đã thử trên trang thật (chèn tạm), bản sửa <b>chưa có trên web</b>.</p>
+      <p>Hết rớt chữ lẻ ở tiêu đề, danh sách, bảng thông số trên máy tính, tablet, điện thoại.</p>
       <div class="files"><code>sections/tgd-door-specifications.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🚪</div><div class="card"><div class="shine"></div>
-      <h3>Door Swing Guide mới <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã lên web</span></h3>
-      <ul><li>Cắt PDF thành 8 ảnh sơ đồ nhẹ (~20 KB/ảnh) có mô tả ảnh cho Google.</li><li>Công cụ "Find your door swing", 3 bước, lọc sơ đồ, phóng to, so sánh mở vào / mở ra, FAQ.</li><li>Xoá trang trùng, còn 1 link <code>/pages/door-swing-direction-guide</code> (link cũ tự chuyển), sửa menu + SEO title/description.</li></ul>
+      <h3>Door Swing Guide mới <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã lên web & kiểm tra 301</span></h3>
+      <p class="meta">📅 12/11 · Kết quả: trang mới hiển thị; link <code>-1</code> trả 301; menu và SEO title/description đã cập nhật. Quy ước Left/Right hand chờ chủ web xác nhận với xưởng.</p>
+      <ul><li>8 ảnh sơ đồ WebP (~20 KB/ảnh) có mô tả ảnh.</li><li>Công cụ "Find your door swing", lọc sơ đồ, phóng to, so sánh mở vào / mở ra, FAQ.</li><li>Xoá trang trùng; còn 1 link <code>/pages/door-swing-direction-guide</code>.</li></ul>
       <div class="files"><code>sections/tgd-swing-guide.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">📨</div><div class="card"><div class="shine"></div>
-      <h3>Form báo giá → mail tự động <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đã kiểm thử thành công</span></h3>
-      <ul><li>Form ở Measuring Guide và Danh mục cửa gửi về Google Apps Script → Zoho (loại <code>door_quote</code>).</li><li>Mail sales có nút Call / Reply, khung thông tin cửa; mail cảm ơn khách kèm link hướng dẫn.</li><li>Script lỗi thì form tự gửi qua Shopify — không mất khách. Chủ web đã xác nhận chạy tốt.</li><li>Thêm ô <b>Door swing</b> và link qua lại giữa 2 trang hướng dẫn.</li></ul>
+      <h3>Door Quote: form báo giá → mail tự động <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đã kiểm thử thành công</span></h3>
+      <p class="meta">📅 12/11 · Kết quả: chủ web xác nhận hoạt động tốt; script trả lời đúng nhánh <code>door_quote</code> (đã kiểm tra).</p>
+      <ul><li>Form ở Measuring Guide và Danh mục cửa gửi loại <code>door_quote</code>.</li><li>Mail Sales có nút Call / Reply, khung thông tin cửa; mail cảm ơn khách kèm link hướng dẫn (đã gửi thử qua hàm <code>testDoorQuoteEmail</code>).</li><li>Script lỗi → form tự gửi qua Shopify, không mất khách.</li></ul>
       <div class="files"><code>TGD_DoorQuote.gs</code><code>Code.gs (+3 dòng)</code><code>sections/tgd-measuring-guide.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">✉️</div><div class="card"><div class="shine"></div>
-      <h3>Trang Liên hệ mới <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-wait">Chờ kiểm thử gửi thật</span></h3>
-      <ul><li>Bản mới tự nhận phản hồi từ Apps Script ngay trong trang: báo thành công / báo lỗi rõ ràng, quá 45 giây thì hiện số điện thoại (tránh lại lỗi treo "Submitting…").</li><li>Vẫn gửi loại <code>contact_quote</code> như cũ, giữ upload file lên Google Drive.</li><li>Chọn loại dự án & loại cửa bằng nút bấm, kích thước Rộng × Cao, chiều mở cửa, tải ảnh.</li><li>Trên điện thoại form nằm ngay dưới tiêu đề; bản đồ showroom, FAQ, CTA dùng chung.</li><li>Đã thử: kiểm tra ô bắt buộc và nhận lỗi từ script (không gửi mail). Chưa gửi thử một yêu cầu thật.</li></ul>
+      <h3>Trang Liên hệ — giao diện mới <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Gửi form đã kiểm thử</span></h3>
+      <p class="meta">📅 12/11 · Kết quả: gửi Contact Form thành công Shopify → Apps Script → Zoho Mail → Google Drive, hiện thông báo cảm ơn màu xanh (chủ web xác nhận).</p>
+      <ul><li>Chọn loại dự án & loại cửa bằng nút bấm, kích thước Rộng × Cao, chiều mở cửa, tải ảnh; vẫn gửi loại <code>contact_quote</code>.</li><li>Trên điện thoại form nằm ngay dưới tiêu đề; bản đồ showroom, FAQ, CTA dùng chung.</li></ul>
+      <p class="note"><span class="tag s-wait">Chờ kiểm thử</span> Tự cuộn tới ô bắt buộc còn thiếu và tới thông báo cảm ơn — đã có code, cần xác nhận trên desktop và mobile.</p>
       <div class="files"><code>sections/tgd-contact-quote-page.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">📏</div><div class="card"><div class="shine"></div>
       <h3>Header tràn ngang <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p>Màn hình 990–1199px (laptop nhỏ, tablet ngang) menu đẩy icon ra ngoài → thu gọn menu cho vừa 1 hàng.</p>
+      <p class="meta">📅 12/11 · Kết quả: đo trên web thật ở 990 / 1024 / 1100 / 1199 / 1440 px — không còn tràn.</p>
+      <p>Thu gọn menu ở màn hình 990–1199 px để icon không bị đẩy ra ngoài.</p>
       <div class="files"><code>sections/header.liquid</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🔴</div><div class="card"><div class="shine"></div>
-      <h3>Nút trang About Us <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã lên web</span></h3>
-      <p>Nút chính đổi sang đỏ giống trang chủ; sửa lỗi hiệu ứng nút bị tắt với mọi khách.</p>
+      <h3>Nút trang About Us <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-live">Đã lên web</span></h3>
+      <p class="meta">📅 12/11 · Kết quả: nút chính đang hiển thị màu đỏ trên trang About Us.</p>
+      <p>Nút chính đỏ giống trang chủ; sửa lỗi hiệu ứng nút bị tắt với mọi khách.</p>
       <div class="files"><code>sections/aboutus.liquid</code></div>
     </div></div>
 
   </div>
 </div></section>
 
+<!-- ============ AUTOMATION ============ -->
+<section data-sec="auto"><div class="wrap">
+  <span class="kicker rv">Tự động hoá form</span>
+  <h2 class="h2 rv">Luồng Shopify → Apps Script → Zoho + Drive</h2>
+  <p class="lead rv">Mọi form gửi về <b>một</b> Web App Google Apps Script (chỉ một hàm <code>doPost(e)</code>), phân loại theo <code>form_type</code>, gửi mail qua Zoho, lưu file lên Google Drive, rồi báo lại cho trang Shopify.</p>
 
-<!-- ============ BỔ SUNG: TỔNG HỢP CÔNG VIỆC TRƯỚC ĐÓ ============ -->
+  <div class="flow rv" aria-label="Sơ đồ luồng form">
+    <span>🛒 Shopify form<small>khách bấm Gửi</small></span><i>→</i>
+    <span>⚙️ Google Apps Script<small>doPost(e) · phân loại form_type</small></span><i>→</i>
+    <span>📮 Zoho Mail<small>mail Sales + mail khách</small></span><i>+</i>
+    <span>🗂️ Google Drive<small>file khách tải lên (Contact)</small></span><i>→</i>
+    <span>✅ Shopify xác nhận<small>thông báo cảm ơn</small></span>
+  </div>
+
+  <div class="stable rv">
+    <div class="srow head"><div>Luồng</div><div>Trang gửi</div><div>Xử lý trong script</div><div>Trạng thái</div></div>
+    <div class="srow"><div><b>Contact Quote</b><small>form_type: contact_quote</small></div><div>/pages/contact</div><div><code>handleContactQuote_</code> · mail Sales có link Drive · trả lời bằng postMessage</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Gửi form, Zoho, Drive, thông báo xanh. Mail cảm ơn khách: chưa có kết quả riêng.</small></div></div>
+    <div class="srow"><div><b>Door Quote</b><small>form_type: door_quote</small></div><div>Danh mục cửa · Measuring Guide</div><div><code>handleDoorQuote_</code> · mail Sales + mail cảm ơn khách · lỗi thì tự gửi qua Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Chủ web xác nhận chạy tốt (12/11).</small></div></div>
+    <div class="srow"><div><b>Product Quote</b><small>form_type: quote</small></div><div>/pages/request-a-quote (từ trang sản phẩm)</div><div><code>handleQuoteRequest_</code> · <code>buildTGDQuoteEmail_</code></div><div><span class="tag s-wait">Cần kiểm tra</span><small>Mail Sales từng chạy trong test; cấu hình, ảnh, Financing, mail khách chờ kiểm thử.</small></div></div>
+    <div class="srow"><div><b>Trade Application</b><small>form_type: trade</small></div><div>/pages/trade-program</div><div><code>handleTradeApplication_</code> · mail nội bộ + mail cảm ơn</div><div><span class="tag s-wait">Cần kiểm tra</span><small>Code đang có; chưa có kết quả kiểm thử đầy đủ.</small></div></div>
+  </div>
+  <p class="note rv">Ngoài 4 luồng trên, script còn nhánh mặc định cho đơn từ <code>/pages/checkout</code> (có sẵn từ trước, không nằm trong đợt này). Thông tin xác thực Zoho lưu trong Script Properties, không ghi ở nhật ký.</p>
+</div></section>
+
+<!-- ============ BỔ SUNG: CÔNG VIỆC TRƯỚC ĐÓ ============ -->
 <section data-sec="extra"><div class="wrap">
   <span class="kicker rv">Bổ sung · Tổng hợp công việc trước đó</span>
   <h2 class="h2 rv">Hệ thống form, mail & trang sản phẩm</h2>
-  <p class="lead rv">Các việc làm trước đó (không xác minh được ngày chính xác) được ghi bổ sung tại đây. Mỗi mục có <b>trạng thái theo mức kiểm chứng</b>:
-    <span class="tag s-ok">Đã kiểm thử thành công</span> <span class="tag s-wait">Đã cập nhật code, chờ kiểm thử</span> <span class="tag s-doing">Đang xử lý</span> <span class="tag s-no">Chưa triển khai</span></p>
-
-  <div class="flow rv" aria-label="Luồng xử lý form">
-    <span>Shopify form</span><i>→</i><span>Google Apps Script <small>doPost(e) duy nhất</small></span><i>→</i><span>Zoho Mail API <small>sales@texasglassdoor.com</small></span><i>+</i><span>Google Drive <small>file khách tải lên</small></span>
-  </div>
+  <p class="lead rv">Các việc làm trước 10/11 không xác minh được ngày chính xác — ghi bổ sung tại đây (tổng hợp 12/11/2026).</p>
 
   <div class="tl"><div class="fill" style="transform:scaleY(1)"></div>
 
     <div class="item rv"><div class="dot">🛍️</div><div class="card"><div class="shine"></div>
       <h3>Premium Product Page V2/V3 <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: section có trên theme, dùng ở template <code>product.architectural-quote</code>. Cần xác minh từng sản phẩm đang dùng template nào.</p>
       <ul>
-        <li>Thiết kế trang sản phẩm phong cách Premium, bố cục hai cột, responsive.</li>
-        <li>Gallery: ảnh chính, thumbnail, xem ảnh lớn; giảm chiều cao ảnh để không chiếm quá nhiều màn hình, giữ tỷ lệ cửa.</li>
-        <li>Cấu hình cửa: Interior/Exterior, Door Size, Custom Size, Glass Finish → truyền sang trang Request a Quote.</li>
-        <li>CTA "REQUEST MY CUSTOM QUOTE"; FAQ accordion; bảng Product Specifications bớt kiểu bảng tính.</li>
-        <li>Bỏ breadcrumb trùng và CTA trùng cuối trang; dùng snippet CTA chung.</li>
+        <li>Phong cách Premium, bố cục hai cột, responsive; gallery ảnh chính, thumbnail, xem ảnh lớn, giảm chiều cao ảnh, giữ tỷ lệ cửa.</li>
+        <li>Cấu hình: Interior/Exterior, Door Size, Custom Size, Glass Finish → truyền sang Request a Quote. CTA "REQUEST MY CUSTOM QUOTE".</li>
+        <li>FAQ accordion, bảng Product Specifications; bỏ breadcrumb và CTA trùng, dùng snippet CTA chung.</li>
       </ul>
-      <p class="note">Đã phát triển nhiều phiên bản. <b>Cần kiểm tra template sản phẩm đang chạy thực tế</b> trước khi ghi hoàn tất.</p>
-      <div class="files"><code>sections/tgd-premium-product.liquid</code><code>snippets/tgd-cta-help.liquid</code></div>
+      <div class="files"><code>sections/tgd-premium-product.liquid</code><code>templates/product.architectural-quote.json</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">🧾</div><div class="card"><div class="shine"></div>
       <h3>Trang Request a Quote <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử bản cuối</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: trang đang mở được (/pages/request-a-quote); mail Sales từng gửi thành công trong test.</p>
       <ul>
-        <li>Trang báo giá riêng <code>/pages/request-a-quote</code>, hai cột: <b>Your Selected Door</b> (ảnh, tên, cấu hình, số lượng) và <b>Contact Information</b>.</li>
-        <li>Đọc thông tin cửa từ URL (<code>product, image, size, width, height, glass, finish, handing, quantity, options, variant</code>) bằng URLSearchParams.</li>
-        <li>Backend loại <code>quote</code>: <code>handleQuoteRequest_(p)</code>, mail Sales <code>buildTGDQuoteEmail_(d)</code>, hàm thử <code>testQuote()</code>.</li>
-        <li>Đã thử nghiệm: Financing Yes/No, lấy đúng ảnh cửa từ Shopify, mail cảm ơn khách.</li>
+        <li>Hai cột: <b>Your Selected Door</b> (ảnh, tên, cấu hình, số lượng) và <b>Contact Information</b>.</li>
+        <li>Đọc thông tin cửa từ URL (<code>product, image, size, width, height, glass, finish, handing, quantity, options, variant</code>).</li>
+        <li>Đã thử: Financing Yes/No, lấy đúng ảnh cửa, mail cảm ơn khách (từng hỏng do dán code sai chỗ).</li>
       </ul>
-      <p class="note"><span class="tag s-ok">Đã kiểm thử</span> Mail HTML gửi Sales chạy trong các bài test. <span class="tag s-wait">Chờ kiểm thử</span> Financing, ảnh động ở mọi sản phẩm, đủ cấu hình sang form, <b>mail xác nhận cho khách</b> (từng hỏng do dán code sai chỗ).</p>
       <div class="files"><code>sections/tgd-quote-form.liquid</code><code>TGD_Quote.gs</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">✉️</div><div class="card"><div class="shine"></div>
-      <h3>Contact Form Premium (bản trước) <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử thành công</span></h3>
+      <h3>Contact Form Premium (bản trước) <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: gửi form, nhận Zoho Mail, lưu file Drive, hiện thông báo cảm ơn — đã kiểm thử.</p>
       <ul>
-        <li>Giao diện Navy–Red–White, hai cột: Full Name, Email, Phone, Project Type, Door Type, Project Location, ZIP, Opening Size, Message.</li>
-        <li>Kiểm tra trường bắt buộc, điện thoại 10–15 chữ số; upload JPG/PNG/PDF tối đa 5 MB, 1 file/lần.</li>
-        <li>Gửi tới Apps Script (<code>contact_quote</code> → <code>handleContactQuote_</code>), mail Zoho có <b>link Google Drive</b> của file khách gửi.</li>
-        <li>Sửa lỗi nút <b>SUBMITTING…</b> bị treo dù mail đã tới; hiển thị thông báo cảm ơn màu xanh.</li>
-        <li>Thêm tự cuộn tới thông báo cảm ơn và tới ô bắt buộc còn thiếu (highlight + focus).</li>
+        <li>Giao diện Navy–Red–White hai cột; kiểm tra trường bắt buộc, điện thoại 10–15 số; upload JPG/PNG/PDF ≤ 5 MB, 1 file/lần.</li>
+        <li>Sửa lỗi nút <b>SUBMITTING…</b> bị treo dù mail đã tới.</li>
+        <li>Thêm tự cuộn tới thông báo cảm ơn / ô bắt buộc còn thiếu (highlight + focus) — <span class="tag s-wait">chờ kiểm thử</span>.</li>
       </ul>
-      <p class="note"><span class="tag s-ok">Đã kiểm thử</span> Gửi form, nhận Zoho Mail, lưu Drive, thông báo cảm ơn. <span class="tag s-wait">Chờ kiểm thử</span> Tự cuộn tới ô thiếu, trải nghiệm trên mobile. Giao diện trang này đã được làm mới tiếp ngày 12/11 (xem mục "Trang Liên hệ mới").</p>
       <div class="files"><code>sections/tgd-contact-quote-page.liquid</code><code>Contact.gs</code></div>
     </div></div>
 
     <div class="item rv"><div class="dot">⚙️</div><div class="card"><div class="shine"></div>
-      <h3>Google Apps Script — backend "gui mail co form" <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đang chạy</span></h3>
-      <ul>
-        <li>Shopify gửi POST tới Web App; <b>chỉ một hàm <code>doPost(e)</code></b> trong <code>Code.gs</code> nhận và phân loại theo <code>form_type</code>.</li>
-        <li><code>quote</code> → <code>handleQuoteRequest_</code> · <code>contact_quote</code> → <code>handleContactQuote_</code> · <code>trade</code> → <code>handleTradeApplication_</code> · <code>door_quote</code> → <code>handleDoorQuote_</code> (thêm 12/11) · không có <code>form_type</code> → đơn từ <code>/pages/checkout</code>.</li>
-        <li>Chống gửi trùng bằng Request ID + CacheService (Contact có thêm LockService) — chống trùng trong thời gian cache, không phải vĩnh viễn.</li>
-        <li><code>appsscript.json</code>: V8, timezone, quyền Drive, gọi API ngoài, Script Properties. Không tự ý giảm quyền.</li>
-      </ul>
-      <div class="files"><code>Code.gs</code><code>TGD_Quote.gs</code><code>Contact.gs</code><code>TGD_DoorQuote.gs</code><code>appsscript.json</code></div>
+      <h3>Google Apps Script "gui mail co form" <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đang chạy</span></h3>
+      <p class="meta">📅 Trước 10/11, thêm nhánh door_quote 12/11 · Kết quả: Web App đang nhận POST từ Shopify.</p>
+      <ul><li>Chỉ một <code>doPost(e)</code> trong <code>Code.gs</code>; phân loại <code>quote</code>, <code>contact_quote</code>, <code>trade</code>, <code>door_quote</code>, đơn checkout.</li><li>Chống gửi trùng bằng Request ID + CacheService (Contact có LockService) — trong thời gian cache, không vĩnh viễn.</li></ul>
     </div></div>
 
     <div class="item rv"><div class="dot">📮</div><div class="card"><div class="shine"></div>
-      <h3>Zoho Mail API <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Contact &amp; Door Quote đã kiểm thử</span></h3>
-      <ul>
-        <li>Gửi mail qua Zoho Mail API, OAuth2 tự làm mới token; thông tin xác thực lưu trong Script Properties (không ghi giá trị ở đây).</li>
-        <li>Mail HTML cho Sales; mail Contact có link Google Drive.</li>
-      </ul>
-      <p class="note"><span class="tag s-ok">Đã kiểm thử</span> Contact Form, Door Quote (12/11). <span class="tag s-wait">Chờ kiểm thử riêng</span> mail Quote cho khách, mail Trade. <b>Nên thay mới</b> các credential Zoho từng xuất hiện trong ảnh chụp màn hình.</p>
+      <h3>Zoho Mail API <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Contact & Door Quote đã kiểm thử</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: gửi mail thành công cho Contact (có link Drive) và Door Quote; các luồng khác kiểm thử riêng.</p>
+      <ul><li>OAuth2 tự làm mới token; credential trong Script Properties. <b>Nên thay mới</b> credential từng lộ trong ảnh chụp màn hình.</li></ul>
     </div></div>
 
     <div class="item rv"><div class="dot">🗂️</div><div class="card"><div class="shine"></div>
-      <h3>Google Drive — lưu file khách gửi <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử thành công</span></h3>
-      <ul>
-        <li>Tạo thư mục <b>TGD Customer Quote Uploads</b>, khai báo <code>TGD_CONTACT_UPLOAD_FOLDER_ID</code> trong Script Properties.</li>
-        <li>Lỗi "Folder not found": tài khoản chạy script chưa có quyền thư mục → đã cấp quyền.</li>
-        <li>Lỗi "You do not have permission to call DriveApp.Folder.createFile" → bổ sung OAuth scope trong <code>appsscript.json</code>.</li>
-        <li>Chạy <code>testDriveAccess()</code>, <code>testContactUpload()</code>; gửi PNG thật từ Shopify → file lưu Drive, link có trong mail Zoho.</li>
-        <li>Quyền thư mục giữ <b>Restricted</b>.</li>
-      </ul>
+      <h3>Google Drive — lưu file khách gửi <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: PNG gửi từ Shopify được lưu Drive, link có trong mail Zoho.</p>
+      <ul><li>Thư mục <b>TGD Customer Quote Uploads</b>, khai báo trong Script Properties; quyền giữ Restricted.</li><li>Sửa lỗi "Folder not found" (cấp quyền thư mục) và "permission to call DriveApp.Folder.createFile" (thêm OAuth scope); chạy <code>testDriveAccess()</code>, <code>testContactUpload()</code>.</li></ul>
     </div></div>
 
     <div class="item rv"><div class="dot">🤝</div><div class="card"><div class="shine"></div>
-      <h3>Trade Program <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử đầy đủ</span></h3>
-      <ul>
-        <li>Luồng riêng cho Contractor, Builder, đối tác: <code>form_type: 'trade'</code> → <code>handleTradeApplication_(p)</code>, gửi mail nội bộ + mail cảm ơn người đăng ký.</li>
-        <li>Không gộp với Contact Quote; giữ nguyên nhánh này khi sửa form khác.</li>
-      </ul>
-      <p class="note">Code đang có trên script; chưa đủ bằng chứng kiểm thử mọi mail và trường dữ liệu.</p>
+      <h3>Trade Program <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: script trả lời đúng nhánh <code>trade</code>; chưa có kết quả kiểm thử mail đầy đủ.</p>
+      <p>Luồng riêng cho Contractor, Builder, đối tác; không gộp với Contact Quote.</p>
     </div></div>
 
     <div class="item rv"><div class="dot">🔁</div><div class="card"><div class="shine"></div>
-      <h3>Thử n8n → chuyển sang Google Apps Script <span class="tag s-no">n8n không dùng cho form hiện tại</span></h3>
-      <ul>
-        <li>Đã thử: cài Node.js + n8n local trên Windows, workflow Quote Order, Zoho IMAP, OAuth2 Zoho Mail API, các bước HTTP Request, Filter, Split Out, Code, chống trùng.</li>
-        <li>Chuyển sang Apps Script vì: chạy trên cloud, không cần bật máy 24/7, chi phí thấp, đơn giản hoá luồng Contact/Quote.</li>
-      </ul>
+      <h3>Thử n8n → chuyển sang Apps Script <span class="tag s-no">n8n không dùng cho form hiện tại</span></h3>
+      <p class="meta">📅 Trước 10/11 · Kết quả: chọn Apps Script làm backend chính.</p>
+      <ul><li>Đã thử n8n local trên Windows: workflow Quote Order, Zoho IMAP, OAuth2, HTTP Request, Filter, Split Out, Code, chống trùng.</li><li>Chuyển vì: chạy cloud, không cần máy bật 24/7, chi phí thấp, luồng đơn giản hơn.</li></ul>
     </div></div>
 
   </div>
@@ -743,52 +757,63 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
 
 <!-- ============ FUTURE ============ -->
 <section data-sec="future"><div class="wrap">
-  <span class="kicker rv">Future Development</span>
+  <span class="kicker rv">Kế hoạch phát triển</span>
   <h2 class="h2 rv">Odoo CRM <span class="tag s-no">Chưa triển khai</span></h2>
-  <p class="lead rv"><b>Chưa có kết nối Odoo CRM với website.</b> Đây chỉ là hướng phát triển tiếp theo, chưa có API, mapping hay workflow nào chạy.</p>
+  <p class="lead rv"><b>Odoo CRM hiện chưa được đồng bộ với website.</b> Chưa có API, mapping hay workflow nào chạy.</p>
   <ul class="todo">
-    <li class="rv">Tạo Lead tự động từ Contact, Quote, Door Quote và Trade. <em class="who-me">Dự kiến</em></li>
+    <li class="rv">Tạo Lead tự động từ Contact, Product Quote, Door Quote và Trade. <em class="who-me">Dự kiến</em></li>
     <li class="rv">Kiểm tra trùng theo email / số điện thoại trước khi tạo Lead. <em class="who-me">Dự kiến</em></li>
     <li class="rv">Phân bổ Sales phụ trách; lưu sản phẩm, cấu hình và link Google Drive. <em class="who-me">Dự kiến</em></li>
     <li class="rv">Hỗ trợ chuyển Quote thành Sales Order. <em class="who-me">Dự kiến</em></li>
   </ul>
-  <p class="lead rv" style="margin-top:18px">Thứ tự đề xuất: ① ổn định form & mail → ② chuẩn hoá dữ liệu khách → ③ Odoo CRM → ④ tự động hoá bán hàng → ⑤ vận hành (thanh toán, sản xuất, giao hàng).</p>
+  <p class="lead rv" style="margin-top:18px">Thứ tự đề xuất: ① ổn định form & mail → ② chuẩn hoá dữ liệu khách → ③ Odoo CRM → ④ tự động hoá bán hàng → ⑤ vận hành.</p>
 </div></section>
 
 <!-- ============ NEXT 10–12/11 ============ -->
 <section data-sec="next"><div class="wrap">
   <span class="kicker rv">Việc tiếp theo</span>
-  <h2 class="h2 rv">Còn lại cần làm</h2>
-  <ul class="todo">
-    <li class="rv"><b>Dán file Door Specifications</b> bản sửa rớt chữ (chưa thấy trên web). <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Kiểm thử Request a Quote</b>: Financing, ảnh cửa, đủ cấu hình, mail xác nhận khách. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Kiểm thử Trade Program</b>: mail nội bộ + mail cảm ơn. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Thay mới credential Zoho</b> từng lộ trong ảnh chụp màn hình. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Gửi thử form trang Liên hệ</b> bằng email của mình, xem mail về đúng chưa. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Our Projects:</b> gắn link cho thẻ 09, sửa "San Antonio,Texas" thành có dấu cách. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Xác nhận quy ước Left / Right Hand</b> trên Door Swing Guide khớp với xưởng. <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Làm lại mail trang Liên hệ</b> cho đẹp như mail báo giá (cần file <code>Contact.gs</code>). <em class="who-ai">Claude</em></li>
-    <li class="rv"><b>Rà trang sản phẩm</b>: nút đặt hàng, nội dung, SEO. <em class="who-ai">Claude</em></li>
-    <li class="rv"><b>Nén 2 video nặng</b> (35 MB và 90 MB). <em class="who-ai">Claude</em></li>
-  </ul>
+  <h2 class="h2 rv">Còn tồn đọng (cập nhật 12/11)</h2>
+  <ol class="todo">
+    <li class="rv"><b>Kiểm thử Contact Form trên desktop và mobile</b>, đặc biệt tự cuộn tới ô thiếu và kiểm tra trường bắt buộc. <span class="tag s-wait">Chờ kiểm thử</span></li>
+    <li class="rv"><b>Kiểm tra Product Configuration</b> truyền đúng thông số sang Request a Quote. <span class="tag s-wait">Chờ kiểm thử</span></li>
+    <li class="rv"><b>Kiểm tra ảnh sản phẩm</b> hiển thị đúng trong Quote Form. <span class="tag s-wait">Chờ kiểm thử</span></li>
+    <li class="rv"><b>Kiểm tra mail xác nhận khách</b> cho từng loại Quote và Trade Program. <span class="tag s-wait">Chờ kiểm thử</span></li>
+    <li class="rv"><b>Kiểm tra chống gửi trùng</b> và xử lý lỗi mạng. <span class="tag s-wait">Chờ kiểm thử</span></li>
+    <li class="rv"><b>Xác minh SEO, redirect và tối ưu hiệu năng</b> đã áp dụng trên Production (gồm đo PageSpeed thật; dán bản sửa Door Specifications). <span class="tag s-doing">Đang xử lý</span></li>
+    <li class="rv"><b>Việc cũ còn mở:</b> Our Projects (link thẻ 09, "San Antonio,Texas"), quy ước Door Swing Left/Right hand, nén 2 video 35 MB / 90 MB, gỡ app Shopify không dùng. <span class="tag s-doing">Đang xử lý</span></li>
+  </ol>
 </div></section>
 
 <!-- ============ FILES 10–12/11 ============ -->
 <section data-sec="files"><div class="wrap">
   <span class="kicker rv">File bàn giao</span>
-  <h2 class="h2 rv">Danh sách file 10–12/11</h2>
-  <div class="fgrid">
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-contact-quote-page.liquid</b><small>Trang Liên hệ</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-swing-guide.liquid</b><small>Door Swing Guide</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/main-collection-product-grid.liquid</b><small>Danh mục cửa + form</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/main-search.liquid</b><small>Trang tìm kiếm</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/header.liquid</b><small>Ô tìm kiếm + menu</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-home.liquid</b><small>Trang chủ</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-measuring-guide.liquid</b><small>Measuring Guide</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-door-specifications.liquid</b><small>Door Specs</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/aboutus.liquid</b><small>About Us</small></div></div>
-    <div class="f rv"><span class="ext j">GS</span><div><b>TGD_DoorQuote.gs</b><small>Mail báo giá (Apps Script)</small></div></div>
-    <div class="f rv"><span class="ext" style="background:linear-gradient(135deg,#7CC89A,#9CC9F5)">WEBP</span><div><b>8 ảnh sơ đồ chiều mở cửa</b><small>Đã có trong Shopify Files</small></div></div>
+  <h2 class="h2 rv">Danh sách file theo hệ thống</h2>
+  <p class="lead rv">File Shopify nằm trong theme đang chạy. File Apps Script nằm trong dự án Google Apps Script <b>"gui mail co form"</b> — <b>không có trong repository GitHub này</b>.</p>
+
+  <h3 class="fgh rv">🛒 Shopify theme</h3>
+  <div class="stable rv">
+    <div class="srow head"><div>File</div><div>Chức năng</div><div>Hệ thống</div><div>Trạng thái đã xác minh</div></div>
+    <div class="srow"><div><code>sections/tgd-contact-quote-page.liquid</code></div><div>Trang Liên hệ + form Contact Quote</div><div>Shopify</div><div><span class="tag s-ok">Gửi form đã kiểm thử</span><small>Auto-scroll chờ kiểm thử.</small></div></div>
+    <div class="srow"><div><code>sections/tgd-quote-form.liquid</code></div><div>Trang Request a Quote (Product Quote)</div><div>Shopify</div><div><span class="tag s-wait">Chờ kiểm thử</span></div></div>
+    <div class="srow"><div><code>sections/tgd-premium-product.liquid</code></div><div>Product Premium V2/V3 (template <code>product.architectural-quote</code>)</div><div>Shopify</div><div><span class="tag s-wait">Chờ kiểm thử</span><small>Cần xác minh template từng sản phẩm.</small></div></div>
+    <div class="srow"><div><code>sections/main-collection-product-grid.liquid</code></div><div>Danh mục cửa + form Door Quote</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
+    <div class="srow"><div><code>sections/tgd-measuring-guide.liquid</code></div><div>Measuring Guide + form Door Quote</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
+    <div class="srow"><div><code>sections/tgd-swing-guide.liquid</code></div><div>Door Swing Guide</div><div>Shopify</div><div><span class="tag s-ok">Đã lên web</span></div></div>
+    <div class="srow"><div><code>sections/main-search.liquid</code></div><div>Trang kết quả tìm kiếm</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
+    <div class="srow"><div><code>sections/header.liquid</code></div><div>Ô tìm kiếm, menu gọn 990–1199 px</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
+    <div class="srow"><div><code>sections/tgd-home.liquid</code></div><div>Trang chủ (Who we work with, Our Projects)</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
+    <div class="srow"><div><code>sections/tgd-door-specifications.liquid</code></div><div>Door Specifications (sửa rớt chữ)</div><div>Shopify</div><div><span class="tag s-wait">Chờ dán file</span></div></div>
+    <div class="srow"><div><code>sections/aboutus.liquid</code></div><div>About Us (nút đỏ)</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
+  </div>
+
+  <h3 class="fgh rv">⚙️ Google Apps Script — dự án "gui mail co form"</h3>
+  <div class="stable rv">
+    <div class="srow head"><div>File</div><div>Chức năng</div><div>Hệ thống</div><div>Trạng thái đã xác minh</div></div>
+    <div class="srow"><div><code>Code.gs</code></div><div>Cấu hình chung, <b>doPost(e) duy nhất</b>, gửi Zoho, đơn checkout, Trade</div><div>Apps Script</div><div><span class="tag s-ok">Đang chạy</span></div></div>
+    <div class="srow"><div><code>Contact.gs</code></div><div><code>handleContactQuote_</code>, upload Drive, trả lời postMessage</div><div>Apps Script</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
+    <div class="srow"><div><code>TGD_Quote.gs</code></div><div><code>handleQuoteRequest_</code>, mail Product Quote</div><div>Apps Script</div><div><span class="tag s-wait">Chờ kiểm thử bản cuối</span></div></div>
+    <div class="srow"><div><code>TGD_DoorQuote.gs</code></div><div><code>handleDoorQuote_</code>, mail Sales + mail khách</div><div>Apps Script</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Script trả lời đúng nhánh door_quote.</small></div></div>
+    <div class="srow"><div><code>appsscript.json</code></div><div>V8, timezone, quyền Drive / gọi API / Properties</div><div>Apps Script</div><div><span class="tag s-ok">Đang dùng</span><small>Không tự ý giảm quyền.</small></div></div>
   </div>
 </div></section>
 </div>
@@ -865,8 +890,8 @@ footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out i
       stats:[[14,'','hạng mục đã làm'],[5,'','trang tự sửa được'],[13,'','block trên trang chủ'],[78,'%','video trang chủ nhẹ hơn']],
       lines:['Rà lỗi CSS, sửa menu, dựng 5 trang tự sửa được trong Shopify.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).']},
     '2026-11-10':{label:'Thứ Ba – Thứ Năm · 10–12/11/2026',short:'10–12/11',
-      stats:[[19,'','hạng mục ghi nhận'],[4,'','trang làm mới'],[3,'','trang trùng đã gộp'],[4,'','luồng form → mail']],
-      lines:['Form báo giá gửi thẳng về mail công ty: sales nhận mail rõ ràng, khách nhận mail cảm ơn.','Bổ sung lịch sử hệ thống Apps Script, Zoho, Google Drive, Product Page và Request a Quote.','Làm mới trang Liên hệ, Hướng dẫn chiều mở cửa, Tìm kiếm và Danh mục cửa.','Gộp 3 trang trùng, sửa menu tràn ngang và chữ rớt dòng trên trang chủ.']}
+      stats:[[19,'','hạng mục ghi nhận'],[4,'','trang làm mới'],[3,'','trang trùng đã gộp'],[4,'','luồng form (2 đã kiểm thử)']],
+      lines:['Contact Quote và Door Quote đã kiểm thử: Shopify → Apps Script → Zoho Mail (+ Google Drive).','Làm mới trang Liên hệ, Door Swing Guide, Tìm kiếm và Danh mục cửa.','Product Quote, Trade và tự cuộn trên Contact còn chờ kiểm thử. Odoo CRM chưa triển khai.']}
     /* MẪU NGÀY (thêm dấu phẩy sau dòng trên rồi dán):
     '2026-11-10':{label:'Thứ Ba · 10/11/2026',short:'10/11',
       stats:[[2,'','việc hoàn thành'],[1,'','trang cập nhật'],[0,'','lỗi còn lại'],[100,'%','đã kiểm tra']],
