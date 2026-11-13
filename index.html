@@ -1,991 +1,1292 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nhật ký công việc · Texas Glass Door · 09/11/2026</title>
-<meta name="description" content="Tổng hợp toàn bộ công việc tối ưu giao diện, SEO và tốc độ cho website Texas Glass Door trong ngày 09/11/2026.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lộ Trình Triển Khai AI Agent Doanh Nghiệp | Executive Playbook</title>
+<meta name="description" content="Tóm tắt cho Giám đốc: cách biến việc lặp lại hằng ngày thành nhân viên AI làm việc 24/7, kèm sơ đồ quy trình và lộ trình 3 bước.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
+/* ===== Design tokens ===== */
 :root{
-  --bg:#FFF8F5; --bg2:#FDF1F4; --ink:#2B2340; --text:#5D5672; --muted:#9A92AE;
-  --pink:#F7A8C4; --pink2:#EF6F9C; --rose:#E2457A; --leaf:#7CC89A; --leaf2:#3FA36B;
-  --sky:#9CC9F5; --lav:#C7B5F5; --sun:#FFD58A; --line:rgba(43,35,64,.08);
-  --glass:rgba(255,255,255,.86); --shadow:0 14px 28px -20px rgba(120,60,110,.35);
+  --bg:#f5f7fb; --card:#fff; --ink:#14203f; --text:#3b4766; --muted:#6b7794;
+  --line:#e3e8f2; --line-2:#cfd7e8; --flow:#9db0dc;
+  --navy:#12214a; --blue:#2c5be0; --blue-soft:#eaf0ff; --blue-line:#c5d4fb;
+  --amber:#f5a30b; --amber-deep:#a86400; --amber-soft:#fff6e0; --amber-line:#f6dba0;
+  --green:#0f9d75; --green-soft:#e3f6ef; --green-line:#b5e5d4;
+  --rose:#d9363e; --rose-soft:#fdeeee; --rose-line:#f4c4c6;
+  --radius:18px; --side:292px;
+  --shadow:0 1px 2px rgba(20,32,63,.05),0 6px 20px rgba(20,32,63,.05);
+  --shadow-lg:0 2px 4px rgba(20,32,63,.06),0 16px 36px rgba(20,32,63,.10);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden;line-height:1.65}
-a{color:inherit}
-h1,h2,h3{color:var(--ink);line-height:1.12;letter-spacing:-.02em}
-.serif{font-family:'Playfair Display',Georgia,serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+h1,h2,h3,h4,p,ol,ul{margin:0}
+ol,ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+strong,b{color:var(--ink);font-weight:600}
+svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-/* ===== Ambient background ===== */
-.sky{position:fixed;inset:0;z-index:-3;background:
-  radial-gradient(60% 50% at 10% 0%,#FFE3EC 0%,transparent 60%),
-  radial-gradient(50% 45% at 95% 10%,#E6F4EA 0%,transparent 60%),
-  radial-gradient(60% 60% at 80% 100%,#EDE6FF 0%,transparent 60%),
-  linear-gradient(180deg,#FFF8F5 0%,#FFF4F7 50%,#F6FBF7 100%)}
-.blob{display:none}
-.blob.b1{width:420px;height:420px;background:#FFC7DA;top:-120px;left:-80px}
-.blob.b2{width:360px;height:360px;background:#C9EFD6;top:30vh;right:-120px;animation-delay:-6s}
-.blob.b3{width:380px;height:380px;background:#DCD0FF;bottom:-140px;left:30vw;animation-delay:-11s}
-@keyframes float{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}100%{transform:translate(-30px,40px) scale(.96)}}
-#petals{position:fixed;inset:0;z-index:-1;pointer-events:none;transition:opacity .4s ease}
-.glow{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(247,168,196,.3),transparent 65%);will-change:transform}
+/* ===== Reading progress + toast ===== */
+.rp{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--amber));z-index:100;transition:width .2s linear}
+.toast{position:fixed;right:20px;bottom:20px;z-index:90;display:flex;gap:10px;align-items:center;padding:12px 18px;border-radius:14px;background:var(--navy);color:#fff;font-size:13.5px;font-weight:500;box-shadow:var(--shadow-lg);transform:translateY(24px);opacity:0;pointer-events:none;transition:transform .5s ease,opacity .5s ease}
+.toast.show{transform:none;opacity:1}
+.toast svg{color:#5ee0b4;font-size:18px}
 
-/* ===== Progress + nav ===== */
-.progress{position:fixed;top:0;left:0;height:4px;width:100%;transform:scaleX(0);transform-origin:left;will-change:transform;z-index:50;background:linear-gradient(90deg,var(--pink2),var(--sun),var(--leaf));box-shadow:0 0 14px rgba(239,111,156,.6)}
-nav.top{position:sticky;top:0;z-index:40;background:rgba(255,248,245,.96);border-bottom:1px solid var(--line)}
-nav.top .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:12px 24px;overflow-x:auto;scrollbar-width:none}
-nav.top .in::-webkit-scrollbar{display:none}
-nav.top b{font-weight:800;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:8px}
-nav.top a{text-decoration:none;font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;position:relative;padding:4px 0}
-nav.top a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--pink2);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-nav.top a:hover::after,nav.top a.on::after{transform:scaleX(1)}
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:12px;font-size:13px;font-weight:600;line-height:1.2;transition:background .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.btn svg{font-size:15px}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-primary:hover{background:#1c3170;box-shadow:0 6px 16px rgba(18,33,74,.25)}
+.btn-ghost{background:#fff;border:1px solid var(--line-2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-cta{background:var(--amber);color:var(--navy)}
+.btn-cta:hover{background:#e29500;box-shadow:0 6px 16px rgba(245,163,11,.35)}
+.btn:active{transform:translateY(1px)}
 
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-section{padding:96px 0;position:relative}
-.kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
-.kicker::before{content:"✿";font-size:16px;animation:spin 8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.h2{font-size:clamp(32px,4.4vw,52px);font-weight:800;margin:12px 0 14px}
-.lead{font-size:clamp(16px,1.4vw,18.5px);max-width:720px}
+/* ===== Sidebar ===== */
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:24px 18px;overflow-y:auto;z-index:30}
+.brand{display:flex;gap:12px;align-items:center;padding-bottom:20px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;display:grid;place-items:center;font-size:20px;flex:none}
+.brand b{display:block;font-size:15px;line-height:1.25}
+.brand small{color:var(--muted);font-size:12px}
+.nav-title{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 10px 10px}
+.steps li{position:relative;margin-bottom:4px}
+.steps li:not(:last-child)::before{content:"";position:absolute;left:25px;top:39px;bottom:-13px;width:2px;background:var(--line);z-index:2;pointer-events:none;transition:background .6s ease}
+.steps li.done:not(:last-child)::before{background:var(--green)}
+.steps a{position:relative;display:flex;gap:12px;align-items:flex-start;padding:9px 10px;border-radius:12px;font-size:13.5px;font-weight:500;line-height:1.35;color:var(--text);transition:background .3s ease,color .3s ease}
+.steps a:hover{background:var(--bg)}
+.steps a.active{background:var(--blue-soft);color:var(--ink);font-weight:600}
+.steps .dot{width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--line-2);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--muted);flex:none;transition:background .5s ease,border-color .5s ease,color .5s ease}
+.steps .lbl{padding-top:5px}
+.steps a.active .dot{background:var(--blue);border-color:var(--blue);color:#fff}
+.steps a.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.sbox{margin-top:auto;padding-top:20px;display:grid;gap:10px}
+.pcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--bg)}
+.pcard .row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.pcard .row b{color:var(--blue)}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--green));transition:width .9s ease}
+
+/* ===== Mobile header + drawer ===== */
+.mhead{display:none;position:sticky;top:0;z-index:40;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.mhead .brand{border:0;margin:0;padding:0}
+.mhead .logo{width:34px;height:34px;font-size:16px;border-radius:10px}
+.mhead .brand b{font-size:14px}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;color:var(--ink);transition:background .2s ease}
+.icon-btn:hover{background:var(--bg)}
+.drawer{position:fixed;inset:0;z-index:70;visibility:hidden;transition:visibility .5s}
+.drawer.open{visibility:visible}
+.drawer .back{position:absolute;inset:0;background:rgba(20,32,63,.45);opacity:0;transition:opacity .5s ease}
+.drawer.open .back{opacity:1}
+.drawer .panel{position:absolute;top:0;bottom:0;left:0;width:300px;max-width:86vw;background:#fff;padding:20px 16px;overflow-y:auto;transform:translateX(-100%);transition:transform .5s ease;box-shadow:var(--shadow-lg)}
+.drawer.open .panel{transform:none}
+.drawer .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+
+/* ===== Layout ===== */
+.main{margin-left:var(--side)}
+.wrap{max-width:1060px;margin:0 auto;padding:44px 32px 56px;display:flex;flex-direction:column;gap:72px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+
+/* ===== Reveal (slow & smooth) ===== */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease}
+.js .reveal.in{opacity:1;transform:none}
+.js .grid>.reveal:nth-child(2){transition-delay:.12s}
+.js .grid>.reveal:nth-child(3){transition-delay:.24s}
+.js .grid>.reveal:nth-child(4){transition-delay:.36s}
 
 /* ===== Hero ===== */
-.hero{min-height:92vh;display:flex;align-items:center;padding:80px 0 60px}
-.hero h1{font-size:clamp(44px,7.4vw,96px);font-weight:800;letter-spacing:-.035em}
-.shimmer{background:linear-gradient(100deg,var(--rose) 0%,var(--pink) 25%,var(--sun) 45%,var(--leaf) 65%,var(--rose) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;background-position:0 0}
-@keyframes shim{to{background-position:-250% 0}}
-.hero .date{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);font-weight:700;color:var(--ink);font-size:14px;margin-bottom:26px;}
-.hero .date i{width:9px;height:9px;border-radius:50%;background:var(--leaf2);box-shadow:0 0 0 0 rgba(63,163,107,.6);animation:none}
-@keyframes ping{70%{box-shadow:0 0 0 12px rgba(63,163,107,0)}100%{box-shadow:0 0 0 0 rgba(63,163,107,0)}}
-.typed{min-height:2em;font-size:clamp(18px,2vw,23px);color:var(--text);margin:22px 0 40px;max-width:760px}
-.typed .cur{display:inline-block;width:2px;height:1.1em;background:var(--rose);vertical-align:-3px;margin-left:3px;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.stat{padding:22px 20px;border-radius:22px;background:var(--glass);border:1px solid rgba(255,255,255,.85);box-shadow:var(--shadow);position:relative;overflow:hidden}
-.stat::after{display:none}
-.stat b{display:block;font-size:clamp(30px,3.6vw,44px);font-weight:800;color:var(--ink);position:relative;z-index:1}
-.stat span{font-size:14px;font-weight:600;position:relative;z-index:1}
-.scroll-cue{margin-top:48px;display:inline-flex;align-items:center;gap:10px;font-weight:700;color:var(--rose);text-decoration:none}
-.scroll-cue .m{width:26px;height:40px;border:2px solid var(--rose);border-radius:14px;position:relative}
-.scroll-cue .m::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;border-radius:4px;background:var(--rose);transform:translateX(-50%);animation:wheel 1.6s infinite}
-@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
-
-/* ===== Marquee ===== */
-.marquee{overflow:hidden;padding:18px 0;border-block:1px solid var(--line);background:rgba(255,255,255,.5)}
-.marquee .tr{display:flex;gap:46px;width:max-content;animation:mq 38s linear infinite}
-.marquee span{font-weight:800;font-size:20px;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:46px}
-.marquee span::after{content:"❀";color:var(--pink2)}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* ===== Reveal ===== */
-.rv{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1)}
-.rv.in{opacity:1;transform:none}
-
-/* ===== Timeline ===== */
-.tl{position:relative;margin-top:56px}
-.tl::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--pink),var(--sun),var(--leaf),var(--lav))}
-.tl .fill{position:absolute;left:28px;top:0;width:3px;height:100%;transform:scaleY(0);transform-origin:top;will-change:transform;border-radius:3px;background:var(--rose);box-shadow:0 0 16px var(--pink2)}
-.item{position:relative;padding-left:84px;margin-bottom:28px}
-.item .dot{position:absolute;left:10px;top:24px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;background:#fff;border:3px solid var(--pink);box-shadow:0 8px 20px -8px rgba(226,69,122,.6);z-index:1;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .4s}
-.item.in .dot{transform:scale(1.08)}
-.card{position:relative;padding:26px 28px;border-radius:26px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);transition:transform .25s ease,box-shadow .4s ease;overflow:hidden}
-.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(130deg,rgba(247,168,196,.9),rgba(255,213,138,.6),rgba(124,200,154,.8));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
-.card:hover::before{opacity:1}
-.card .shine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 40%);opacity:0;transition:opacity .3s}
-.card:hover .shine{opacity:1}
-.card h3{font-size:clamp(20px,2vw,25px);font-weight:800;margin-bottom:8px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.tag{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em}
-.s-ok{background:#DDF4E6;color:#1E7A46}.s-live{background:#E0F2F1;color:#17756C}.s-wait{background:#FFF1D6;color:#9A6212}.s-doing{background:#E1ECFF;color:#2D5BBF}.s-no{background:#EEF0F3;color:#5B6472}
-.note{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.6);border:1px dashed rgba(0,0,0,.1);font-size:14px;line-height:1.6}
-.note .tag{font-size:11px;padding:3px 9px}
-.legend{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 22px}
-.meta{margin:2px 0 8px!important;font-size:13.5px!important;font-weight:700;opacity:.75}
-.stable{display:grid;gap:8px;margin:8px 0 18px}.srow{display:grid;grid-template-columns:1.1fr 1.1fr 1.3fr 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid rgba(0,0,0,.07);font-size:14.5px;line-height:1.55}.srow.head{background:transparent;border:0;padding:4px 16px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.6}.srow small{display:block;font-size:12.5px;opacity:.75;margin-top:4px}.srow code{font-size:12.5px;word-break:break-word}
-.fgh{margin:22px 0 6px;font-size:18px}
-@media(max-width:760px){.srow{grid-template-columns:1fr;gap:6px}.srow.head{display:none}}
-ol.todo{counter-reset:none}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:6px 0 28px}.flow span{padding:10px 14px;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.08);font-weight:800;font-size:14px;box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}.flow small{display:block;font-weight:600;font-size:12px;opacity:.7}.flow i{font-style:normal;font-weight:900;opacity:.5}
-.t-fix{background:#FFE4EC;color:var(--rose)}.t-new{background:#E2F5E9;color:var(--leaf2)}.t-seo{background:#EAE3FF;color:#7254D8}.t-speed{background:#FFF1D6;color:#B7791F}
-.card p{margin-bottom:10px}
-.card ul{list-style:none;display:grid;gap:7px;margin:12px 0}
-.card li{position:relative;padding-left:24px}
-.card li::before{content:"";position:absolute;left:4px;top:10px;width:9px;height:9px;border-radius:50% 0 50% 0;background:linear-gradient(135deg,var(--pink2),var(--leaf));transform:rotate(45deg)}
-.files{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.files code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;padding:5px 10px;border-radius:9px;background:rgba(43,35,64,.06);color:var(--ink);border:1px solid var(--line)}
-
-/* ===== Architecture SVG ===== */
-.arch{margin-top:46px;border-radius:30px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);padding:22px;overflow-x:auto}
-.arch svg{display:block;width:100%;min-width:900px;height:auto}
-.arch .node rect{fill:#fff;stroke:rgba(43,35,64,.12);stroke-width:1.2;filter:drop-shadow(0 10px 18px rgba(120,60,110,.14));transition:transform .4s}
-.arch .node:hover rect{stroke:var(--pink2);stroke-width:2}
-.arch .node text{font-family:'Be Vietnam Pro',sans-serif;fill:var(--ink);font-weight:700;font-size:14px}
-.arch .node text.s{font-weight:500;font-size:12px;fill:var(--text)}
-.arch .link{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:7 7;animation:dash 1.4s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-28}}
-.arch svg .link{opacity:0;transition:opacity 1.2s ease}
-.arch.in svg .link{opacity:.95}
-.arch svg .node{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s cubic-bezier(.19,1,.22,1)}
-.arch.in svg .node{opacity:1;transform:none}
-.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:13.5px;font-weight:600}
-.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
-
-/* ===== Home block stack ===== */
-.stackwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start;margin-top:46px}
-.phone{position:relative;margin:0 auto;width:min(340px,100%);border:14px solid #3A2E58;border-radius:44px;background:#fff;box-shadow:0 20px 40px -24px rgba(43,35,64,.6)}
-.phone .scr{border-radius:30px;background:#fff;padding:14px 12px;display:grid;gap:8px;position:relative}
-
-.blk{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:14px;font-size:13px;font-weight:700;color:var(--ink);background:#F7F4FA;border:1px solid var(--line);transform-origin:left;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .4s,box-shadow .4s}
-.blk em{font-style:normal;margin-left:auto;font-size:11px;padding:2px 8px;border-radius:999px}
-.blk.new{background:#EDF9F1}.blk.new em{background:#C9EFD6;color:#1F7A47}
-.blk.old em{background:#FFE4EC;color:var(--rose)}
-.blk.act{transform:scale(1.04) translateX(6px);box-shadow:0 12px 26px -12px rgba(226,69,122,.55);background:#fff}
-.steplist{display:grid;gap:14px}
-.steplist .card{cursor:default}
-
-/* ===== Speed chart ===== */
-.speed{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:46px}
-.bars{margin-top:12px;display:grid;gap:12px}
-.bar{position:relative;height:38px;border-radius:12px;background:rgba(43,35,64,.06);overflow:hidden}
-.bar span{position:absolute;inset:0 auto 0 0;width:0;min-width:0;border-radius:12px;display:flex;align-items:center;padding:0 12px;font-weight:800;font-size:13.5px;color:#fff;white-space:nowrap;transition:width 2s cubic-bezier(.19,1,.22,1)}
-.bar .before{background:linear-gradient(90deg,#F27A9E,#E2457A)}
-.bar .after{background:linear-gradient(90deg,#6FCB95,#2E9C5E)}
-.bar.dark span{color:var(--ink)}
-
-/* ===== Rules ===== */
-.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:46px}
-.rule{padding:22px;border-radius:22px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
-.rule:hover{transform:translateY(-6px) rotate(-.6deg)}
-.rule .ic{font-size:26px;display:inline-block;margin-bottom:8px;animation:bob 3s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-6px) rotate(8deg)}}
-.rule b{display:block;color:var(--ink);font-size:16.5px;margin-bottom:4px}
-
-/* ===== Files grid ===== */
-.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:40px}
-.f{padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 30px -24px rgba(120,60,110,.5);display:flex;gap:12px;align-items:flex-start;transition:transform .3s ease,box-shadow .3s}
-.f:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgba(226,69,122,.5)}
-.f .ext{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pink2),var(--lav))}
-.f .ext.j{background:linear-gradient(135deg,var(--sun),#F59E0B)}
-.f b{display:block;color:var(--ink);font-size:14px;word-break:break-all}
-.f small{font-size:12.5px}
-
-footer{padding:70px 0 90px;text-align:center}
-footer .bloom{font-size:42px;display:inline-block;animation:bob 3s ease-in-out infinite}
-
-@media (max-width:900px){
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stackwrap{grid-template-columns:1fr}
-  .speed,.rules{grid-template-columns:1fr}
+.hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:26px;padding:38px;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;right:-140px;top:-160px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(44,91,224,.11),transparent 68%);pointer-events:none}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:5px 12px;border-radius:99px;background:var(--blue-soft);color:var(--blue);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2.4s ease-in-out infinite}
+.hero h1{position:relative;font-size:clamp(27px,3.5vw,40px);line-height:1.18;color:var(--ink);font-weight:800;letter-spacing:-.02em;margin:16px 0 12px;max-width:780px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.lead{position:relative;max-width:700px;font-size:16.5px}
+.hero-actions{position:relative;display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.quick{position:relative;margin-top:30px;padding-top:26px;border-top:1px dashed var(--line-2)}
+.mini-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.mini-title svg{font-size:15px;color:var(--amber-deep)}
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.q{padding:14px 16px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.q .qi{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#fff;color:var(--blue);font-size:16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q b{display:block;font-size:14px;line-height:1.3;margin-bottom:3px}
+.q span{font-size:13px;color:var(--muted);line-height:1.5;display:block}
+.map{position:relative;margin-top:28px;padding-top:24px;border-top:1px dashed var(--line-2)}
+.map-wrap{container-type:inline-size}
+.mflow{display:flex;align-items:stretch}
+.mnode{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;text-align:center;border-radius:14px;background:#fff;border:1px solid var(--line-2);font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.3;transition:transform .4s ease,border-color .4s ease,box-shadow .4s ease}
+.mnode i{font-style:normal;width:28px;height:28px;border-radius:9px;background:var(--navy);color:#ffc24d;display:grid;place-items:center;font-size:11.5px;font-weight:800}
+.mnode:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:var(--shadow)}
+.mnode.end i{background:var(--green);color:#fff}
+.mflow .link{flex:0 0 24px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend s{width:12px;height:12px;border-radius:4px;border:1.5px solid var(--line-2);background:#fff;display:inline-block}
+.legend .l-ai{background:var(--blue-soft);border-color:var(--blue-line)}
+.legend .l-hu{background:var(--amber-soft);border-color:var(--amber-line)}
+.legend .l-ok{background:var(--green-soft);border-color:var(--green-line)}
+@container (max-width:760px){
+  .mflow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .mflow .link{display:none}
 }
-@media (max-width:600px){
-  section{padding:70px 0}
-  .wrap{padding:0 16px}
-  .item{padding-left:62px}
-  .tl::before,.tl .fill{left:20px}
-  .item .dot{left:2px;width:38px;height:38px;font-size:16px}
-  .card{padding:20px 18px}
+@container (max-width:420px){.mflow{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== Section header ===== */
+.sec-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.num{width:46px;height:46px;border-radius:14px;background:var(--navy);color:#ffc24d;display:grid;place-items:center;font-weight:800;font-size:15px;flex:none;box-shadow:0 6px 16px rgba(18,33,74,.2)}
+.sec-head h2{font-size:23px;line-height:1.25;color:var(--ink);font-weight:800;letter-spacing:-.015em}
+.sec-head p{font-size:13.5px;color:var(--muted)}
+.sec-body{display:flex;flex-direction:column;gap:18px}
+.say{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-bottom:18px;border-radius:14px;background:var(--amber-soft);border:1px solid var(--amber-line);color:var(--ink);font-size:14.5px;line-height:1.55}
+.say .tagx{flex:none;margin-top:2px;padding:2px 9px;border-radius:99px;background:var(--amber);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+
+/* ===== Cards ===== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.grid>.card{transition:box-shadow .5s ease,transform .5s ease,border-color .5s ease}
+.grid>.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:21px;margin-bottom:14px}
+.ico.blue{background:var(--blue-soft);color:var(--blue)}
+.ico.green{background:var(--green-soft);color:var(--green)}
+.ico.rose{background:var(--rose-soft);color:var(--rose)}
+.ico.amber{background:var(--amber-soft);color:var(--amber-deep)}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.kicker.blue{color:var(--blue)}.kicker.green{color:var(--green)}.kicker.rose{color:var(--rose)}.kicker.amber{color:var(--amber-deep)}
+.card h3{font-size:17px;line-height:1.35;color:var(--ink);font-weight:700;margin-bottom:8px}
+.card p{font-size:14.5px}
+.card.warn{border-color:var(--rose-line)}
+.panel-title{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.panel-title svg{font-size:19px;color:var(--blue)}
+.panel-sub{font-size:14px;color:var(--muted);margin-bottom:18px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:3px 11px;border-radius:99px;font-size:11.5px;font-weight:700;letter-spacing:.03em}
+.tag.rose{background:var(--rose-soft);color:var(--rose);border:1px solid var(--rose-line)}
+.tag.blue{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line)}
+.tag.amber{background:var(--amber-soft);color:var(--amber-deep);border:1px solid var(--amber-line)}
+.tag.green{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+.tag.navy{background:var(--navy);color:#ffc24d}
+
+/* ===== Workflow components ===== */
+.flow-wrap{container-type:inline-size}
+.flow{display:flex;align-items:stretch}
+.node{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:14px;border:1px solid var(--line-2);background:#fff;font-size:13.5px;line-height:1.4;position:relative;transition:transform .4s ease,box-shadow .4s ease,background .5s ease,border-color .5s ease}
+.node:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.node .ni{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none;background:var(--bg);color:var(--muted);transition:color .5s ease}
+.node b{display:block;font-size:13.5px;font-weight:700;line-height:1.3}
+.node small{display:block;margin-top:3px;font-size:12px;color:var(--muted);line-height:1.45}
+.n-ai{background:var(--blue-soft);border-color:var(--blue-line)}
+.n-ai .ni{background:#fff;color:var(--blue)}
+.n-hu{background:var(--amber-soft);border-color:var(--amber-line)}
+.n-hu .ni{background:#fff;color:var(--amber-deep)}
+.n-ok{background:var(--green-soft);border-color:var(--green-line)}
+.n-ok .ni{background:#fff;color:var(--green)}
+.node.ok{background:var(--green-soft);border-color:var(--green-line)}
+.node.ok .ni{background:#fff;color:var(--green)}
+
+/* connector arrows (animated, slow) */
+.link{position:relative;flex:0 0 40px;min-width:0}
+.link::before{content:"";position:absolute;left:3px;right:10px;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,var(--flow) 0 6px,transparent 6px 11px);background-size:11px 2px;animation:flowx 2s linear infinite}
+.link::after{content:"";position:absolute;right:3px;top:50%;width:8px;height:8px;border-top:2px solid var(--flow);border-right:2px solid var(--flow);transform:translateY(-50%) rotate(45deg)}
+.link.plain::before{right:0}
+.link.plain::after{display:none}
+
+/* fork: 1 -> 2 branches */
+.stack{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:10px;position:relative;padding-left:26px}
+.stack::before{content:"";position:absolute;left:0;top:25%;bottom:25%;width:2px;background:var(--flow)}
+.stack>.node{flex:1}
+.stack>.node::before{content:"";position:absolute;left:-26px;top:50%;width:26px;height:2px;margin-top:-1px;background:var(--flow)}
+.stack>.node::after{content:"";position:absolute;left:-12px;top:50%;width:8px;height:8px;border-top:2px solid var(--flow);border-right:2px solid var(--flow);transform:translateY(-50%) rotate(45deg)}
+.flow.fork{align-items:center}
+.when{display:inline-block;padding:2px 9px;border-radius:99px;background:var(--navy);color:#ffc24d;font-size:11px;font-weight:800;letter-spacing:.04em;margin-bottom:6px}
+.tool{display:block;margin-top:8px;font-size:11.5px;font-weight:600;color:var(--blue)}
+.note.warn{background:var(--rose-soft);border-color:var(--rose-line)}
+.note.warn svg{color:var(--rose)}
+.sec-body>.note{margin-bottom:0}
+.list.r li .li{background:var(--rose-soft);color:var(--rose)}
+.stackcol{display:flex;flex-direction:column;gap:18px}
+.report{border:1px solid var(--line-2);border-radius:16px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+.report-head{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--navy);color:#fff;font-size:13px;font-weight:600}
+.report-head svg{color:#ffc24d;font-size:16px}
+.report-head small{margin-left:auto;color:#9fb4e8;font-weight:500}
+.report-body{padding:16px;display:flex;flex-direction:column;gap:14px;font-size:13.5px;line-height:1.5}
+.report-body b{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
+.cap2{margin-top:14px;font-size:13px;color:var(--muted)}
+.stack>.node{flex-direction:row;align-items:center}
+.step-no{position:absolute;top:-9px;left:12px;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--navy);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center;line-height:1}
+
+@container (max-width:680px){
+  .flow,.flow.fork{flex-direction:column;align-items:stretch}
+  .link{flex:0 0 30px}
+  .link::before{left:50%;right:auto;top:2px;bottom:11px;width:2px;height:auto;margin:0 0 0 -1px;background:repeating-linear-gradient(180deg,var(--flow) 0 6px,transparent 6px 11px);background-size:2px 11px;animation-name:flowy}
+  .link.plain::before{bottom:11px}
+  .link::after,.link.plain::after{display:block;right:auto;left:50%;top:auto;bottom:3px;transform:translateX(-50%) rotate(135deg)}
+  .node{flex-direction:row;align-items:center}
+  .stack{padding-left:0}
+  .stack::before,.stack>.node::before,.stack>.node::after{display:none}
+}
+
+/* ===== Lanes (old vs new) ===== */
+.lane{padding:18px;border-radius:16px;border:1px solid var(--line)}
+.lane.old{background:#fafbfd;border-style:dashed;border-color:var(--line-2)}
+.lane.new{background:#f5f8ff;border-color:var(--blue-line)}
+.lane-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:16px}
+.lane-note{font-size:13.5px;color:var(--text)}
+.swap{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0;color:var(--muted);font-size:12.5px;font-weight:600}
+.swap svg{font-size:20px;color:var(--blue)}
+.swap::before,.swap::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ===== Split bar 80/20 ===== */
+.split{display:flex;height:34px;border-radius:12px;overflow:hidden;margin-top:18px;font-size:12.5px;font-weight:700}
+.split div{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.split .a{flex:80;background:var(--blue);color:#fff}
+.split .h{flex:20;background:var(--amber);color:var(--navy)}
+.cap{font-size:12px;color:var(--muted);margin-top:8px}
+
+/* ===== Pillars ===== */
+.pillar{display:flex;gap:16px}
+.pillar .pn{width:42px;height:42px;border-radius:13px;background:var(--navy);color:#ffc24d;display:grid;place-items:center;font-weight:800;flex:none}
+.analogy{margin-top:10px;font-size:13px;color:var(--amber-deep);font-weight:600}
+
+/* ===== Lists ===== */
+.list{display:flex;flex-direction:column;gap:14px}
+.list li{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.list li .li{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none}
+.list.g li .li{background:var(--green-soft);color:var(--green)}
+.list.a li .li{background:var(--amber-soft);color:var(--amber-deep)}
+.list b{display:block;font-size:14px;margin-bottom:1px}
+.list span.d{color:var(--text);font-size:13.5px;line-height:1.5}
+
+/* ===== API integration rows ===== */
+.note{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:var(--blue-soft);border:1px solid var(--blue-line);color:var(--ink);font-size:14px;margin-bottom:18px}
+.note svg{font-size:20px;color:var(--blue);margin-top:1px}
+.api{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.api+.api{margin-top:14px}
+.api-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:14px}
+.api-head h4{font-size:15.5px;color:var(--ink);font-weight:700}
+.fit{margin-top:14px;font-size:13px;color:var(--text)}
+.fit b{color:var(--green)}
+details.more{margin-top:12px;font-size:13px}
+details.more summary{display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:var(--blue);font-weight:600;list-style:none;transition:color .2s ease}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+";display:grid;place-items:center;width:18px;height:18px;border-radius:6px;background:var(--blue-soft);font-weight:700;line-height:1;transition:transform .4s ease}
+details.more[open] summary::before{content:"–"}
+details.more summary:hover{color:var(--navy)}
+details.more .body{margin-top:8px;padding:12px 14px;background:var(--bg);border-radius:12px;color:var(--text);line-height:1.55}
+
+/* ===== Glossary ===== */
+.gloss{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.term{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.term b{display:block;font-size:14px;color:var(--blue);margin-bottom:2px}
+.term span{display:block;font-size:13px;color:var(--text);line-height:1.5}
+
+/* ===== Checklist ===== */
+.check-bar{display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);font-size:12.5px;font-weight:600;color:var(--text)}
+.badge{padding:3px 10px;border-radius:8px;background:var(--navy);color:#ffc24d;font-weight:800;font-size:12px}
+.check-bar button{color:var(--muted);font-size:16px;display:grid;place-items:center;transition:color .2s ease}
+.check-bar button:hover{color:var(--rose)}
+.sec5-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px}
+.group-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.group-head .gn{width:28px;height:28px;border-radius:9px;background:var(--amber-soft);color:var(--amber-deep);font-size:12px;font-weight:800;display:grid;place-items:center}
+.group-head h3{margin:0;flex:1;font-size:16px}
+.gcount{font-size:12px;font-weight:700;color:var(--muted)}
+.group.complete .gcount{color:var(--green)}
+.gbar{margin-bottom:12px}
+.group.complete .gbar i{background:var(--green)}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .3s ease}
+.chk:hover{background:var(--bg)}
+.chk:has(input:checked){background:var(--green-soft)}
+.chk input{appearance:none;-webkit-appearance:none;margin:2px 0 0;width:20px;height:20px;flex:none;border-radius:6px;border:2px solid var(--line-2);background:#fff;display:grid;place-items:center;cursor:pointer;transition:background .3s ease,border-color .3s ease}
+.chk input::after{content:"";width:9px;height:5px;margin-top:-2px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) scale(0);transition:transform .3s ease}
+.chk input:checked{background:var(--green);border-color:var(--green)}
+.chk input:checked::after{transform:rotate(-45deg) scale(1)}
+.chk .t{font-size:14px;color:var(--text);line-height:1.5}
+.chk .t small{display:block;margin-top:2px;font-size:12.5px;color:var(--muted)}
+.gate{margin-bottom:6px}
+.gate .node{padding:12px 14px}
+.gate .node b{display:flex;justify-content:space-between;gap:8px}
+.gate .gc{font-size:12px;font-weight:700;color:var(--muted)}
+.gate .node.ok .gc{color:var(--green)}
+
+/* ===== 3-step pipeline ===== */
+.pipe-wrap{container-type:inline-size}
+.pipe{display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;align-items:stretch}
+.pipe .link{flex:none}
+.step{display:flex;flex-direction:column;justify-content:space-between;gap:16px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--amber);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:box-shadow .5s ease,transform .5s ease}
+.step:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.step.s-ai{border-top-color:var(--blue)}
+.step.s-final{border-color:var(--navy);border-top-color:var(--green);background:linear-gradient(165deg,#12214a,#1c3a8c);color:#d3dcf7}
+.step.s-final h3{color:#fff}
+.step.s-final p{color:#c4d0f5}
+.step.s-final strong{color:#fff}
+.step-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.stag{padding:4px 11px;border-radius:9px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.08em}
+.s-final .stag{background:var(--green)}
+.who{font-size:12px;font-weight:600;color:var(--muted)}
+.s-final .who{color:#7ee8c3}
+.step h3{font-size:18px;line-height:1.3;color:var(--ink);font-weight:700;margin-bottom:8px}
+.step p{font-size:14.5px}
+.out{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink)}
+.out svg{color:var(--amber);font-size:16px}
+.s-final .out{border-color:rgba(255,255,255,.18);color:#fff}
+.s-final .out svg{color:#5ee0b4}
+.s-final details.more summary{color:#9fc0ff}
+.s-final details.more summary::before{background:rgba(255,255,255,.14)}
+.s-final details.more .body{background:rgba(255,255,255,.1);color:#d3dcf7}
+.loop{position:relative;margin:-1px 0 40px 50%;margin-right:calc((100% - 96px)/6);height:38px;border:2px dashed var(--amber);border-top:0;border-radius:0 0 18px 18px}
+.loop::before{content:"";position:absolute;left:-6px;top:-9px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid var(--amber)}
+.loop span{position:absolute;left:50%;bottom:-17px;transform:translateX(-50%);padding:5px 14px;border-radius:99px;background:var(--amber-soft);border:1px solid var(--amber-line);font-size:12.5px;font-weight:600;color:var(--amber-deep);white-space:nowrap;display:inline-flex;gap:7px;align-items:center}
+@container (max-width:860px){
+  .pipe{grid-template-columns:1fr}
+  .pipe .link{height:34px}
+  .pipe .link::before{left:50%;right:auto;top:2px;bottom:12px;width:2px;height:auto;margin:0 0 0 -1px;background:repeating-linear-gradient(180deg,var(--flow) 0 6px,transparent 6px 11px);background-size:2px 11px;animation-name:flowy}
+  .pipe .link::after{right:auto;left:50%;top:auto;bottom:3px;transform:translateX(-50%) rotate(135deg)}
+  .loop{margin:16px 0 0;height:auto;border:1.5px dashed var(--amber);border-radius:14px;padding:12px 14px;background:var(--amber-soft)}
+  .loop::before{display:none}
+  .loop span{position:static;transform:none;background:none;border:0;padding:0;white-space:normal}
+}
+
+/* ===== CTA + footer ===== */
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px;border-radius:20px;background:linear-gradient(120deg,#fff6e0,#fff0cf);border:1px solid var(--amber-line)}
+.cta .k{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-deep)}
+.cta h4{font-size:18px;color:var(--ink);font-weight:800;margin:2px 0 4px}
+.cta p{font-size:14.5px;max-width:560px}
+.foot{padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+
+/* ===== Motion ===== */
+@keyframes flowx{to{background-position-x:11px}}
+@keyframes flowy{to{background-position-y:11px}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+
+/* ===== Responsive ===== */
+@media (max-width:1023px){
+  .side{display:none}
+  .mhead{display:flex}
+  .main{margin-left:0}
+  .wrap{padding:24px 16px 40px;gap:56px}
+  html{scroll-padding-top:72px}
+}
+@media (max-width:900px){
+  .g3,.qgrid,.gloss{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .g2,.g3,.qgrid,.gloss{grid-template-columns:1fr}
+  .hero{padding:24px 20px;border-radius:20px}
+  .sec-head h2{font-size:20px}
+  .card{padding:20px}
+  .toast{left:16px;right:16px}
+}
+
+/* ===== Print ===== */
+@media print{
+  .side,.mhead,.drawer,.toast,.rp,.no-print{display:none!important}
+  .main{margin-left:0}
+  body{background:#fff}
+  .wrap{padding:0;gap:28px;max-width:none}
+  .card,.step,.hero,.api,.lane{box-shadow:none;break-inside:avoid}
+  .js .reveal{opacity:1!important;transform:none!important}
+  .link::before{animation:none}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none;filter:none}
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1;transform:none}
 }
-
-/* ===== Report (plain language) ===== */
-.sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
-.sum .card h3{font-size:19px}
-.sum .big{font-size:15px;font-weight:700;color:var(--ink);margin:6px 0 2px}
-.cmp{margin-top:40px;display:grid;gap:12px}
-.row{display:grid;grid-template-columns:1.05fr 1fr 1fr 1.15fr;gap:0;border-radius:20px;overflow:hidden;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);transition:transform .35s ease}
-.row:hover{transform:translateX(6px)}
-.row>div{padding:16px 18px;font-size:14.5px;line-height:1.55}
-.row .w{font-weight:800;color:var(--ink);display:flex;gap:10px;align-items:flex-start}
-.row .b{background:rgba(242,122,158,.08);border-left:1px solid var(--line)}
-.row .a{background:rgba(111,203,149,.10);border-left:1px solid var(--line)}
-.row .g{border-left:1px solid var(--line)}
-.row small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.row .b small{color:var(--rose)}.row .a small{color:var(--leaf2)}.row .g small{color:#7254D8}
-.row.head{background:transparent;box-shadow:none;border:0;backdrop-filter:none}
-.row.head>div{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 18px}
-.row.head:hover{transform:none}
-.todo{display:grid;gap:12px;margin-top:36px;counter-reset:td}
-.todo li{list-style:none;position:relative;padding:16px 18px 16px 64px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 30px -24px rgba(120,60,110,.5)}
-.todo li::before{counter-increment:td;content:counter(td);position:absolute;left:16px;top:14px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--pink2),var(--sun))}
-.todo li b{color:var(--ink)}
-.todo li em{font-style:normal;font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;margin-left:6px}
-.who-me{background:#FFE4EC;color:var(--rose)}.who-ai{background:#E2F5E9;color:var(--leaf2)}
-.gloss{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:36px}
-.gl{padding:18px;border-radius:18px;background:var(--glass);border:1px dashed rgba(226,69,122,.35)}
-.gl b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
-.gl b::before{content:"🌱 "}
-@media (max-width:900px){.sum,.gloss{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row>div{border-left:0!important;border-top:1px solid var(--line)}.row .w{border-top:0}.row.head{display:none}}
-
-/* ===== Day picker ===== */
-.daypick{position:relative;display:inline-flex;align-items:center;gap:6px;margin-bottom:26px;z-index:30}
-.dp-cur,.dp-arrow{font:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.85);background:var(--glass);box-shadow:var(--shadow);color:var(--ink);transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
-.dp-cur{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px}
-.dp-cur i{width:9px;height:9px;border-radius:50%;background:var(--leaf2);animation:none}
-.dp-cur b{font-size:11px;color:var(--rose);transition:transform .3s ease}
-.dp-cur[aria-expanded="true"] b{transform:rotate(180deg)}
-.dp-arrow{width:38px;height:38px;border-radius:50%;font-size:20px;font-weight:700;line-height:1;display:grid;place-items:center}
-.dp-cur:hover,.dp-arrow:hover:not(:disabled){transform:translateY(-2px);background:#fff}
-.dp-arrow:disabled{opacity:.35;cursor:default}
-.dp-menu{position:absolute;top:calc(100% + 10px);left:44px;min-width:290px;list-style:none;padding:8px;border-radius:20px;background:rgba(255,255,255,.92);box-shadow:0 30px 60px -25px rgba(120,60,110,.45);border:1px solid var(--line);opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.19,1,.22,1)}
-.dp-menu.open{opacity:1;transform:none;pointer-events:auto}
-.dp-menu li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-radius:14px;cursor:pointer;font-weight:700;color:var(--ink);font-size:14px;transition:background .2s ease}
-.dp-menu li:hover,.dp-menu li[aria-selected="true"]{background:#FFF0F5}
-.dp-menu li small{font-size:12px;font-weight:600;color:var(--muted)}
-.dp-menu li .now{white-space:nowrap;flex:none;font-size:11px;padding:2px 8px;border-radius:999px;background:#E2F5E9;color:var(--leaf2)}
-.live{display:inline-block;vertical-align:middle;font-size:14px;font-weight:700;color:var(--leaf2);padding:4px 12px;border-radius:999px;background:#E2F5E9;letter-spacing:0;margin-left:8px}
-@keyframes pulse{50%{opacity:.55}}
-.day{animation:dayIn .7s cubic-bezier(.19,1,.22,1)}
-@keyframes dayIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.stats.swap .stat{animation:statIn .6s cubic-bezier(.19,1,.22,1) both}
-.stats.swap .stat:nth-child(2){animation-delay:.06s}.stats.swap .stat:nth-child(3){animation-delay:.12s}.stats.swap .stat:nth-child(4){animation-delay:.18s}
-@keyframes statIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
-@media (max-width:600px){.dp-site{display:none}.dp-menu{left:0;min-width:0;width:calc(100vw - 32px)}}
 </style>
 </head>
 <body>
-<div class="sky"></div>
-<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
-<canvas id="petals" aria-hidden="true"></canvas>
-<div class="glow" id="glow" aria-hidden="true"></div>
-<div class="progress" id="progress"></div>
 
-<nav class="top"><div class="in">
-  <b>🌸 TGD · <span id="navDate"></span></b>
-  <a href="#report" data-go="report">Báo cáo nhanh</a>
-  <a href="#timeline" data-go="timeline">Dòng thời gian</a>
-  <a href="#arch" data-go="arch">Cấu trúc</a>
-  <a href="#home" data-go="home">Trang chủ</a>
-  <a href="#speed" data-go="speed">Tốc độ</a>
-  <a href="#rules" data-go="rules">Quy tắc</a>
-  <a href="#auto" data-go="auto">Tự động hoá</a>
-  <a href="#extra" data-go="extra">Bổ sung</a>
-  <a href="#future" data-go="future">Odoo</a>
-  <a href="#next" data-go="next">Việc tiếp theo</a>
-  <a href="#gloss" data-go="gloss">Giải thích từ</a>
-  <a href="#files" data-go="files">File</a>
-</div></nav>
+<div class="rp" id="rp"></div>
 
-<header class="hero"><div class="wrap">
-  <div class="daypick rv" id="daypick">
-    <button type="button" class="dp-arrow" data-dir="-1" aria-label="Ngày trước">‹</button>
-    <button type="button" class="dp-cur" id="dpCur" aria-haspopup="listbox" aria-expanded="false"><i></i><span id="dpLabel"></span><b aria-hidden="true">▾</b></button>
-    <button type="button" class="dp-arrow" data-dir="1" aria-label="Ngày sau">›</button>
-    <ul class="dp-menu" id="dpMenu" role="listbox"></ul>
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-user-check" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+<symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+<symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+</defs>
+</svg>
+
+<div class="toast no-print" id="toast" role="status" aria-live="polite">
+  <svg class="i"><use href="#i-check-circle"/></svg><span id="toast-message">Đã sao chép nội dung!</span>
+</div>
+
+<!-- Mobile header -->
+<header class="mhead no-print">
+  <div class="brand">
+    <div class="logo"><svg class="i"><use href="#i-cpu"/></svg></div>
+    <div><b>AI Agent Playbook</b></div>
   </div>
-  <h1 class="rv">Báo cáo <span class="shimmer serif">TGD</span><br></h1>
-  <p class="typed rv" id="typed" aria-live="polite"></p>
-  <div class="stats" id="stats"></div>
-  <a class="scroll-cue" href="#report" data-go="report"><span class="m"></span> Cuộn xuống xem chi tiết</a>
-</div></header>
+  <button class="icon-btn" id="mobile-menu-btn" aria-label="Mở menu"><svg class="i"><use href="#i-menu"/></svg></button>
+</header>
 
-<div class="marquee" aria-hidden="true"><div class="tr" id="mq">
-  <span>Section chỉnh được</span><span>Schema ≤ 25 ký tự</span><span>FAQ đồng nhất</span><span>CTA dùng chung</span><span>Breadcrumb toàn site</span><span>JSON-LD</span><span>Video nhẹ</span><span>Lật trang PDF</span><span>Nút đỏ thống nhất</span><span>Mobile không tràn</span>
-</div></div>
-
-<div class="day" data-day="2026-11-09">
-<!-- ============ REPORT ============ -->
-<section data-sec="report"><div class="wrap">
-  <span class="kicker rv">Báo cáo nhanh</span>
-  <h2 class="h2 rv">Tóm tắt trong 1 phút</h2>
-  <p class="lead rv">Dành cho người không làm kỹ thuật: hôm nay website được làm <b>đẹp hơn, nhẹ hơn, dễ tìm thấy trên Google hơn</b> và <b>tự sửa nội dung dễ hơn</b>.</p>
-  <div class="sum">
-    <div class="card rv"><div class="shine"></div><h3>🚀 Nhẹ hơn</h3><p class="big">Video đầu trang chủ giảm từ ~60 MB xuống 13 MB (máy tính) / 4,7 MB (điện thoại)</p><p>Trang tải ít dữ liệu hơn và hiện ảnh poster trước. Tốc độ tải thực tế (PageSpeed / Core Web Vitals) <b>chưa đo lại</b> để xác nhận.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>✏️ Tự sửa được</h3><p class="big">5 trang chuyển sang dạng "kéo – thả – gõ chữ"</p><p>Đổi chữ, ảnh, câu hỏi, link ngay trong Shopify, không cần đụng code hay nhờ thợ.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>🔎 Lên Google tốt hơn</h3><p class="big">Thêm FAQ, đường dẫn trang và dữ liệu cho Google</p><p>Google hiểu rõ trang nói về gì, có thể hiện câu hỏi thường gặp ngay trên kết quả tìm kiếm.</p></div>
-  </div>
-
-  <div class="cmp">
-    <div class="row head"><div>Hạng mục</div><div>Trước đây</div><div>Bây giờ</div><div>Lợi ích</div></div>
-    <div class="row rv"><div class="w">🏠 Trang chủ</div><div class="b"><small>Trước</small>Ít nội dung, video rất nặng, nút màu không đồng nhất.</div><div class="a"><small>Sau</small>13 phần rõ ràng: vì sao chọn chúng tôi, quy trình 4 bước, khu vực phục vụ, câu hỏi thường gặp…</div><div class="g"><small>Lợi ích</small>Khách hiểu nhanh công ty làm gì, tin tưởng hơn và dễ bấm "Báo giá".</div></div>
-    <div class="row rv"><div class="w">📏 Hướng dẫn đo cửa</div><div class="b"><small>Trước</small>Một trang dài, nội dung lặp, khó sửa.</div><div class="a"><small>Sau</small>Bố cục gọn, bảng kích thước dễ đọc trên điện thoại, có câu hỏi thường gặp.</div><div class="g"><small>Lợi ích</small>Khách tự đo đúng hơn → báo giá nhanh, ít sai kích thước.</div></div>
-    <div class="row rv"><div class="w">🚚 Nhận hàng tại kho</div><div class="b"><small>Trước</small>Chỉ là trang hướng dẫn tĩnh.</div><div class="a"><small>Sau</small>Có bước chuẩn bị, yêu cầu xe, câu hỏi thường gặp, nút gọi/email.</div><div class="g"><small>Lợi ích</small>Khách đến kho đúng giờ, đủ xe, giảm cuộc gọi hỏi lại.</div></div>
-    <div class="row rv"><div class="w">📖 Catalog</div><div class="b"><small>Trước</small>Phải chọn từng catalog, tải lại trang.</div><div class="a"><small>Sau</small>Cả 2 catalog lật trang như sách thật, có bìa, có nút tải PDF.</div><div class="g"><small>Lợi ích</small>Khách xem mẫu ngay trên web, dễ gửi cho người nhà/kiến trúc sư.</div></div>
-    <div class="row rv"><div class="w">🧭 Đường dẫn trang</div><div class="b"><small>Trước</small>Khách không biết mình đang ở đâu.</div><div class="a"><small>Sau</small>Mọi trang có dòng "Home › Tên trang".</div><div class="g"><small>Lợi ích</small>Dễ quay lại, Google hiểu cấu trúc web.</div></div>
-    <div class="row rv"><div class="w">🎨 Đồng nhất giao diện</div><div class="b"><small>Trước</small>Mỗi trang một kiểu nút, kiểu câu hỏi.</div><div class="a"><small>Sau</small>Nút chính luôn màu đỏ, khung câu hỏi và thanh liên hệ giống nhau ở mọi trang.</div><div class="g"><small>Lợi ích</small>Trông chuyên nghiệp, khách quen tay bấm.</div></div>
-    <div class="row rv"><div class="w">🛠️ Lỗi kỹ thuật</div><div class="b"><small>Trước</small>Thiếu 1 ký tự làm sai hiển thị; menu nhấp nháy khi rê chuột.</div><div class="a"><small>Sau</small>Đã sửa, hiển thị đúng trên mọi trình duyệt.</div><div class="g"><small>Lợi ích</small>Web ổn định, không lỗi vặt.</div></div>
-  </div>
-</div></section>
-
-<!-- ============ TIMELINE ============ -->
-<section data-sec="timeline"><div class="wrap">
-  <span class="kicker rv">Dòng thời gian</span>
-  <h2 class="h2 rv">Những việc đã hoàn thành</h2>
-  <p class="lead rv">Mỗi mục ghi rõ <b>vấn đề → cách làm → file bàn giao</b>. Nhãn màu: <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-speed">Tốc độ</span></p>
-
-  <div class="tl"><div class="fill"></div>
-
-    <div class="item rv"><div class="dot">🔧</div><div class="card"><div class="shine"></div>
-      <h3>Rà CSS toàn theme <span class="tag t-fix">Sửa lỗi</span></h3>
-      <p>Phát hiện file <b>base.css</b> thiếu 1 dấu <code>}</code> khiến cả khối CSS phía sau bị "nhốt" trong media query reduced-motion → nhiều trình duyệt hiển thị sai.</p>
-      <div class="files"><code>assets/base.css</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🖱️</div><div class="card"><div class="shine"></div>
-      <h3>Menu header <span class="tag t-fix">Sửa lỗi</span></h3>
-      <ul><li>Bỏ gạch chân đỏ (do <code>::after</code>), không đổi giao diện khi rê chuột.</li><li>Con trỏ giữ mặc định thay vì biến thành hình bàn tay.</li></ul>
-    </div></div>
-
-    <div class="item rv"><div class="dot">💳</div><div class="card"><div class="shine"></div>
-      <h3>USA Cabinets – Payment & Delivery Policy <span class="tag t-new">Làm mới</span></h3>
-      <p>Dựng trang chính sách thanh toán & giao hàng đúng giao diện site USA Cabinets Outlet.</p>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🎨</div><div class="card"><div class="shine"></div>
-      <h3>Trang Collection TGD <span class="tag t-new">Làm mới</span></h3>
-      <ul><li>Tinh chỉnh bảng màu navy/đỏ, giữ gradient chỗ cần, nút nổi bật hơn.</li><li>FAQ dạng thẻ đánh số — sau này trở thành <b>chuẩn FAQ chung</b>.</li></ul>
-      <div class="files"><code>blocks/ai_gen_block_05f8c3a.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📦</div><div class="card"><div class="shine"></div>
-      <h3>Trang In-Stock Door <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
-      <ul><li>Đếm số cửa, nhãn % tiết kiệm đặt góc ảnh, nút <b>Load More</b>.</li><li>FAQ 8 câu cùng kiểu Collection + FAQPage schema.</li><li>CTA gọn "Need Help Choosing the Right Door?" → về sau thành snippet dùng chung.</li></ul>
-      <div class="files"><code>InStockDoor.liquid</code><code>ai_gen_block_8614c9f.liquid</code><code>custom liquid bottom</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📐</div><div class="card"><div class="shine"></div>
-      <h3>Door Specifications → section <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span></h3>
-      <ul><li>Dựng lại toàn bộ giao diện, ảnh không bị thấp/lệch, chữ không rớt dòng.</li><li>Chuyển thành section chỉnh được + <b>nội dung dự phòng</b> (không có block vẫn hiện đủ ảnh/chữ).</li><li>Thêm bộ kiểm tra tự động: tên block/section ≤ 25 ký tự → hết lỗi Save.</li></ul>
-      <div class="files"><code>sections/tgd-door-specifications.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🧩</div><div class="card"><div class="shine"></div>
-      <h3>2 snippet CTA dùng chung <span class="tag t-new">Làm mới</span></h3>
-      <p>Viết 1 lần, gọi ở mọi trang bằng <code>{% render %}</code> → sửa 1 chỗ, cả web đổi theo.</p>
-      <div class="files"><code>snippets/tgd-cta-help.liquid</code><code>snippets/tgd-cta-project.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🧭</div><div class="card"><div class="shine"></div>
-      <h3>Breadcrumb toàn site <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
-      <ul><li>1 snippet gọi trong <code>theme.liquid</code> → mọi trang tự có "Home › …" (trừ trang chủ).</li><li>Kèm BreadcrumbList JSON-LD cho Google.</li><li>Thiết kế lại 2 lần → bản tối giản nền trắng, thẳng lề logo.</li></ul>
-      <div class="files"><code>snippets/tgd-breadcrumbs.liquid</code><code>layout/theme.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🚚</div><div class="card"><div class="shine"></div>
-      <h3>Pickup Instructions → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
-      <ul><li>Custom liquid → section chỉnh được (facts, 4 bước, yêu cầu xe, thẻ thông tin).</li><li>FAQ 8 câu thực tế + CTA chung + LocalBusiness/FAQPage schema.</li><li>Hết khoảng trắng 40px dưới breadcrumb.</li></ul>
-      <div class="files"><code>sections/tgd-pickup-instructions.liquid</code><code>templates/page.pickup.json</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📏</div><div class="card"><div class="shine"></div>
-      <h3>Measuring Guide → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag t-fix">Sửa lỗi</span></h3>
-      <ul><li>45 block chỉnh được, 2 ảnh chọn được, form báo giá giữ nguyên.</li><li>Rà giao diện: bỏ nội dung lặp, cân cột ảnh, đổi nhịp màu nền, icon nổi hơn, bảng gọn trên mobile.</li><li>FAQ có link nội bộ, bấm câu trả lời cũng đóng được. FAQPage + Article schema.</li><li>Sửa thẻ đóng thừa & link trỏ nhầm.</li></ul>
-      <div class="files"><code>sections/tgd-measuring-guide.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📖</div><div class="card"><div class="shine"></div>
-      <h3>Catalog Library → section <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
-      <ul><li>2 catalog PDF lật trang, tải lười khi cuộn tới, nút toàn màn hình.</li><li>Bìa nằm giữa (hết trang trắng bên trái), xuất sẵn ảnh bìa từ PDF.</li><li>Mô tả viết theo nội dung thật trong PDF, FAQ 7 câu, CollectionPage + FAQPage schema.</li></ul>
-      <div class="files"><code>sections/tgd-catalog-library.liquid</code><code>catalog-1-cover.jpg</code><code>catalog-2-cover.jpg</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">⚡</div><div class="card"><div class="shine"></div>
-      <h3>Đo tốc độ trang chủ <span class="tag t-speed">Tốc độ</span></h3>
-      <p>Trang chủ tải <b>~63 MB</b>, trong đó video đầu trang chiếm ~60 MB (file gốc 1080p 50 MB, phát lặp). Đổi sang bản Shopify đã nén: <b>720p cho máy tính, 480p cho điện thoại</b>, chỉ tải sau khi trang hiện xong, có ảnh poster, tự dừng khi cuộn qua.</p>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🏠</div><div class="card"><div class="shine"></div>
-      <h3>Trang chủ → 1 section "TGD Home" <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span></h3>
-      <ul><li>Gộp 7 phần cũ thành block (kéo thả được), hero sửa được hết chữ/nút/video.</li><li>Thêm 6 block mới: Why us, How it works, In-stock & Catalog (ảnh thật), Service areas (14 thành phố), FAQ 8 câu, CTA chung.</li><li>Thẻ sản phẩm có ô <b>thay ảnh riêng</b>.</li></ul>
-      <div class="files"><code>sections/tgd-home.liquid</code><code>templates/index.json</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🔴</div><div class="card"><div class="shine"></div>
-      <h3>Thống nhất màu nút <span class="tag t-fix">Sửa lỗi</span></h3>
-      <p>Quy tắc chung: <b>nút chính màu đỏ #E31B23</b>, nút phụ trắng viền xanh. Đã đổi nút "Get a Free Quote" & "Explore Doors" trên trang chủ từ xanh sang đỏ.</p>
-    </div></div>
-
-  </div>
-</div></section>
-
-<!-- ============ ARCHITECTURE ============ -->
-<section data-sec="arch"><div class="wrap">
-  <span class="kicker rv">Cấu trúc</span>
-  <h2 class="h2 rv">Theme được tổ chức như thế nào</h2>
-  <p class="lead rv">Mọi trang đi qua <b>theme.liquid</b> → breadcrumb chung → template JSON của từng trang → section chỉnh được. Các khối lặp lại (CTA, FAQ) dùng chung một nguồn để luôn đồng nhất.</p>
-  <div class="arch rv">
-  <svg viewBox="0 0 1120 600" role="img" aria-label="Sơ đồ cấu trúc theme Texas Glass Door">
-    <defs>
-      <linearGradient id="gPink" x1="0" x2="1"><stop offset="0" stop-color="#F7A8C4"/><stop offset="1" stop-color="#E2457A"/></linearGradient>
-      <linearGradient id="gLeaf" x1="0" x2="1"><stop offset="0" stop-color="#9FDDB6"/><stop offset="1" stop-color="#3FA36B"/></linearGradient>
-      <linearGradient id="gLav" x1="0" x2="1"><stop offset="0" stop-color="#DCD0FF"/><stop offset="1" stop-color="#8E6FE6"/></linearGradient>
-      <linearGradient id="gSun" x1="0" x2="1"><stop offset="0" stop-color="#FFE1A6"/><stop offset="1" stop-color="#F0A500"/></linearGradient>
-    </defs>
-    <!-- links -->
-    <g>
-      <path class="link" stroke="#EF6F9C" d="M560 92 V140"/>
-      <path class="link" stroke="#EF6F9C" d="M560 192 V230"/>
-      <path class="link" stroke="url(#gLeaf)" d="M560 230 H120 V262"/>
-      <path class="link" stroke="url(#gLeaf)" d="M560 230 H340 V262"/>
-      <path class="link" stroke="#3FA36B" d="M560 230 V262"/>
-      <path class="link" stroke="url(#gLeaf)" d="M560 230 H780 V262"/>
-      <path class="link" stroke="url(#gLeaf)" d="M560 230 H1000 V262"/>
-      <path class="link" stroke="#8E6FE6" d="M120 318 V370"/>
-      <path class="link" stroke="#8E6FE6" d="M340 318 V370"/>
-      <path class="link" stroke="#8E6FE6" d="M560 318 V370"/>
-      <path class="link" stroke="#8E6FE6" d="M780 318 V370"/>
-      <path class="link" stroke="#8E6FE6" d="M1000 318 V370"/>
-      <path class="link" stroke="url(#gSun)" d="M120 432 C120 490 380 470 420 506"/>
-      <path class="link" stroke="url(#gSun)" d="M340 432 C340 470 400 480 420 506"/>
-      <path class="link" stroke="#F0A500" d="M560 432 V506"/>
-      <path class="link" stroke="url(#gSun)" d="M780 432 C780 470 720 480 700 506"/>
-      <path class="link" stroke="url(#gSun)" d="M1000 432 C1000 490 740 470 700 506"/>
-    </g>
-    <!-- nodes -->
-    <g class="node"><rect x="430" y="36" width="260" height="56" rx="16"/><text x="560" y="62" text-anchor="middle">layout/theme.liquid</text><text class="s" x="560" y="80" text-anchor="middle">khung chung mọi trang</text></g>
-    <g class="node"><rect x="400" y="140" width="320" height="52" rx="16" style="stroke:#EF6F9C"/><text x="560" y="164" text-anchor="middle">snippets/tgd-breadcrumbs</text><text class="s" x="560" y="181" text-anchor="middle">Home › … + BreadcrumbList</text></g>
-    <g class="node"><rect x="40" y="262" width="160" height="56" rx="16"/><text x="120" y="286" text-anchor="middle">index.json</text><text class="s" x="120" y="304" text-anchor="middle">Trang chủ</text></g>
-    <g class="node"><rect x="260" y="262" width="160" height="56" rx="16"/><text x="340" y="286" text-anchor="middle">page.measuring…</text><text class="s" x="340" y="304" text-anchor="middle">Measuring Guide</text></g>
-    <g class="node"><rect x="480" y="262" width="160" height="56" rx="16"/><text x="560" y="286" text-anchor="middle">page.pickup.json</text><text class="s" x="560" y="304" text-anchor="middle">Pickup</text></g>
-    <g class="node"><rect x="700" y="262" width="160" height="56" rx="16"/><text x="780" y="286" text-anchor="middle">page.catalog…</text><text class="s" x="780" y="304" text-anchor="middle">Catalog</text></g>
-    <g class="node"><rect x="920" y="262" width="160" height="56" rx="16"/><text x="1000" y="286" text-anchor="middle">page.door-spec…</text><text class="s" x="1000" y="304" text-anchor="middle">Door Specs</text></g>
-    <g class="node"><rect x="30" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="120" y="396" text-anchor="middle">tgd-home</text><text class="s" x="120" y="414" text-anchor="middle">13 block kéo thả</text></g>
-    <g class="node"><rect x="250" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="340" y="396" text-anchor="middle">tgd-measuring-guide</text><text class="s" x="340" y="414" text-anchor="middle">45 block + form</text></g>
-    <g class="node"><rect x="470" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="560" y="396" text-anchor="middle">tgd-pickup-instructions</text><text class="s" x="560" y="414" text-anchor="middle">facts · steps · FAQ</text></g>
-    <g class="node"><rect x="690" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="780" y="396" text-anchor="middle">tgd-catalog-library</text><text class="s" x="780" y="414" text-anchor="middle">PDF lật trang</text></g>
-    <g class="node"><rect x="910" y="370" width="180" height="62" rx="16" style="stroke:#8E6FE6"/><text x="1000" y="396" text-anchor="middle">tgd-door-specifications</text><text class="s" x="1000" y="414" text-anchor="middle">thông số cửa</text></g>
-    <g class="node"><rect x="330" y="506" width="460" height="62" rx="18" style="stroke:#F0A500;stroke-width:2"/><text x="560" y="532" text-anchor="middle">Khối dùng chung</text><text class="s" x="560" y="550" text-anchor="middle">tgd-cta-help · tgd-cta-project · FAQ chuẩn (.tgd-isfaq) · nút đỏ #E31B23</text></g>
-  </svg>
-  <div class="legend"><span><i style="background:#EF6F9C"></i>Layout & snippet toàn site</span><span><i style="background:#3FA36B"></i>Template JSON từng trang</span><span><i style="background:#8E6FE6"></i>Section chỉnh được</span><span><i style="background:#F0A500"></i>Khối dùng chung</span></div>
-  </div>
-</div></section>
-
-<!-- ============ HOME BLOCKS ============ -->
-<section data-sec="home"><div class="wrap">
-  <span class="kicker rv">Trang chủ</span>
-  <h2 class="h2 rv">13 block — sắp theo hướng mắt khách đọc</h2>
-  <p class="lead rv">Cuộn bên phải, khung điện thoại bên trái sẽ sáng block tương ứng. <b style="color:#1F7A47">Xanh lá</b> = mới thêm, <b style="color:#E2457A">hồng</b> = giữ từ trang cũ.</p>
-  <div class="stackwrap">
-    <div class="phone"><div class="scr">
-      <div class="blk old" data-b="0">🎬 Hero video <em>giữ + tối ưu</em></div>
-      <div class="blk new" data-b="1">✨ Why choose us <em>mới</em></div>
-      <div class="blk old" data-b="2">🛍️ Product collections <em>+ thay ảnh</em></div>
-      <div class="blk new" data-b="3">🪜 How it works <em>mới</em></div>
-      <div class="blk old" data-b="4">🏗️ Projects slider <em>giữ</em></div>
-      <div class="blk old" data-b="5">↔️ Before & after <em>giữ</em></div>
-      <div class="blk old" data-b="6">🔎 Find a door strip <em>nút đỏ</em></div>
-      <div class="blk new" data-b="7">📦 In-stock & catalog <em>mới</em></div>
-      <div class="blk old" data-b="8">💵 Financing (Acorn) <em>giữ</em></div>
-      <div class="blk old" data-b="9">⭐ Reviews & map <em>giữ</em></div>
-      <div class="blk new" data-b="10">📍 Service areas <em>mới</em></div>
-      <div class="blk new" data-b="11">❓ Home FAQ <em>mới</em></div>
-      <div class="blk new" data-b="12">📣 Help CTA bar <em>mới</em></div>
-    </div></div>
-    <div class="steplist">
-      <div class="card rv" data-s="0"><div class="shine"></div><h3>🎬 Hero video</h3><p>Ấn tượng đầu tiên + H1. Sửa chữ, nút, số liệu, đổi video trong editor. Video tải sau, có poster.</p></div>
-      <div class="card rv" data-s="1"><div class="shine"></div><h3>✨ Why choose us</h3><p>Trả lời ngay "vì sao chọn mình": giá xưởng, làm theo size + CAD, bảo hành, nhận/giao.</p></div>
-      <div class="card rv" data-s="2"><div class="shine"></div><h3>🛍️ Product collections</h3><p>11 dòng sản phẩm dạng slider; mỗi thẻ có thể đặt ảnh riêng.</p></div>
-      <div class="card rv" data-s="3"><div class="shine"></div><h3>🪜 How it works</h3><p>Đo → Báo giá → Duyệt & sản xuất (~12–20 tuần) → Nhận/giao. Mỗi bước có link.</p></div>
-      <div class="card rv" data-s="4"><div class="shine"></div><h3>🏗️ Projects slider</h3><p>Dự án thật ở Houston, Austin, Frisco… tạo niềm tin.</p></div>
-      <div class="card rv" data-s="5"><div class="shine"></div><h3>↔️ Before & after</h3><p>3 slider trước/sau của app Slidr, ID sửa được.</p></div>
-      <div class="card rv" data-s="6"><div class="shine"></div><h3>🔎 Find a door strip</h3><p>Dải CTA giữa trang — nút chính đã chuyển đỏ.</p></div>
-      <div class="card rv" data-s="7"><div class="shine"></div><h3>📦 In-stock & catalog</h3><p>2 thẻ ảnh thật phủ kín, lớp phủ xanh, chữ trắng — lối vào 2 trang chưa từng có link từ home.</p></div>
-      <div class="card rv" data-s="8"><div class="shine"></div><h3>💵 Financing</h3><p>Trả góp qua Acorn Finance.</p></div>
-      <div class="card rv" data-s="9"><div class="shine"></div><h3>⭐ Reviews & map</h3><p>Đánh giá khách + bản đồ showroom Anna, giữ y hệt toàn site.</p></div>
-      <div class="card rv" data-s="10"><div class="shine"></div><h3>📍 Service areas</h3><p>14 thành phố, mỗi tên link sang trang thành phố — mạnh cho SEO địa phương.</p></div>
-      <div class="card rv" data-s="11"><div class="shine"></div><h3>❓ Home FAQ</h3><p>8 câu khách hay hỏi, có link nội bộ, FAQPage schema.</p></div>
-      <div class="card rv" data-s="12"><div class="shine"></div><h3>📣 Help CTA bar</h3><p>Thanh "Need Help Choosing the Right Door?" — giống mọi trang khác.</p></div>
+<!-- Mobile drawer -->
+<div class="drawer no-print" id="mobile-drawer" aria-hidden="true">
+  <div class="back" id="mobile-backdrop"></div>
+  <nav class="panel" aria-label="Menu">
+    <div class="top">
+      <div class="brand" style="border:0;margin:0;padding:0">
+        <div class="logo"><svg class="i"><use href="#i-cpu"/></svg></div>
+        <div><b>AI Agent Strategy</b><small>Lộ trình triển khai</small></div>
+      </div>
+      <button class="icon-btn" id="close-mobile-menu" aria-label="Đóng menu"><svg class="i"><use href="#i-x"/></svg></button>
     </div>
-  </div>
-</div></section>
-
-<!-- ============ SPEED ============ -->
-<section data-sec="speed"><div class="wrap">
-  <span class="kicker rv">Tốc độ</span>
-  <h2 class="h2 rv">Video trang chủ: trước & sau</h2>
-  <p class="lead rv">Đo trực tiếp trên texasglassdoor.com. Thanh hồng = trước, thanh xanh = sau khi đổi sang bản nén Shopify.</p>
-  <div class="speed">
-    <div class="card rv"><div class="shine"></div><h3>🖥️ Máy tính</h3>
-      <div class="bars"><div class="bar"><span class="before" data-w="100">~60 MB tải</span></div><div class="bar dark"><span class="after" data-w="22">13 MB</span></div></div></div>
-    <div class="card rv"><div class="shine"></div><h3>📱 Điện thoại</h3>
-      <div class="bars"><div class="bar"><span class="before" data-w="100">~60 MB tải</span></div><div class="bar dark"><span class="after" data-w="18">4,7 MB</span></div></div></div>
-    <div class="card rv"><div class="shine"></div><h3>⏱️ Lúc mở trang</h3>
-      <div class="bars"><div class="bar"><span class="before" data-w="100">video tải ngay</span></div><div class="bar dark"><span class="after" data-w="34">poster ~0,2 MB</span></div></div>
-      <p style="margin-top:12px;font-size:14px">Video chỉ tải sau sự kiện <code>load</code>, tự dừng khi cuộn qua, bỏ qua khi khách bật tiết kiệm dữ liệu.</p></div>
-  </div>
-</div></section>
-
-<!-- ============ NEXT ============ -->
-<section data-sec="next"><div class="wrap">
-  <span class="kicker rv">Việc tiếp theo</span>
-  <h2 class="h2 rv">Còn lại cần làm</h2>
-  <ul class="todo">
-    <li class="rv"><b>Dán các file mới vào Shopify</b> (trang chủ, đo cửa, nhận hàng, catalog) rồi mở web kiểm tra. <em class="who-me">Chủ web</em> <span class="tag s-live">Trang chủ & đo cửa đã lên web</span></li>
-    <li class="rv"><b>Chọn 2 ảnh bìa catalog</b> trong phần chỉnh trang Catalog (đã có sẵn file ảnh). <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Thay ảnh "trước / sau"</b> bằng bản đã nén (nhẹ hơn 10–30 lần). <em class="who-me">Chủ web</em></li>
-    <li class="rv"><b>Kiểm tra nút ở trang About Us</b> và đổi sang màu đỏ cho đồng nhất. <em class="who-ai">Claude</em> <span class="tag s-live">Đã làm 12/11</span></li>
-    <li class="rv"><b>Nén 2 video nặng còn lại</b> (35 MB và 90 MB) nếu đang dùng ở trang khác. <em class="who-ai">Claude</em></li>
-    <li class="rv"><b>Gỡ các app không còn dùng</b> (chat, popup, theo dõi…) để web nhẹ thêm. <em class="who-me">Chủ web</em></li>
-  </ul>
-</div></section>
-
-<!-- ============ FILES ============ -->
-<section data-sec="files"><div class="wrap">
-  <span class="kicker rv">File bàn giao</span>
-  <h2 class="h2 rv">Danh sách file trong ngày</h2>
-  <div class="fgrid">
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-home.liquid</b><small>Trang chủ 13 block</small></div></div>
-    <div class="f rv"><span class="ext j">JSON</span><div><b>templates/index.json</b><small>Template trang chủ</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-measuring-guide.liquid</b><small>Measuring Guide</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-pickup-instructions.liquid</b><small>Pickup</small></div></div>
-    <div class="f rv"><span class="ext j">JSON</span><div><b>templates/page.pickup.json</b><small>Template Pickup</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-catalog-library.liquid</b><small>Catalog PDF</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>sections/tgd-door-specifications.liquid</b><small>Door Specs</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-breadcrumbs.liquid</b><small>Breadcrumb toàn site</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-cta-help.liquid</b><small>CTA chung</small></div></div>
-    <div class="f rv"><span class="ext">LIQ</span><div><b>snippets/tgd-cta-project.liquid</b><small>CTA "Ready to Start"</small></div></div>
-    <div class="f rv"><span class="ext" style="background:linear-gradient(135deg,#7CC89A,#9CC9F5)">JPG</span><div><b>catalog-1/2-cover.jpg</b><small>Ảnh bìa catalog</small></div></div>
-  </div>
-</div></section>
-
+    <div class="nav-title">Đi theo từng bước</div>
+    <ol class="steps" id="mobile-nav"></ol>
+  </nav>
 </div>
 
-<div class="day" data-day="2026-11-10" hidden>
-<!-- ============ REPORT 10–12/11 ============ -->
-<section data-sec="report"><div class="wrap">
-  <span class="kicker rv">Báo cáo nhanh · 10–12/11/2026</span>
-  <h2 class="h2 rv">Tóm tắt trong 1 phút</h2>
-  <p class="lead rv">Thực hiện <b>10–12/11/2026</b> · Tổng hợp nhật ký <b>12/11/2026</b>. Trọng tâm: <b>khách gửi yêu cầu báo giá dễ hơn</b>, <b>mail về gọn – dễ đọc</b>, <b>web gọn hơn trên Google</b>. Mỗi hạng mục bên dưới ghi rõ ngày, trạng thái kiểm chứng, file và kết quả.</p>
-  <div class="legend rv"><span class="tag s-ok">Đã kiểm thử thành công</span> <span class="tag s-live">Đã lên web, chưa kiểm thử chức năng</span> <span class="tag s-wait">Đã có code, chờ kiểm thử</span> <span class="tag s-doing">Đang xử lý</span> <span class="tag s-no">Chưa triển khai</span></div>
-  <div class="sum">
-    <div class="card rv"><div class="shine"></div><h3>📩 Form → mail</h3><p class="big">2 luồng đã kiểm thử: Contact Quote và Door Quote</p><p>Sales nhận mail rõ từng dòng (loại cửa, chiều mở, kích thước, nút gọi nhanh). Product Quote và Trade còn chờ kiểm tra.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>🧭 4 trang làm mới</h3><p class="big">Liên hệ, Door Swing Guide, Tìm kiếm, Danh mục cửa</p><p>Khách bấm chọn thay vì gõ, biết ngay đã gửi, xem sơ đồ cửa rõ ràng.</p></div>
-    <div class="card rv"><div class="shine"></div><h3>🔎 Google gọn hơn</h3><p class="big">Gộp 3 trang trùng, thêm 8 ảnh sơ đồ có mô tả</p><p>Link cũ tự chuyển (301) sang trang chính — đã kiểm tra trên web thật.</p></div>
+<!-- Sidebar -->
+<aside class="side no-print">
+  <div class="brand">
+    <div class="logo"><svg class="i"><use href="#i-cpu"/></svg></div>
+    <div><b>AI Agent Strategy</b><small>Lộ trình triển khai doanh nghiệp</small></div>
   </div>
-
-  <div class="cmp">
-    <div class="row head"><div>Hạng mục</div><div>Trước đây</div><div>Bây giờ</div><div>Lợi ích</div></div>
-    <div class="row rv"><div class="w">✉️ Trang Liên hệ</div><div class="b"><small>Trước</small>Form nhiều dropdown, ô Location và ZIP tách rời, chữ nhỏ.</div><div class="a"><small>Sau</small>Bấm chọn nhanh, có chiều mở cửa, kích thước Rộng × Cao, báo thành công / lỗi ngay trên trang.</div><div class="g"><small>Lợi ích</small>Khách điền nhanh hơn; sales đủ thông tin để báo giá.</div></div>
-    <div class="row rv"><div class="w">🚪 Hướng dẫn chiều mở cửa</div><div class="b"><small>Trước</small>Sơ đồ vẽ từ PDF, Google không đọc được; có 2 trang trùng nhau.</div><div class="a"><small>Sau</small>Công cụ chọn nhanh, 8 sơ đồ dạng ảnh, so sánh mở vào / mở ra, FAQ; còn 1 link duy nhất.</div><div class="g"><small>Lợi ích</small>Khách chọn đúng chiều mở hơn; ảnh có thể lên Google Images.</div></div>
-    <div class="row rv"><div class="w">🗂️ Danh mục cửa</div><div class="b"><small>Trước</small>Thẻ cửa ghi "View Details", không có form, chữ rớt dòng.</div><div class="a"><small>Sau</small>Nút "Request Quote" điền sẵn tên cửa vào form báo giá ngay trên trang.</div><div class="g"><small>Lợi ích</small>Khách xin báo giá không phải rời trang.</div></div>
-    <div class="row rv"><div class="w">🔍 Tìm kiếm</div><div class="b"><small>Trước</small>Ô tìm kiếm lỗi, trang kết quả sơ sài.</div><div class="a"><small>Sau</small>Ô tìm kiếm sổ xuống gọn đẹp, trang kết quả có bộ lọc và thẻ cửa rõ ràng.</div><div class="g"><small>Lợi ích</small>Khách tìm đúng mẫu cửa nhanh hơn.</div></div>
-    <div class="row rv"><div class="w">🛠️ Lỗi hiển thị</div><div class="b"><small>Trước</small>Menu tràn ngang trên laptop nhỏ; chữ rớt dòng ở Door Specs và Our Projects.</div><div class="a"><small>Sau</small>Menu vừa 1 hàng, chữ thẳng hàng, tên dự án gọn 1 dòng.</div><div class="g"><small>Lợi ích</small>Web trông chuyên nghiệp trên mọi màn hình.</div></div>
-  </div>
-</div></section>
-
-<!-- ============ TIMELINE 10–12/11 ============ -->
-<section data-sec="timeline"><div class="wrap">
-  <span class="kicker rv">Dòng thời gian</span>
-  <h2 class="h2 rv">Nhật ký công việc 10–12/11</h2>
-  <p class="lead rv">Mỗi mục ghi <b>ngày → trạng thái → file → kết quả</b>. Việc làm 10/11 và 11/11 không tách được ngày chính xác nên ghi chung <b>10–11/11</b>.</p>
-
-  <div class="tl"><div class="fill"></div>
-
-    <div class="item rv"><div class="dot">🔍</div><div class="card"><div class="shine"></div>
-      <h3>Ô tìm kiếm & trang kết quả <span class="tag t-fix">Sửa lỗi</span> <span class="tag t-new">Làm mới</span> <span class="tag s-live">Đã lên web</span></h3>
-      <p class="meta">📅 10–11/11 · Kết quả: trang kết quả mới đang hiển thị trên texasglassdoor.com/search.</p>
-      <ul><li>Sửa ô tìm kiếm ở header bị lỗi, làm lại khung sổ xuống.</li><li>Trang kết quả mới: ô tìm lớn, gợi ý phổ biến, bộ lọc, sắp xếp, thẻ cửa có nút báo giá.</li></ul>
-      <div class="files"><code>sections/header.liquid</code><code>sections/main-search.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🧹</div><div class="card"><div class="shine"></div>
-      <h3>Gộp trang trùng cửa sắt <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p class="meta">📅 10–11/11 · Kết quả: 2 link cũ trả về 301 sang Collection (đã kiểm tra trên web).</p>
-      <p>2 trang "Iron Single / Double French Door" dạng Page trùng Collection → ẩn và chuyển hướng 301.</p>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🗂️</div><div class="card"><div class="shine"></div>
-      <h3>Trang danh mục cửa (đặt làm theo yêu cầu) <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Form đã kiểm thử</span></h3>
-      <p class="meta">📅 10–11/11, form nối Apps Script 12/11 · Kết quả: form gửi Door Quote chạy tốt (chủ web xác nhận).</p>
-      <ul><li>Bỏ giá; nút chính <b>Request Quote</b> (không còn "View Details").</li><li>Form báo giá ngay trên trang, tự điền tên mẫu cửa; thêm ô Door swing.</li><li>H1, mô tả thu gọn, FAQ chung, dữ liệu cho Google.</li></ul>
-      <div class="files"><code>sections/main-collection-product-grid.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🏠</div><div class="card"><div class="shine"></div>
-      <h3>Trang chủ <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-live">Đã lên web</span></h3>
-      <p class="meta">📅 10–12/11 · Kết quả: code mới đang chạy trên trang chủ; nội dung thẻ 04 và 09 Our Projects còn cần chỉnh.</p>
-      <ul><li>Thẻ "How it works" và khối <b>"Who we work with"</b> (thay link thành phố chưa làm xong).</li><li>Link dạng nút mũi tên tròn, bỏ gạch chân.</li><li>12/11 — Our Projects: chữ thẳng hàng, tên dự án tự vừa 1 dòng.</li></ul>
-      <div class="files"><code>sections/tgd-home.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📐</div><div class="card"><div class="shine"></div>
-      <h3>Door Specifications — rớt chữ <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-wait">Chờ dán file</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: đã thử trên trang thật (chèn tạm), bản sửa <b>chưa có trên web</b>.</p>
-      <p>Hết rớt chữ lẻ ở tiêu đề, danh sách, bảng thông số trên máy tính, tablet, điện thoại.</p>
-      <div class="files"><code>sections/tgd-door-specifications.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🚪</div><div class="card"><div class="shine"></div>
-      <h3>Door Swing Guide mới <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Đã lên web & kiểm tra 301</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: trang mới hiển thị; link <code>-1</code> trả 301; menu và SEO title/description đã cập nhật. Quy ước Left/Right hand chờ chủ web xác nhận với xưởng.</p>
-      <ul><li>8 ảnh sơ đồ WebP (~20 KB/ảnh) có mô tả ảnh.</li><li>Công cụ "Find your door swing", lọc sơ đồ, phóng to, so sánh mở vào / mở ra, FAQ.</li><li>Xoá trang trùng; còn 1 link <code>/pages/door-swing-direction-guide</code>.</li></ul>
-      <div class="files"><code>sections/tgd-swing-guide.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📨</div><div class="card"><div class="shine"></div>
-      <h3>Door Quote: form báo giá → mail tự động <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đã kiểm thử thành công</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: chủ web xác nhận hoạt động tốt; script trả lời đúng nhánh <code>door_quote</code> (đã kiểm tra).</p>
-      <ul><li>Form ở Measuring Guide và Danh mục cửa gửi loại <code>door_quote</code>.</li><li>Mail Sales có nút Call / Reply, khung thông tin cửa; mail cảm ơn khách kèm link hướng dẫn (đã gửi thử qua hàm <code>testDoorQuoteEmail</code>).</li><li>Script lỗi → form tự gửi qua Shopify, không mất khách.</li></ul>
-      <div class="files"><code>TGD_DoorQuote.gs</code><code>Code.gs (+3 dòng)</code><code>sections/tgd-measuring-guide.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">✉️</div><div class="card"><div class="shine"></div>
-      <h3>Trang Liên hệ — giao diện mới <span class="tag t-new">Làm mới</span> <span class="tag t-seo">SEO</span> <span class="tag s-ok">Gửi form đã kiểm thử</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: gửi Contact Form thành công Shopify → Apps Script → Zoho Mail → Google Drive, hiện thông báo cảm ơn màu xanh (chủ web xác nhận).</p>
-      <ul><li>Chọn loại dự án & loại cửa bằng nút bấm, kích thước Rộng × Cao, chiều mở cửa, tải ảnh; vẫn gửi loại <code>contact_quote</code>.</li><li>Trên điện thoại form nằm ngay dưới tiêu đề; bản đồ showroom, FAQ, CTA dùng chung.</li></ul>
-      <p class="note"><span class="tag s-wait">Chờ kiểm thử</span> Tự cuộn tới ô bắt buộc còn thiếu và tới thông báo cảm ơn — đã có code, cần xác nhận trên desktop và mobile.</p>
-      <div class="files"><code>sections/tgd-contact-quote-page.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📏</div><div class="card"><div class="shine"></div>
-      <h3>Header tràn ngang <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: đo trên web thật ở 990 / 1024 / 1100 / 1199 / 1440 px — không còn tràn.</p>
-      <p>Thu gọn menu ở màn hình 990–1199 px để icon không bị đẩy ra ngoài.</p>
-      <div class="files"><code>sections/header.liquid</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🔴</div><div class="card"><div class="shine"></div>
-      <h3>Nút trang About Us <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-live">Đã lên web</span></h3>
-      <p class="meta">📅 12/11 · Kết quả: nút chính đang hiển thị màu đỏ trên trang About Us.</p>
-      <p>Nút chính đỏ giống trang chủ; sửa lỗi hiệu ứng nút bị tắt với mọi khách.</p>
-      <div class="files"><code>sections/aboutus.liquid</code></div>
-    </div></div>
-
-  </div>
-</div></section>
-
-<!-- ============ AUTOMATION ============ -->
-<section data-sec="auto"><div class="wrap">
-  <span class="kicker rv">Tự động hoá form</span>
-  <h2 class="h2 rv">Luồng Shopify → Apps Script → Zoho + Drive</h2>
-  <p class="lead rv">Mọi form gửi về <b>một</b> Web App Google Apps Script (chỉ một hàm <code>doPost(e)</code>), phân loại theo <code>form_type</code>, gửi mail qua Zoho, lưu file lên Google Drive, rồi báo lại cho trang Shopify.</p>
-
-  <div class="flow rv" aria-label="Sơ đồ luồng form">
-    <span>🛒 Shopify form<small>khách bấm Gửi</small></span><i>→</i>
-    <span>⚙️ Google Apps Script<small>doPost(e) · phân loại form_type</small></span><i>→</i>
-    <span>📮 Zoho Mail<small>mail Sales + mail khách</small></span><i>+</i>
-    <span>🗂️ Google Drive<small>file khách tải lên (Contact)</small></span><i>→</i>
-    <span>✅ Shopify xác nhận<small>thông báo cảm ơn</small></span>
-  </div>
-
-  <div class="stable rv">
-    <div class="srow head"><div>Luồng</div><div>Trang gửi</div><div>Xử lý trong script</div><div>Trạng thái</div></div>
-    <div class="srow"><div><b>Contact Quote</b><small>form_type: contact_quote</small></div><div>/pages/contact</div><div><code>handleContactQuote_</code> · mail Sales có link Drive · trả lời bằng postMessage</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Gửi form, Zoho, Drive, thông báo xanh. Mail cảm ơn khách: chưa có kết quả riêng.</small></div></div>
-    <div class="srow"><div><b>Door Quote</b><small>form_type: door_quote</small></div><div>Danh mục cửa · Measuring Guide</div><div><code>handleDoorQuote_</code> · mail Sales + mail cảm ơn khách · lỗi thì tự gửi qua Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Chủ web xác nhận chạy tốt (12/11).</small></div></div>
-    <div class="srow"><div><b>Product Quote</b><small>form_type: quote</small></div><div>/pages/request-a-quote (từ trang sản phẩm)</div><div><code>handleQuoteRequest_</code> · <code>buildTGDQuoteEmail_</code></div><div><span class="tag s-wait">Cần kiểm tra</span><small>Mail Sales từng chạy trong test; cấu hình, ảnh, Financing, mail khách chờ kiểm thử.</small></div></div>
-    <div class="srow"><div><b>Trade Application</b><small>form_type: trade</small></div><div>/pages/trade-program</div><div><code>handleTradeApplication_</code> · mail nội bộ + mail cảm ơn</div><div><span class="tag s-wait">Cần kiểm tra</span><small>Code đang có; chưa có kết quả kiểm thử đầy đủ.</small></div></div>
-  </div>
-  <p class="note rv">Ngoài 4 luồng trên, script còn nhánh mặc định cho đơn từ <code>/pages/checkout</code> (có sẵn từ trước, không nằm trong đợt này). Thông tin xác thực Zoho lưu trong Script Properties, không ghi ở nhật ký.</p>
-</div></section>
-
-<!-- ============ BỔ SUNG: CÔNG VIỆC TRƯỚC ĐÓ ============ -->
-<section data-sec="extra"><div class="wrap">
-  <span class="kicker rv">Bổ sung · Tổng hợp công việc trước đó</span>
-  <h2 class="h2 rv">Hệ thống form, mail & trang sản phẩm</h2>
-  <p class="lead rv">Các việc làm trước 10/11 không xác minh được ngày chính xác — ghi bổ sung tại đây (tổng hợp 12/11/2026).</p>
-
-  <div class="tl"><div class="fill" style="transform:scaleY(1)"></div>
-
-    <div class="item rv"><div class="dot">🛍️</div><div class="card"><div class="shine"></div>
-      <h3>Premium Product Page V2/V3 <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: section có trên theme, dùng ở template <code>product.architectural-quote</code>. Cần xác minh từng sản phẩm đang dùng template nào.</p>
-      <ul>
-        <li>Phong cách Premium, bố cục hai cột, responsive; gallery ảnh chính, thumbnail, xem ảnh lớn, giảm chiều cao ảnh, giữ tỷ lệ cửa.</li>
-        <li>Cấu hình: Interior/Exterior, Door Size, Custom Size, Glass Finish → truyền sang Request a Quote. CTA "REQUEST MY CUSTOM QUOTE".</li>
-        <li>FAQ accordion, bảng Product Specifications; bỏ breadcrumb và CTA trùng, dùng snippet CTA chung.</li>
-      </ul>
-      <div class="files"><code>sections/tgd-premium-product.liquid</code><code>templates/product.architectural-quote.json</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🧾</div><div class="card"><div class="shine"></div>
-      <h3>Trang Request a Quote <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử bản cuối</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: trang đang mở được (/pages/request-a-quote); mail Sales từng gửi thành công trong test.</p>
-      <ul>
-        <li>Hai cột: <b>Your Selected Door</b> (ảnh, tên, cấu hình, số lượng) và <b>Contact Information</b>.</li>
-        <li>Đọc thông tin cửa từ URL (<code>product, image, size, width, height, glass, finish, handing, quantity, options, variant</code>).</li>
-        <li>Đã thử: Financing Yes/No, lấy đúng ảnh cửa, mail cảm ơn khách (từng hỏng do dán code sai chỗ).</li>
-      </ul>
-      <div class="files"><code>sections/tgd-quote-form.liquid</code><code>TGD_Quote.gs</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">✉️</div><div class="card"><div class="shine"></div>
-      <h3>Contact Form Premium (bản trước) <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: gửi form, nhận Zoho Mail, lưu file Drive, hiện thông báo cảm ơn — đã kiểm thử.</p>
-      <ul>
-        <li>Giao diện Navy–Red–White hai cột; kiểm tra trường bắt buộc, điện thoại 10–15 số; upload JPG/PNG/PDF ≤ 5 MB, 1 file/lần.</li>
-        <li>Sửa lỗi nút <b>SUBMITTING…</b> bị treo dù mail đã tới.</li>
-        <li>Thêm tự cuộn tới thông báo cảm ơn / ô bắt buộc còn thiếu (highlight + focus) — <span class="tag s-wait">chờ kiểm thử</span>.</li>
-      </ul>
-      <div class="files"><code>sections/tgd-contact-quote-page.liquid</code><code>Contact.gs</code></div>
-    </div></div>
-
-    <div class="item rv"><div class="dot">⚙️</div><div class="card"><div class="shine"></div>
-      <h3>Google Apps Script "gui mail co form" <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Đang chạy</span></h3>
-      <p class="meta">📅 Trước 10/11, thêm nhánh door_quote 12/11 · Kết quả: Web App đang nhận POST từ Shopify.</p>
-      <ul><li>Chỉ một <code>doPost(e)</code> trong <code>Code.gs</code>; phân loại <code>quote</code>, <code>contact_quote</code>, <code>trade</code>, <code>door_quote</code>, đơn checkout.</li><li>Chống gửi trùng bằng Request ID + CacheService (Contact có LockService) — trong thời gian cache, không vĩnh viễn.</li></ul>
-    </div></div>
-
-    <div class="item rv"><div class="dot">📮</div><div class="card"><div class="shine"></div>
-      <h3>Zoho Mail API <span class="tag t-new">Làm mới</span> <span class="tag s-ok">Contact & Door Quote đã kiểm thử</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: gửi mail thành công cho Contact (có link Drive) và Door Quote; các luồng khác kiểm thử riêng.</p>
-      <ul><li>OAuth2 tự làm mới token; credential trong Script Properties. <b>Nên thay mới</b> credential từng lộ trong ảnh chụp màn hình.</li></ul>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🗂️</div><div class="card"><div class="shine"></div>
-      <h3>Google Drive — lưu file khách gửi <span class="tag t-new">Làm mới</span> <span class="tag t-fix">Sửa lỗi</span> <span class="tag s-ok">Đã kiểm thử</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: PNG gửi từ Shopify được lưu Drive, link có trong mail Zoho.</p>
-      <ul><li>Thư mục <b>TGD Customer Quote Uploads</b>, khai báo trong Script Properties; quyền giữ Restricted.</li><li>Sửa lỗi "Folder not found" (cấp quyền thư mục) và "permission to call DriveApp.Folder.createFile" (thêm OAuth scope); chạy <code>testDriveAccess()</code>, <code>testContactUpload()</code>.</li></ul>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🤝</div><div class="card"><div class="shine"></div>
-      <h3>Trade Program <span class="tag t-new">Làm mới</span> <span class="tag s-wait">Chờ kiểm thử</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: script trả lời đúng nhánh <code>trade</code>; chưa có kết quả kiểm thử mail đầy đủ.</p>
-      <p>Luồng riêng cho Contractor, Builder, đối tác; không gộp với Contact Quote.</p>
-    </div></div>
-
-    <div class="item rv"><div class="dot">🔁</div><div class="card"><div class="shine"></div>
-      <h3>Thử n8n → chuyển sang Apps Script <span class="tag s-no">n8n không dùng cho form hiện tại</span></h3>
-      <p class="meta">📅 Trước 10/11 · Kết quả: chọn Apps Script làm backend chính.</p>
-      <ul><li>Đã thử n8n local trên Windows: workflow Quote Order, Zoho IMAP, OAuth2, HTTP Request, Filter, Split Out, Code, chống trùng.</li><li>Chuyển vì: chạy cloud, không cần máy bật 24/7, chi phí thấp, luồng đơn giản hơn.</li></ul>
-    </div></div>
-
-  </div>
-</div></section>
-
-<!-- ============ FUTURE ============ -->
-<section data-sec="future"><div class="wrap">
-  <span class="kicker rv">Kế hoạch phát triển</span>
-  <h2 class="h2 rv">Odoo CRM <span class="tag s-no">Chưa triển khai</span></h2>
-  <p class="lead rv"><b>Odoo CRM hiện chưa được đồng bộ với website.</b> Chưa có API, mapping hay workflow nào chạy.</p>
-  <ul class="todo">
-    <li class="rv">Tạo Lead tự động từ Contact, Product Quote, Door Quote và Trade. <em class="who-me">Dự kiến</em></li>
-    <li class="rv">Kiểm tra trùng theo email / số điện thoại trước khi tạo Lead. <em class="who-me">Dự kiến</em></li>
-    <li class="rv">Phân bổ Sales phụ trách; lưu sản phẩm, cấu hình và link Google Drive. <em class="who-me">Dự kiến</em></li>
-    <li class="rv">Hỗ trợ chuyển Quote thành Sales Order. <em class="who-me">Dự kiến</em></li>
-  </ul>
-  <p class="lead rv" style="margin-top:18px">Thứ tự đề xuất: ① ổn định form & mail → ② chuẩn hoá dữ liệu khách → ③ Odoo CRM → ④ tự động hoá bán hàng → ⑤ vận hành.</p>
-</div></section>
-
-<!-- ============ NEXT 10–12/11 ============ -->
-<section data-sec="next"><div class="wrap">
-  <span class="kicker rv">Việc tiếp theo</span>
-  <h2 class="h2 rv">Còn tồn đọng (cập nhật 12/11)</h2>
-  <ol class="todo">
-    <li class="rv"><b>Kiểm thử Contact Form trên desktop và mobile</b>, đặc biệt tự cuộn tới ô thiếu và kiểm tra trường bắt buộc. <span class="tag s-wait">Chờ kiểm thử</span></li>
-    <li class="rv"><b>Kiểm tra Product Configuration</b> truyền đúng thông số sang Request a Quote. <span class="tag s-wait">Chờ kiểm thử</span></li>
-    <li class="rv"><b>Kiểm tra ảnh sản phẩm</b> hiển thị đúng trong Quote Form. <span class="tag s-wait">Chờ kiểm thử</span></li>
-    <li class="rv"><b>Kiểm tra mail xác nhận khách</b> cho từng loại Quote và Trade Program. <span class="tag s-wait">Chờ kiểm thử</span></li>
-    <li class="rv"><b>Kiểm tra chống gửi trùng</b> và xử lý lỗi mạng. <span class="tag s-wait">Chờ kiểm thử</span></li>
-    <li class="rv"><b>Xác minh SEO, redirect và tối ưu hiệu năng</b> đã áp dụng trên Production (gồm đo PageSpeed thật; dán bản sửa Door Specifications). <span class="tag s-doing">Đang xử lý</span></li>
-    <li class="rv"><b>Việc cũ còn mở:</b> Our Projects (link thẻ 09, "San Antonio,Texas"), quy ước Door Swing Left/Right hand, nén 2 video 35 MB / 90 MB, gỡ app Shopify không dùng. <span class="tag s-doing">Đang xử lý</span></li>
+  <div class="nav-title">Đi theo từng bước</div>
+  <ol class="steps" id="desktop-nav">
+    <li><a href="#sec-1" data-i="0"><span class="dot">01</span><span class="lbl">AI giúp gì cho công ty</span></a></li>
+    <li><a href="#sec-2" data-i="1"><span class="dot">02</span><span class="lbl">Nhân viên AI trực 24/7</span></a></li>
+    <li><a href="#sec-3" data-i="2"><span class="dot">03</span><span class="lbl">4 nguyên tắc cốt lõi</span></a></li>
+    <li><a href="#sec-4" data-i="3"><span class="dot">04</span><span class="lbl">Làm được gì &amp; nối hệ thống</span></a></li>
+    <li><a href="#sec-5" data-i="4"><span class="dot">05</span><span class="lbl">Cần chuẩn bị gì</span></a></li>
+    <li><a href="#sec-6" data-i="5"><span class="dot">06</span><span class="lbl">Làm trong 3 bước</span></a></li>
+    <li><a href="#sec-7" data-i="6"><span class="dot">07</span><span class="lbl">AI tự học mỗi cuối ngày</span></a></li>
   </ol>
-</div></section>
-
-<!-- ============ FILES 10–12/11 ============ -->
-<section data-sec="files"><div class="wrap">
-  <span class="kicker rv">File bàn giao</span>
-  <h2 class="h2 rv">Danh sách file theo hệ thống</h2>
-  <p class="lead rv">File Shopify nằm trong theme đang chạy. File Apps Script nằm trong dự án Google Apps Script <b>"gui mail co form"</b> — <b>không có trong repository GitHub này</b>.</p>
-
-  <h3 class="fgh rv">🛒 Shopify theme</h3>
-  <div class="stable rv">
-    <div class="srow head"><div>File</div><div>Chức năng</div><div>Hệ thống</div><div>Trạng thái đã xác minh</div></div>
-    <div class="srow"><div><code>sections/tgd-contact-quote-page.liquid</code></div><div>Trang Liên hệ + form Contact Quote</div><div>Shopify</div><div><span class="tag s-ok">Gửi form đã kiểm thử</span><small>Auto-scroll chờ kiểm thử.</small></div></div>
-    <div class="srow"><div><code>sections/tgd-quote-form.liquid</code></div><div>Trang Request a Quote (Product Quote)</div><div>Shopify</div><div><span class="tag s-wait">Chờ kiểm thử</span></div></div>
-    <div class="srow"><div><code>sections/tgd-premium-product.liquid</code></div><div>Product Premium V2/V3 (template <code>product.architectural-quote</code>)</div><div>Shopify</div><div><span class="tag s-wait">Chờ kiểm thử</span><small>Cần xác minh template từng sản phẩm.</small></div></div>
-    <div class="srow"><div><code>sections/main-collection-product-grid.liquid</code></div><div>Danh mục cửa + form Door Quote</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
-    <div class="srow"><div><code>sections/tgd-measuring-guide.liquid</code></div><div>Measuring Guide + form Door Quote</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
-    <div class="srow"><div><code>sections/tgd-swing-guide.liquid</code></div><div>Door Swing Guide</div><div>Shopify</div><div><span class="tag s-ok">Đã lên web</span></div></div>
-    <div class="srow"><div><code>sections/main-search.liquid</code></div><div>Trang kết quả tìm kiếm</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
-    <div class="srow"><div><code>sections/header.liquid</code></div><div>Ô tìm kiếm, menu gọn 990–1199 px</div><div>Shopify</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
-    <div class="srow"><div><code>sections/tgd-home.liquid</code></div><div>Trang chủ (Who we work with, Our Projects)</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
-    <div class="srow"><div><code>sections/tgd-door-specifications.liquid</code></div><div>Door Specifications (sửa rớt chữ)</div><div>Shopify</div><div><span class="tag s-wait">Chờ dán file</span></div></div>
-    <div class="srow"><div><code>sections/aboutus.liquid</code></div><div>About Us (nút đỏ)</div><div>Shopify</div><div><span class="tag s-live">Đã lên web</span></div></div>
+  <div class="sbox">
+    <div class="pcard">
+      <div class="row"><span>Tiến độ chuẩn bị tài liệu</span><b id="sidebar-progress-text">0%</b></div>
+      <div class="bar"><i id="sidebar-progress-bar"></i></div>
+    </div>
+    <button class="btn btn-ghost" data-act="copy"><svg class="i"><use href="#i-copy"/></svg>Sao chép bản tóm tắt</button>
+    <button class="btn btn-primary" data-act="print"><svg class="i"><use href="#i-printer"/></svg>In / Xuất PDF</button>
   </div>
+</aside>
 
-  <h3 class="fgh rv">⚙️ Google Apps Script — dự án "gui mail co form"</h3>
-  <div class="stable rv">
-    <div class="srow head"><div>File</div><div>Chức năng</div><div>Hệ thống</div><div>Trạng thái đã xác minh</div></div>
-    <div class="srow"><div><code>Code.gs</code></div><div>Cấu hình chung, <b>doPost(e) duy nhất</b>, gửi Zoho, đơn checkout, Trade</div><div>Apps Script</div><div><span class="tag s-ok">Đang chạy</span></div></div>
-    <div class="srow"><div><code>Contact.gs</code></div><div><code>handleContactQuote_</code>, upload Drive, trả lời postMessage</div><div>Apps Script</div><div><span class="tag s-ok">Đã kiểm thử</span></div></div>
-    <div class="srow"><div><code>TGD_Quote.gs</code></div><div><code>handleQuoteRequest_</code>, mail Product Quote</div><div>Apps Script</div><div><span class="tag s-wait">Chờ kiểm thử bản cuối</span></div></div>
-    <div class="srow"><div><code>TGD_DoorQuote.gs</code></div><div><code>handleDoorQuote_</code>, mail Sales + mail khách</div><div>Apps Script</div><div><span class="tag s-ok">Đã kiểm thử</span><small>Script trả lời đúng nhánh door_quote.</small></div></div>
-    <div class="srow"><div><code>appsscript.json</code></div><div>V8, timezone, quyền Drive / gọi API / Properties</div><div>Apps Script</div><div><span class="tag s-ok">Đang dùng</span><small>Không tự ý giảm quyền.</small></div></div>
-  </div>
-</div></section>
+<main class="main">
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero reveal">
+    <span class="eyebrow">Tóm tắt cho Giám đốc · có phần đọc nhanh 1 phút</span>
+    <h1>Biến việc lặp lại hằng ngày thành <em>“nhân viên AI”</em> làm việc 24/7</h1>
+    <p class="lead">AI không thay bạn ra quyết định. Nó gánh phần việc thô, lặp đi lặp lại. Nhân viên của bạn chỉ cần duyệt kết quả và xử lý những ca khó.</p>
+    <div class="hero-actions no-print">
+      <a class="btn btn-primary" href="#sec-6"><svg class="i"><use href="#i-play"/></svg>Xem ngay lộ trình 3 bước</a>
+      <button class="btn btn-ghost" data-act="copy"><svg class="i"><use href="#i-copy"/></svg>Sao chép bản tóm tắt</button>
+    </div>
+
+    <div class="quick">
+      <div class="mini-title"><svg class="i"><use href="#i-clock"/></svg>Đọc nhanh trong 1 phút</div>
+      <div class="qgrid">
+        <div class="q"><div class="qi"><svg class="i"><use href="#i-eye"/></svg></div><b>AI soạn nháp, người duyệt</b><span>AI làm phần việc thô, bạn hoặc nhân viên giỏi chốt bản cuối.</span></div>
+        <div class="q"><div class="qi"><svg class="i"><use href="#i-clock"/></svg></div><b>Trực cả ngày lẫn đêm</b><span>Khách nhắn lúc nào cũng có người đáp ngay, kể cả khi cả công ty đã nghỉ.</span></div>
+        <div class="q"><div class="qi"><svg class="i"><use href="#i-target"/></svg></div><b>Bắt đầu từ 1 việc nhỏ</b><span>Chọn một việc lặp lại, chạy thử cho chắc, rồi mới nhân rộng.</span></div>
+        <div class="q"><div class="qi"><svg class="i"><use href="#i-file"/></svg></div><b>Chuẩn bị 4 nhóm tài liệu</b><span>Gồm 10 mục tick được ở phần 05. Bạn đưa tài liệu, AI lo phần còn lại.</span></div>
+      </div>
+    </div>
+
+    <div class="map">
+      <div class="mini-title">Bản đồ nội dung · bấm vào từng bước để nhảy tới</div>
+      <div class="map-wrap">
+        <div class="mflow">
+          <a class="mnode" href="#sec-1"><i>01</i>AI giúp gì</a><span class="link"></span>
+          <a class="mnode" href="#sec-2"><i>02</i>Nhân viên AI 24/7</a><span class="link"></span>
+          <a class="mnode" href="#sec-3"><i>03</i>4 nguyên tắc</a><span class="link"></span>
+          <a class="mnode" href="#sec-4"><i>04</i>Nối hệ thống</a><span class="link"></span>
+          <a class="mnode" href="#sec-5"><i>05</i>Chuẩn bị</a><span class="link"></span>
+          <a class="mnode" href="#sec-6"><i>06</i>Làm 3 bước</a><span class="link"></span>
+          <a class="mnode end" href="#sec-7"><i>07</i>AI tự học</a>
+        </div>
+      </div>
+      <div class="legend" aria-label="Chú thích màu">
+        <span><s></s>Khách / đầu vào</span>
+        <span><s class="l-ai"></s>AI làm</span>
+        <span><s class="l-hu"></s>Con người làm</span>
+        <span><s class="l-ok"></s>Kết quả</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SECTION 1 ================= -->
+  <section id="sec-1">
+    <div class="sec-head reveal">
+      <div class="num">01</div>
+      <div><h2>AI giúp gì cho công ty?</h2><p>Làm nhanh hơn, tốn ít công hơn, nhưng vẫn cần người chịu trách nhiệm</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>Hãy coi AI như <strong>một nhân viên mới làm rất nhanh nhưng chưa có kinh nghiệm</strong>. Giao việc thô thì rất hiệu quả, còn quyết định quan trọng vẫn cần người có kinh nghiệm kiểm tra.</span></div>
+
+    <div class="sec-body">
+      <div class="grid g3">
+        <div class="card reveal">
+          <div class="ico blue"><svg class="i"><use href="#i-bolt"/></svg></div>
+          <div class="kicker blue">Làm được gì</div>
+          <h3>Làm nhanh phần việc thô</h3>
+          <p>Soạn nội dung, viết code, tổng hợp số liệu: những việc tốn nhiều giờ thì AI làm trong vài phút. Thường gánh được <strong>phần lớn (khoảng 80%)</strong> khối lượng việc thô.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico green"><svg class="i"><use href="#i-trend"/></svg></div>
+          <div class="kicker green">Công ty được gì</div>
+          <h3>Tiết kiệm công sức, ra thị trường sớm hơn</h3>
+          <p>Một người kết hợp với AI có thể gánh khối lượng việc của cả một nhóm nhỏ. Từ lúc có ý tưởng đến lúc có sản phẩm hoàn chỉnh ngắn lại, ban lãnh đạo chốt phương án nhanh hơn.</p>
+        </div>
+        <div class="card warn reveal">
+          <div class="ico rose"><svg class="i"><use href="#i-shield"/></svg></div>
+          <div class="kicker rose">Cần lưu ý</div>
+          <h3>AI không tự chịu trách nhiệm</h3>
+          <p>AI thiếu trực giác kinh doanh và thỉnh thoảng vẫn sai. Vì vậy <strong>phải có người duyệt lần cuối</strong> trước khi gửi cho khách hay đưa ra thị trường.</p>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="panel-title"><svg class="i"><use href="#i-repeat"/></svg>Quy tắc vận hành chuẩn: AI soạn nháp – Người duyệt</div>
+        <p class="panel-sub">Giống như trưởng phòng ký duyệt bản nháp do nhân viên soạn. Người soạn làm phần nặng, người duyệt đảm bảo chất lượng và chịu trách nhiệm.</p>
+        <div class="flow-wrap">
+          <div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-file"/></svg></span><div><b>Việc thô cần làm</b><small>Kỹ thuật, nội dung, tổng hợp dữ liệu</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI soạn nháp</b><small>“Nhân sự nháp tốc độ cao”, khoảng 80% công sức</small></div></div>
+            <span class="link"></span>
+            <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-user-check"/></svg></span><div><b>Người duyệt</b><small>“Người duyệt chất lượng cuối cùng”, khoảng 20% công sức</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-flag"/></svg></span><div><b>Gửi khách / ra thị trường</b><small>Chỉ khi đã qua bước duyệt</small></div></div>
+          </div>
+        </div>
+        <div class="split" role="img" aria-label="AI khoảng 80%, người duyệt khoảng 20%"><div class="a">AI soạn nháp · 80%</div><div class="h">20%</div></div>
+        <p class="cap">Phần cam là phần người duyệt. Tỷ lệ chỉ mang tính ước lượng để dễ hình dung, thực tế có thể khác tuỳ loại công việc.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2 ================= -->
+  <section id="sec-2">
+    <div class="sec-head reveal">
+      <div class="num">02</div>
+      <div><h2>Nhân viên AI trực 24/7</h2><p>Giải quyết cảnh nhân viên quá tải vì trả lời tin nhắn và lọc form cả ngày</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Ví dụ</span><span>11 giờ đêm, khách nhắn hỏi giá. Cách cũ: sáng hôm sau mới có người thấy, khách có thể đã hỏi chỗ khác. Cách mới: <strong>AI trả lời ngay theo bảng giá bạn đã dạy</strong>, ghi thông tin khách lại, sáng nhân viên chỉ cần gọi chốt.</span></div>
+
+    <div class="sec-body">
+      <div class="card reveal">
+        <div class="lane old">
+          <div class="lane-head"><span class="tag rose">Cách cũ · làm tay</span><span class="lane-note">Nhân viên làm trung gian cho từng tin nhắn</span></div>
+          <div class="flow-wrap"><div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-msg"/></svg></span><div><b>Khách nhắn / điền form</b><small>Bất kỳ lúc nào</small></div></div>
+            <span class="link"></span>
+            <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-user"/></svg></span><div><b>Nhân viên đọc &amp; copy</b><small>Phải có người ngồi trực</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>Dán hỏi AI</b><small>Làm từng tin một</small></div></div>
+            <span class="link"></span>
+            <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-send"/></svg></span><div><b>Nhân viên tự trả lời</b><small>Copy câu trả lời gửi lại khách</small></div></div>
+          </div></div>
+        </div>
+
+        <div class="swap"><svg class="i"><use href="#i-arrow-down"/></svg>Chuyển sang mô hình mới</div>
+
+        <div class="lane new">
+          <div class="lane-head"><span class="tag blue">Cách mới · AI Agent tự động</span><span class="lane-note">Nhân viên số làm theo quy tắc bạn đã dạy, không cần ai bấm nút</span></div>
+          <div class="flow-wrap"><div class="flow fork">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-msg"/></svg></span><div><b>Khách nhắn / điền form</b><small>Bất kỳ lúc nào</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI Agent</b><small>Tự xử lý theo bộ quy tắc đã dạy</small></div></div>
+            <span class="link plain"></span>
+            <div class="stack">
+              <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-database"/></svg></span><div><b>Ca bình thường</b><small>Trả lời ngay 24/7 và lưu khách vào sổ khách hàng (CRM)</small></div></div>
+              <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-user-check"/></svg></span><div><b>Ca khó / phàn nàn</b><small>Chuyển cho nhân viên thật xử lý</small></div></div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="grid g3">
+        <div class="card reveal">
+          <div class="ico blue"><svg class="i"><use href="#i-bot"/></svg></div>
+          <div class="kicker blue">Nó là gì</div>
+          <h3>Nhân viên số làm việc 24/7</h3>
+          <p>Tự nhận tin nhắn, form khách điền và trả lời theo bộ quy tắc đã dạy, <strong>không cần con người bấm nút</strong>.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico green"><svg class="i"><use href="#i-layers"/></svg></div>
+          <div class="kicker green">Công ty được gì</div>
+          <h3>Khách tăng mà không cần tuyển thêm</h3>
+          <p>Nhân viên thoát khỏi việc lặp lại. Khi khách tăng nhiều lần (ví dụ 5–10 lần), AI vẫn đáp ứng tức thì mà <strong>chưa cần tuyển thêm người</strong> cho khâu này.</p>
+        </div>
+        <div class="card warn reveal">
+          <div class="ico rose"><svg class="i"><use href="#i-alert"/></svg></div>
+          <div class="kicker rose">Cần lưu ý</div>
+          <h3>Chỉ giỏi việc đã có kịch bản</h3>
+          <p>Ban đầu mất công dạy quy tắc và nối hệ thống. Ca khó hoặc phàn nàn phức tạp vẫn <strong>phải chuyển về người thật</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 3 ================= -->
+  <section id="sec-3">
+    <div class="sec-head reveal">
+      <div class="num">03</div>
+      <div><h2>4 nguyên tắc cốt lõi khi đưa AI vào công ty</h2><p>Góc nhìn chiến lược của Dương Võ (CAIO)</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>Đừng mua “máy móc” trước khi biết rõ mình cần làm gì. Bốn nguyên tắc này đi theo thứ tự: <strong>làm rõ quy trình → chia vai → nuôi bằng dữ liệu → giữ người duyệt</strong>.</span></div>
+
+    <div class="sec-body">
+      <div class="card reveal">
+        <div class="flow-wrap"><div class="flow">
+          <div class="node"><span class="step-no">1</span><span class="ni"><svg class="i"><use href="#i-layers"/></svg></span><div><b>Quy trình trước</b><small>Công cụ sau</small></div></div>
+          <span class="link"></span>
+          <div class="node n-ai"><span class="step-no">2</span><span class="ni"><svg class="i"><use href="#i-users"/></svg></span><div><b>Mỗi AI một vai</b><small>Chuyên biệt hoá</small></div></div>
+          <span class="link"></span>
+          <div class="node n-ai"><span class="step-no">3</span><span class="ni"><svg class="i"><use href="#i-database"/></svg></span><div><b>Nuôi bằng dữ liệu</b><small>Tài sản của bạn</small></div></div>
+          <span class="link"></span>
+          <div class="node n-hu"><span class="step-no">4</span><span class="ni"><svg class="i"><use href="#i-user-check"/></svg></span><div><b>Người duyệt cuối</b><small>Giữ kiểm soát</small></div></div>
+        </div></div>
+      </div>
+
+      <div class="grid g2">
+        <div class="card pillar reveal">
+          <div class="pn">1</div>
+          <div>
+            <h3>Quy trình trước – công cụ sau</h3>
+            <p>Đừng mua hay cài AI theo phong trào. Hãy viết ra cách công ty đang làm việc (gọi là <strong>quy trình chuẩn – SOP</strong>) và đường đi của dữ liệu trước, rồi mới dùng AI cho khâu đang bị nghẽn.</p>
+            <div class="analogy">Giống như xây đường xong rồi mới mua xe.</div>
+          </div>
+        </div>
+        <div class="card pillar reveal">
+          <div class="pn">2</div>
+          <div>
+            <h3>Mỗi AI một vai</h3>
+            <p>Thay vì một AI làm chung chung, hãy tạo nhiều “nhân viên AI”, mỗi người một việc: <strong>người lọc khách, người báo giá, người chăm sóc sau bán</strong>. Mỗi người được dạy từ kinh nghiệm của nhân viên giỏi nhất của bạn.</p>
+            <div class="analogy">Giống như một phòng ban có phân công rõ ràng.</div>
+          </div>
+        </div>
+        <div class="card pillar reveal">
+          <div class="pn">3</div>
+          <div>
+            <h3>Dữ liệu của bạn là tài sản</h3>
+            <p>Bảng giá, lịch sử chat chốt đơn, thông số kỹ thuật là thứ AI bên ngoài không có. Sắp xếp gọn gàng để “nuôi” AI sẽ tạo <strong>lợi thế khó bị đối thủ sao chép</strong>.</p>
+            <div class="analogy">Giống như cuốn sổ bí quyết của người bán hàng giỏi nhất.</div>
+          </div>
+        </div>
+        <div class="card pillar reveal">
+          <div class="pn">4</div>
+          <div>
+            <h3>Luôn có người duyệt (Human-in-the-loop)</h3>
+            <p>AI lo phần việc lặp lại. Nhân viên dành thời gian cho <strong>ca khó, kiểm duyệt và quyết định quan trọng</strong>. Mục tiêu là mỗi người làm được nhiều hơn, không phải cắt giảm người một cách mù quáng.</p>
+            <div class="analogy">Giống như phi công vẫn ngồi trong buồng lái dù đã có chế độ lái tự động.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 4 ================= -->
+  <section id="sec-4">
+    <div class="sec-head reveal">
+      <div class="num">04</div>
+      <div><h2>AI làm được gì &amp; nối vào hệ thống thế nào</h2><p>Phạm vi hỗ trợ, lợi ích khi nâng cấp gói và 3 cách kết nối</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>AI là <strong>bộ não</strong>. Muốn bộ não làm việc ngay trên website, sổ khách hàng hay Zalo của công ty thì cần thêm <strong>“đường dây” (API)</strong> nối vào.</span></div>
+
+    <div class="sec-body">
+      <div class="grid g2">
+        <div class="card reveal">
+          <div class="panel-title"><svg class="i"><use href="#i-cpu"/></svg>4 nhóm việc AI làm được</div>
+          <p class="panel-sub">Từ dạy nhân viên AI đến viết bài và đọc số liệu.</p>
+          <ul class="list g">
+            <li><span class="li"><svg class="i"><use href="#i-book"/></svg></span><div><b>Soạn “sổ tay” cho nhân viên AI</b><span class="d">Viết bộ quy tắc, kịch bản trả lời khách và câu hỏi lọc khách (form) để nạp vào hệ thống tự động.</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-code"/></svg></span><div><b>Viết code &amp; nối kỹ thuật</b><span class="d">Làm web, giao diện, đoạn lệnh tự động, thiết kế form và hướng dẫn nối dữ liệu thẳng về sổ khách hàng (CRM).</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-pen"/></svg></span><div><b>Viết nội dung &amp; marketing</b><span class="d">Bài SEO, mô tả sản phẩm, email tự động và kế hoạch chạy chiến dịch.</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-chart"/></svg></span><div><b>Phân tích &amp; viết quy trình</b><span class="d">Đọc số liệu báo cáo, tóm tắt tài liệu dài, đóng gói kinh nghiệm thành quy trình chuẩn.</span></div></li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="panel-title"><svg class="i" style="color:var(--amber)"><use href="#i-crown"/></svg>Nâng cấp gói (Pro / Enterprise) được gì?</div>
+          <p class="panel-sub">Phù hợp khi dùng AI hằng ngày cho công việc thật.</p>
+          <ul class="list a">
+            <li><span class="li"><svg class="i"><use href="#i-repeat"/></svg></span><div><b>Làm liền mạch</b><span class="d">Giới hạn tin nhắn cao hơn, không bị chặn giữa chừng khi đang xử lý việc gấp.</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-file"/></svg></span><div><b>Đọc được file lớn</b><span class="d">Tải lên cùng lúc nhiều file nặng (Excel doanh thu, PDF hợp đồng, danh sách khách hàng) để phân tích.</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-bulb"/></svg></span><div><b>Suy nghĩ sâu hơn cho bài toán khó</b><span class="d">Xử lý logic phức tạp (code hệ thống, quy trình tự động nhiều tầng) chính xác hơn, ít lỗi hơn.</span></div></li>
+            <li><span class="li"><svg class="i"><use href="#i-users"/></svg></span><div><b>Lưu sẵn nhiều nhân viên AI (Custom Gems)</b><span class="d">Mỗi “nhân viên” giữ một vai cố định, một bạn viết code, một bạn chốt sale, không cần dạy lại từ đầu.</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="panel-title"><svg class="i"><use href="#i-plug"/></svg>3 cách nối nhân viên AI vào công ty</div>
+        <p class="panel-sub">Chọn cách phù hợp với nơi khách của bạn đang xuất hiện nhiều nhất.</p>
+        <div class="note"><svg class="i"><use href="#i-mail"/></svg><span>Muốn AI chạy ngầm 24/7 cần thêm một <strong>“người đưa thư” tự động</strong> ở giữa (Zoho, Make, Zapier…). Nó nhận tin, chuyển cho AI, rồi đưa kết quả tới đúng chỗ.</span></div>
+
+        <!-- Cách 1 -->
+        <div class="api">
+          <div class="api-head"><span class="tag navy">Cách 1</span><h4>Gắn thẳng vào website hoặc phần mềm</h4></div>
+          <div class="flow-wrap"><div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-globe"/></svg></span><div><b>Website / phần mềm / CRM</b><small>Khung chat hỗ trợ, ô tìm sản phẩm</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI (Gemini API)</b><small>Kèm bộ quy tắc ngầm do bạn viết</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-msg"/></svg></span><div><b>Trả lời ngay tại chỗ</b><small>Khách thấy câu trả lời trong khung chat</small></div></div>
+          </div></div>
+          <p class="fit"><b>Hợp khi:</b> bạn muốn khách hỏi và nhận câu trả lời ngay trên website.</p>
+          <details class="more"><summary>Chi tiết kỹ thuật</summary><div class="body">Gọi trực tiếp Gemini API, nhúng vào website (khung chat hỗ trợ, tìm kiếm sản phẩm), phần mềm nội bộ hoặc CRM, kèm bộ quy tắc ngầm (<strong>System Instructions</strong>).</div></details>
+        </div>
+
+        <!-- Cách 2 -->
+        <div class="api">
+          <div class="api-head"><span class="tag navy">Cách 2</span><h4>Form trên web → AI → sổ khách + báo nhân viên</h4></div>
+          <div class="flow-wrap"><div class="flow fork">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-file"/></svg></span><div><b>Khách điền form</b><small>Ví dụ form xin báo giá</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI phân tích &amp; phản hồi</b><small>Chuyển qua “người đưa thư” Make / Zapier</small></div></div>
+            <span class="link plain"></span>
+            <div class="stack">
+              <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-database"/></svg></span><div><b>Tự lưu vào Zoho CRM</b><small>Không phải gõ lại tay</small></div></div>
+              <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-bell"/></svg></span><div><b>Báo cho nhân viên</b><small>Có khách mới, vào xử lý ngay</small></div></div>
+            </div>
+          </div></div>
+          <p class="fit"><b>Hợp khi:</b> mỗi ngày có nhiều khách điền form và bạn muốn mọi thứ tự vào sổ.</p>
+          <details class="more"><summary>Chi tiết kỹ thuật</summary><div class="body">No-code (Make / Zapier): <strong>Form Web</strong> → gửi qua API phân tích &amp; phản hồi → tự động đẩy dữ liệu lưu vào <strong>Zoho CRM</strong> và bắn thông báo cho nhân viên.</div></details>
+        </div>
+
+        <!-- Cách 3 -->
+        <div class="api">
+          <div class="api-head"><span class="tag navy">Cách 3</span><h4>Nhân viên AI trực trên Zalo, Facebook, Telegram</h4></div>
+          <div class="flow-wrap"><div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-msg"/></svg></span><div><b>Khách nhắn tin</b><small>Zalo, Facebook, Telegram</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI Agent</b><small>Trả lời theo kịch bản đã dạy</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-clock"/></svg></span><div><b>Phản hồi tự động 24/7</b><small>Ngay trong khung tin nhắn của khách</small></div></div>
+          </div></div>
+          <p class="fit"><b>Hợp khi:</b> phần lớn khách của bạn liên hệ qua tin nhắn.</p>
+          <details class="more"><summary>Chi tiết kỹ thuật</summary><div class="body">Kết nối API với các nền tảng nhắn tin (<strong>Zalo, Facebook, Telegram</strong>) để vận hành “nhân viên số” trực và phản hồi theo kịch bản đã dạy.</div></details>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="panel-title"><svg class="i"><use href="#i-book"/></svg>Từ điển nhanh cho người không chuyên</div>
+        <p class="panel-sub">Gặp từ lạ trong tài liệu thì xem ở đây.</p>
+        <div class="gloss">
+          <div class="term"><b>CRM</b><span>Sổ khách hàng điện tử: ai hỏi gì, báo giá bao nhiêu, đã liên hệ lúc nào.</span></div>
+          <div class="term"><b>API</b><span>“Đường dây” giúp hai phần mềm nói chuyện với nhau.</span></div>
+          <div class="term"><b>System Prompt</b><span>Cuốn sổ tay quy tắc dạy AI trả lời đúng ý công ty.</span></div>
+          <div class="term"><b>SOP</b><span>Quy trình chuẩn viết ra giấy: làm việc X thì làm từng bước thế nào.</span></div>
+          <div class="term"><b>AI Agent</b><span>Nhân viên AI được giao một việc cụ thể và tự làm theo quy tắc.</span></div>
+          <div class="term"><b>Make / Zapier</b><span>Công cụ như người đưa thư tự động: thấy tin mới thì chuyển đến đúng chỗ.</span></div>
+          <div class="term"><b>Kho kiến thức (Knowledge Base)</b><span>Cuốn sổ chung nơi AI tra cứu cách trả lời. Viết thêm vào đây thì hôm sau AI biết thêm.</span></div>
+          <div class="term"><b>Dấu vết làm việc (Activity Logs)</b><span>Lịch sử tin nhắn, đơn hàng, ghi chú mà hệ thống tự lưu lại khi nhân viên làm việc.</span></div>
+          <div class="term"><b>Vector Database</b><span>Kho tra cứu thông minh: tìm đúng đoạn kiến thức theo ý nghĩa, không chỉ theo từ khóa.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 5 ================= -->
+  <section id="sec-5">
+    <div class="sec-head reveal sec5-head">
+      <div style="display:flex;gap:14px;align-items:center">
+        <div class="num">05</div>
+        <div><h2>Cần chuẩn bị gì trước khi bắt đầu?</h2><p>Tick vào mục đã sẵn sàng để theo dõi tiến độ</p></div>
+      </div>
+      <div class="check-bar no-print">
+        <span>Đã sẵn sàng:</span><span class="badge" id="checklist-badge">0 / 10 mục</span>
+        <button id="reset-btn" title="Đặt lại" aria-label="Đặt lại checklist"><svg class="i"><use href="#i-reset"/></svg></button>
+      </div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>Muốn dạy nhân viên mới thì phải đưa tài liệu. Bốn nhóm dưới đây chính là <strong>“tài liệu” cần đưa cho AI</strong>. Đủ cả 4 nhóm là sẵn sàng sang Bước 1.</span></div>
+
+    <div class="sec-body">
+      <div class="card reveal gate">
+        <div class="mini-title" style="margin-bottom:12px">Tiến độ theo từng nhóm</div>
+        <div class="flow-wrap"><div class="flow">
+          <div class="node" id="gate-1"><div><b>Bán gì, cho ai <span class="gc">0/2</span></b></div></div>
+          <span class="link"></span>
+          <div class="node" id="gate-2"><div><b>Công cụ đang dùng <span class="gc">0/2</span></b></div></div>
+          <span class="link"></span>
+          <div class="node" id="gate-3"><div><b>Cách trả lời khách <span class="gc">0/3</span></b></div></div>
+          <span class="link"></span>
+          <div class="node" id="gate-4"><div><b>Kết quả mong muốn <span class="gc">0/3</span></b></div></div>
+          <span class="link"></span>
+          <div class="node n-ai" id="gate-final"><div><b>Sẵn sàng Bước 1</b></div></div>
+        </div></div>
+      </div>
+
+      <div class="grid g2" id="checklist-container">
+        <div class="card group reveal" data-group="1">
+          <div class="group-head"><span class="gn">01</span><h3>Công ty bán gì, cho ai</h3><span class="gcount">0/2</span></div>
+          <div class="bar gbar"><i></i></div>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c1"><span class="t"><strong>Sản phẩm &amp; khách hàng:</strong> Bán gì, cho ai (nhà thầu, đại lý, khách lẻ…) và điểm mạnh dễ chốt đơn nhất.</span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c2"><span class="t"><strong>Khâu tốn công nhất:</strong> Việc đang ngốn nhiều giờ của nhân viên nhất (báo giá, lọc khách, chăm sóc sau bán…).</span></label>
+        </div>
+        <div class="card group reveal" data-group="2">
+          <div class="group-head"><span class="gn">02</span><h3>Công ty đang dùng công cụ gì</h3><span class="gcount">0/2</span></div>
+          <div class="bar gbar"><i></i></div>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c3"><span class="t"><strong>Website chạy bằng gì:</strong> Shopify, WordPress hay hệ thống tự code.</span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c4"><span class="t"><strong>Khách &amp; tin nhắn nằm ở đâu:</strong> Zoho CRM, Zalo, Facebook, Email, Google Sheets…</span></label>
+        </div>
+        <div class="card group reveal" data-group="3">
+          <div class="group-head"><span class="gn">03</span><h3>Cách công ty trả lời khách</h3><span class="gcount">0/3</span></div>
+          <div class="bar gbar"><i></i></div>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c5"><span class="t"><strong>Hỏi – đáp mẫu:</strong> 10–20 câu khách hay hỏi nhất, kèm cách trả lời chốt đơn tốt nhất.<small>Ví dụ: “Cửa này giá bao nhiêu?”, “Bao lâu thì giao?”</small></span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c6"><span class="t"><strong>Quy tắc xử lý:</strong> Khi nào được báo giá luôn, ai là khách VIP, khi nào phải chuyển cho nhân viên thật.</span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c7"><span class="t"><strong>Giọng điệu thương hiệu:</strong> Chuyên gia kỹ thuật, lịch sự sang trọng hay thân thiện gần gũi.</span></label>
+        </div>
+        <div class="card group reveal" data-group="4">
+          <div class="group-head"><span class="gn">04</span><h3>Muốn nhận kết quả dạng gì</h3><span class="gcount">0/3</span></div>
+          <div class="bar gbar"><i></i></div>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c8"><span class="t"><strong>Bản kỹ thuật:</strong> File code chạy được ngay (HTML/JS/Liquid) hoặc bộ câu hỏi cho form.</span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c9"><span class="t"><strong>Bản cho quản lý:</strong> Bảng tóm tắt ngắn cho lãnh đạo hoặc kịch bản từng bước cho nhân viên.</span></label>
+          <label class="chk"><input type="checkbox" class="prep-checkbox" data-id="c10"><span class="t"><strong>“Sổ tay” đóng gói sẵn (System Prompt):</strong> Bộ lệnh chuẩn, dán thẳng vào API / Make / Zoho là chạy.</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 6 ================= -->
+  <section id="sec-6">
+    <div class="sec-head reveal">
+      <div class="num">06</div>
+      <div><h2>Làm trong 3 bước</h2><p>Từ lúc chọn việc đến lúc bật chạy tự động 24/7</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>Giống như nhận nhân viên mới: <strong>giao 1 việc → dạy cách làm → cho chạy thử</strong>, rồi mới để tự làm một mình.</span></div>
+
+    <div class="sec-body">
+      <div class="pipe-wrap reveal">
+        <div class="pipe">
+          <article class="step">
+            <div>
+              <div class="step-top"><span class="stag">BƯỚC 01</span><span class="who">Bạn làm</span></div>
+              <h3>Chọn 1 việc lặp lại + đưa tài liệu mẫu</h3>
+              <p>Chọn dứt điểm <strong>một việc</strong> nhân viên đang làm tay nhiều nhất mỗi ngày (ví dụ: trả lời tin hỏi giá, lọc khách từ form), kèm bảng giá hoặc câu trả lời chuẩn của bạn.</p>
+              <details class="more"><summary>Chi tiết</summary><div class="body">Doanh nghiệp cung cấp: 1 tác vụ lặp lại + dữ liệu mẫu (bảng giá, câu trả lời chuẩn).</div></details>
+            </div>
+            <div class="out"><span>Đầu ra: Đề bài &amp; tài liệu thô</span><svg class="i"><use href="#i-arrow-right"/></svg></div>
+          </article>
+          <span class="link"></span>
+          <article class="step s-ai">
+            <div>
+              <div class="step-top"><span class="stag">BƯỚC 02</span><span class="who" style="color:var(--blue)">AI làm</span></div>
+              <h3>AI soạn “sổ tay” &amp; nối đường dây</h3>
+              <p>AI viết sẵn bộ quy tắc trả lời, thiết kế form thu thập thông tin và đưa ra <strong>code hoặc hướng dẫn gắn vào</strong> website, sổ khách hàng (Zoho CRM), kênh chat.</p>
+              <details class="more"><summary>Chi tiết kỹ thuật</summary><div class="body">AI viết bộ quy tắc (<strong>System Prompt</strong>), thiết kế cấu trúc Form thu thập thông tin và xuất code/hướng dẫn gắn API vào hệ thống (Web, Zoho CRM, kênh chat).</div></details>
+            </div>
+            <div class="out"><span>Đầu ra: Sổ tay quy tắc + code kết nối</span><svg class="i"><use href="#i-arrow-right"/></svg></div>
+          </article>
+          <span class="link"></span>
+          <article class="step s-final">
+            <div>
+              <div class="step-top"><span class="stag">BƯỚC 03</span><span class="who">Cùng vận hành</span></div>
+              <h3>Chạy thử, chỉnh sửa, rồi bật 24/7</h3>
+              <p>Cho thử các tình huống khách thật, <strong>kể cả ca khó</strong>. Sai thì sửa ngay. Khi đạt chuẩn an toàn thì bật chạy tự động.</p>
+              <details class="more"><summary>Chi tiết</summary><div class="body">Đưa tình huống khách hàng thực tế để kiểm tra độ chính xác, sửa lỗi dứt điểm, đạt chuẩn an toàn rồi bật tự động hóa 24/7.</div></details>
+            </div>
+            <div class="out"><span>Kết quả: Hệ thống tự chạy 24/7</span><svg class="i"><use href="#i-check-circle"/></svg></div>
+          </article>
+        </div>
+        <div class="loop" aria-label="Nếu chưa đạt thì quay lại bước 2"><span><svg class="i"><use href="#i-repeat"/></svg>Chưa đạt? Quay lại Bước 2 chỉnh “sổ tay”</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 7 ================= -->
+  <section id="sec-7">
+    <div class="sec-head reveal">
+      <div class="num">07</div>
+      <div><h2>AI tự học mỗi cuối ngày</h2><p>Nâng cấp thêm cho hệ thống ở phần 06: báo cáo cuối ngày cho Giám đốc, nhân viên AI giỏi lên mỗi ngày</p></div>
+    </div>
+    <div class="say reveal"><span class="tagx">Hiểu nhanh</span><span>AI không nhìn màn hình của nhân viên. Nó học từ <strong>dấu vết làm việc</strong> đã được ghi lại (tin nhắn, đơn chốt, ghi chú trên CRM). Giống như trưởng ca cuối ngày đọc lại sổ giao ca, rút ra bài học, rồi viết thêm vào cuốn sổ tay chung cho ngày mai.</span></div>
+
+    <div class="sec-body">
+      <div class="grid g3">
+        <div class="card reveal">
+          <div class="ico blue"><svg class="i"><use href="#i-target"/></svg></div>
+          <div class="kicker blue">Mục tiêu</div>
+          <h3>Tự tổng hợp và tự học</h3>
+          <p>Hệ thống AI tự tổng hợp hiệu suất cuối ngày và tự bổ sung kiến thức mới từ cách làm việc thực tế của nhân sự, <strong>không cần ai ngồi dạy lại thủ công</strong>.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico green"><svg class="i"><use href="#i-check-circle"/></svg></div>
+          <div class="kicker green">Làm được không</div>
+          <h3>Làm được bằng công nghệ hiện có</h3>
+          <p>Kết hợp <strong>Gemini API</strong> với công cụ tự động hóa như Make hoặc Zapier. Không cần phát minh gì mới.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico amber"><svg class="i"><use href="#i-clock"/></svg></div>
+          <div class="kicker amber">Mức độ phức tạp</div>
+          <h3>Trung bình</h3>
+          <p>Tốn công nhất là lúc nối đường ống ban đầu (khoảng <strong>3–5 ngày</strong>). Sau đó hệ thống chạy ngầm, gần như không cần người can thiệp.</p>
+        </div>
+      </div>
+
+      <div class="note warn reveal"><svg class="i"><use href="#i-alert"/></svg><span><strong>Điều kiện bắt buộc:</strong> mọi việc tư vấn, chốt đơn, xử lý công việc của nhân viên phải được <strong>ghi lại trên hệ thống số</strong> (CRM, chat, form, Sheet), không làm ngoài lề. Việc không được ghi lại thì AI không thể học.</span></div>
+
+      <div class="card reveal">
+        <div class="panel-title"><svg class="i"><use href="#i-bulb"/></svg>Bên trong hệ thống: AI học như thế nào?</div>
+        <p class="panel-sub">Ba sơ đồ dưới đây: cách AI học, một ngày chạy của hệ thống, và cơ chế an toàn.</p>
+
+        <div class="api">
+          <div class="api-head"><span class="tag navy">Cách học</span><h4>AI đọc lại dấu vết làm việc rồi tự rút bài học</h4></div>
+          <div class="flow-wrap"><div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-users"/></svg></span><div><b>Nhân viên làm việc bình thường</b><small>Chat với khách, cập nhật đơn trên CRM, gửi báo giá. Hệ thống tự lưu lại.</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>AI đọc lại cuối ngày</b><small>So câu AI trả lời với câu của nhân viên thật, tìm chỗ khác biệt hoặc hay hơn.</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-eye"/></svg></span><div><b>Tìm tình huống mới</b><small>Những tình huống chưa có trong kịch bản cũ.</small></div></div>
+            <span class="link"></span>
+            <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-book"/></svg></span><div><b>Ghi vào Kho kiến thức</b><small>Quy tắc mới được ghi thêm để áp dụng từ ngày hôm sau.</small></div></div>
+          </div></div>
+          <details class="more"><summary>Chi tiết kỹ thuật</summary><div class="body">AI không quan sát màn hình nhân viên mà học qua <strong>Dấu vết dữ liệu (Activity Logs)</strong>. Cuối ngày AI đọc lại toàn bộ dữ liệu để: (1) so sánh câu trả lời của AI với câu trả lời của nhân viên thật; (2) trích xuất các tình huống mới chưa có trong kịch bản cũ; (3) tự động ghi bổ sung quy tắc mới vào <strong>Kho kiến thức (Knowledge Base)</strong> để áp dụng cho ngày hôm sau.</div></details>
+        </div>
+
+        <div class="api">
+          <div class="api-head"><span class="tag navy">Mỗi ngày</span><h4>Hệ thống tự chạy ngầm từ 18:00, không cần ai bấm nút</h4></div>
+          <div class="flow-wrap"><div class="flow">
+            <div class="node"><span class="ni"><svg class="i"><use href="#i-database"/></svg></span><div><span class="when">18:00</span><b>Gom dữ liệu</b><small>Quét tin nhắn mới, đơn chốt, đơn hủy, ghi chú nhân viên từ CRM, kênh chat và form.</small><span class="tool">Make.com hoặc Zapier</span></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><span class="when">18:05</span><b>AI phân tích</b><small>Đếm khách và ca chậm, tìm chỗ nhân viên lúng túng, rút ra cách chốt đơn hay.</small><span class="tool">Gemini API</span></div></div>
+            <span class="link"></span>
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-book"/></svg></span><div><span class="when">18:10</span><b>Nâng cấp “bộ não”</b><small>Ghi mẫu câu và quy tắc mới vào kho kiến thức, sáng mai AI trực chat dùng ngay.</small><span class="tool">Google Docs / Sheets / Vector Database</span></div></div>
+            <span class="link"></span>
+            <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-send"/></svg></span><div><span class="when">18:15</span><b>Báo cáo cho Giám đốc</b><small>Một tin nhắn tóm tắt ngắn gọn, dưới 15 dòng.</small><span class="tool">Email / Zalo / Telegram</span></div></div>
+          </div></div>
+          <details class="more"><summary>AI làm 3 việc ở bước phân tích</summary><div class="body"><strong>Đo lường:</strong> đếm số lượng khách, tỷ lệ phản hồi, các ca bị chậm trễ.<br><strong>Phát hiện lỗ hổng:</strong> tìm câu khách hỏi mà nhân viên trả lời lúng túng, hoặc khách từ chối mua.<br><strong>Học cách làm hay:</strong> trích các đoạn hội thoại chốt đơn thành công, đóng gói thành mẫu câu chuẩn.</div></details>
+        </div>
+
+        <div class="api">
+          <div class="api-head"><span class="tag navy">An toàn</span><h4>Tránh để AI học nhầm: có bước “Chờ duyệt”</h4></div>
+          <div class="flow-wrap"><div class="flow fork">
+            <div class="node n-ai"><span class="ni"><svg class="i"><use href="#i-bot"/></svg></span><div><b>Quy tắc mới AI vừa rút ra</b><small>Từ dữ liệu làm việc trong ngày</small></div></div>
+            <span class="link plain"></span>
+            <div class="stack">
+              <div class="node n-hu"><span class="ni"><svg class="i"><use href="#i-user-check"/></svg></span><div><b>Chờ duyệt</b><small>Người xem trước, đồng ý thì mới áp dụng</small></div></div>
+              <div class="node n-ok"><span class="ni"><svg class="i"><use href="#i-check-circle"/></svg></span><div><b>Áp dụng ngay</b><small>Chỉ với nhóm câu hỏi thông thường</small></div></div>
+            </div>
+          </div></div>
+          <p class="fit"><b>Gợi ý khi mới bắt đầu:</b> những tuần đầu nên để mọi quy tắc mới ở trạng thái “Chờ duyệt”, khi thấy AI học ổn mới mở rộng việc áp dụng ngay.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="align-items:start">
+        <div class="card reveal">
+          <div class="panel-title"><svg class="i"><use href="#i-send"/></svg>Giám đốc nhận được gì mỗi chiều?</div>
+          <p class="panel-sub">Một tin nhắn dưới 15 dòng qua Email, Zalo hoặc Telegram. Dưới đây là hình dạng minh họa.</p>
+          <div class="report">
+            <div class="report-head"><svg class="i"><use href="#i-send"/></svg>Báo cáo cuối ngày<small>18:15</small></div>
+            <div class="report-body">
+              <div><b>Chỉ số trong ngày</b>Tổng khách tiếp nhận · Đã xử lý · Tồn đọng</div>
+              <div><b>Vấn đề nổi cộm</b>Khách đang phàn nàn hoặc hỏi nhiều nhất về điều gì</div>
+              <div><b>Nâng cấp hệ thống</b>AI vừa tự học thêm bao nhiêu quy tắc mới từ đội ngũ</div>
+            </div>
+          </div>
+        </div>
+        <div class="stackcol">
+          <div class="card reveal">
+            <div class="panel-title"><svg class="i" style="color:var(--green)"><use href="#i-trend"/></svg>Công ty được gì</div>
+            <ul class="list g">
+              <li><span class="li"><svg class="i"><use href="#i-eye"/></svg></span><div><b>Với Giám đốc</b><span class="d">Nhận báo cáo tổng kết tự động mỗi cuối ngày, thấy ngay điểm nghẽn vận hành.</span></div></li>
+              <li><span class="li"><svg class="i"><use href="#i-users"/></svg></span><div><b>Với vận hành</b><span class="d">AI Agent ngày càng thông minh hơn nhờ học cách xử lý thực tế của đội ngũ giỏi nhất.</span></div></li>
+            </ul>
+          </div>
+          <div class="card warn reveal">
+            <div class="panel-title"><svg class="i" style="color:var(--rose)"><use href="#i-alert"/></svg>Cần lưu ý</div>
+            <ul class="list r">
+              <li><span class="li"><svg class="i"><use href="#i-file"/></svg></span><div><b>Chỉ học được từ việc đã ghi lại</b><span class="d">Việc làm ngoài hệ thống (gọi điện, nhắn riêng) thì AI không thấy.</span></div></li>
+              <li><span class="li"><svg class="i"><use href="#i-shield"/></svg></span><div><b>AI có thể học nhầm</b><span class="d">Kể cả học cả thói quen chưa tốt của nhân viên, nên cần bước “Chờ duyệt”.</span></div></li>
+              <li><span class="li"><svg class="i"><use href="#i-database"/></svg></span><div><b>Dữ liệu đi qua dịch vụ AI bên ngoài</b><span class="d">Nên chỉ gửi phần cần thiết và cho nhân viên biết hệ thống đang ghi nhận.</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-wrap reveal">
+        <div class="mini-title">Lộ trình triển khai thực tế · 3 giai đoạn</div>
+        <div class="pipe">
+          <article class="step">
+            <div>
+              <div class="step-top"><span class="stag">GIAI ĐOẠN 1</span><span class="who">Ngày 1–2</span></div>
+              <h3>Chuẩn hóa đầu vào</h3>
+              <p>Kiểm tra xem dữ liệu chat và trạng thái khách hàng đã <strong>đổ về một nơi tập trung</strong> chưa (như Zoho CRM hoặc Google Sheets).</p>
+            </div>
+            <div class="out"><span>Kết quả: Dữ liệu nằm một chỗ</span><svg class="i"><use href="#i-arrow-right"/></svg></div>
+          </article>
+          <span class="link"></span>
+          <article class="step s-ai">
+            <div>
+              <div class="step-top"><span class="stag">GIAI ĐOẠN 2</span><span class="who" style="color:var(--blue)">Ngày 3–4</span></div>
+              <h3>Nối đường ống &amp; viết “bộ não”</h3>
+              <p>Dựng kịch bản tự động trên Make.com hoặc Zapier, <strong>kết nối Gemini API</strong> và cài cấu trúc file Kho kiến thức.</p>
+            </div>
+            <div class="out"><span>Kết quả: Đường ống chạy được</span><svg class="i"><use href="#i-arrow-right"/></svg></div>
+          </article>
+          <span class="link"></span>
+          <article class="step s-final">
+            <div>
+              <div class="step-top"><span class="stag">GIAI ĐOẠN 3</span><span class="who">Ngày 5–7</span></div>
+              <h3>Chạy thử &amp; tinh chỉnh</h3>
+              <p>Cho hệ thống <strong>chạy ngầm cuối ngày 3 ngày liên tiếp</strong>, kiểm tra độ chính xác của báo cáo và chỉnh định dạng theo đúng ý Giám đốc trước khi vận hành chính thức.</p>
+            </div>
+            <div class="out"><span>Kết quả: Vận hành chính thức</span><svg class="i"><use href="#i-check-circle"/></svg></div>
+          </article>
+        </div>
+        <p class="cap2">Phần nối đường ống mất khoảng 3–5 ngày, cộng thêm vài ngày chạy thử nên cả lộ trình khoảng một tuần.</p>
+      </div>
+    </div>
+  </section>
+
+      <div class="cta reveal">
+      <div>
+        <div class="k">Sẵn sàng khởi động</div>
+        <h4>Việc cần làm tiếp theo của Giám đốc</h4>
+        <p>Chọn <strong>1 việc lặp lại đầu tiên</strong> trong doanh nghiệp (kèm tài liệu mẫu) để bắt đầu Bước 01.</p>
+      </div>
+      <button class="btn btn-cta no-print" data-act="copy"><svg class="i"><use href="#i-copy"/></svg>Sao chép bản tóm tắt</button>
+    </div>
+
+  <footer class="foot">
+    <div><strong>Executive AI Agent Playbook</strong> · Tài liệu chiến lược &amp; lộ trình triển khai tự động hóa doanh nghiệp</div>
+    <div>HTML một file · sẵn sàng đưa lên GitHub Pages</div>
+  </footer>
+
 </div>
-<!-- ===================== MẪU THÊM NGÀY MỚI =====================
-  Bước 1: Copy nguyên khối <div class="day" ...> bên dưới, bỏ dấu comment, đổi ngày.
-  Bước 2: Trong <script>, thêm 1 dòng vào DAYS (xem mẫu "MẪU NGÀY" ở đó).
-<div class="day" data-day="2026-11-10" hidden>
-<section data-sec="report"><div class="wrap">
-  <span class="kicker rv">Báo cáo nhanh</span>
-  <h2 class="h2 rv">Những việc đã hoàn thành <span class="live">✓ 2 việc</span></h2>
-  <div class="sum">
-    <div class="card rv"><div class="shine"></div><h3>🚀 Tên việc</h3><p class="big">Kết quả chính</p><p>Giải thích ngắn cho người không chuyên.</p></div>
-  </div>
-</div></section>
-<section data-sec="timeline"><div class="wrap">
-  <span class="kicker rv">Dòng thời gian</span>
-  <h2 class="h2 rv">Chi tiết</h2>
-  <div class="tl"><div class="fill"></div>
-    <div class="item rv"><div class="dot">✅</div><div class="card"><div class="shine"></div>
-      <h3>Tên việc <span class="tag t-new">Làm mới</span></h3>
-      <ul><li>Đã làm gì.</li></ul>
-    </div></div>
-  </div>
-</div></section>
-</div>
-================================================================ -->
-    <div class="gl rv"><b>SEO</b>Làm cho Google dễ hiểu và dễ đưa trang web lên kết quả tìm kiếm.</div>
-    <div class="gl rv"><b>FAQ</b>Câu hỏi thường gặp. Khách tự tìm câu trả lời, đỡ phải gọi hỏi.</div>
-    <div class="gl rv"><b>CTA</b>Nút kêu gọi hành động, ví dụ "Get a Free Quote" (nhận báo giá).</div>
-    <div class="gl rv"><b>Breadcrumb</b>Dòng "Home › Tên trang" cho biết khách đang ở đâu trên web.</div>
-    <div class="gl rv"><b>Schema / dữ liệu cho Google</b>Thông tin ẩn giúp Google hiển thị câu hỏi, địa chỉ… đẹp hơn trên kết quả tìm kiếm.</div>
-  </div>
-</div></section>
-
-<footer><span class="bloom">🌸</span><p style="margin-top:12px;font-weight:700;color:var(--ink)">Texas Glass Door · Nhật ký <span id="ftDate"></span></p><p style="font-size:14px">Mùa xuân cho website — gọn hơn, nhẹ hơn, đồng nhất hơn.</p></footer>
+</main>
 
 <script>
-(function(){
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function () {
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  /* ---------- Falling petals ---------- */
-  var cv=document.getElementById('petals'), ctx=cv.getContext('2d'), W,H,P=[];
-  var DPR=Math.min(window.devicePixelRatio||1,1.25);function size(){W=cv.width=Math.round(innerWidth*DPR);H=cv.height=Math.round(innerHeight*DPR);cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px'}
-  size(); addEventListener('resize',size);
-  var colors=['#F7A8C4','#FBC6D8','#FFD9E5','#EF6F9C','#FFE7B8','#CFEFD9'];
-  function petal(init){return{x:Math.random()*W,y:init?Math.random()*H:-30*DPR,s:(6+Math.random()*10)*DPR,vy:(.4+Math.random()*1)*DPR,vx:(-.3+Math.random()*.8)*DPR,r:Math.random()*6.28,vr:-.02+Math.random()*.04,sw:Math.random()*6.28,c:colors[Math.floor(Math.random()*colors.length)],o:.5+Math.random()*.45}}
-  var N=innerWidth<700?14:28; for(var i=0;i<N;i++)P.push(petal(true));
-  var wind=0, scrollV=0, lastY=scrollY, scrolling=false, sT=0;
-  addEventListener('scroll',function(){scrolling=true;clearTimeout(sT);sT=setTimeout(function(){scrolling=false},180)},{passive:true});
-  function draw(){
-    if(scrolling){requestAnimationFrame(draw);return}
-    ctx.clearRect(0,0,W,H);
-    scrollV+= (scrollY-lastY)*.02; lastY=scrollY; scrollV*=.92;
-    P.forEach(function(p){
-      p.sw+=.02; p.x+=p.vx+Math.sin(p.sw)*.6*DPR+wind; p.y+=p.vy+scrollV*DPR*.3; p.r+=p.vr;
-      if(p.y>H+40||p.x<-60||p.x>W+60){Object.assign(p,petal(false))}
-      ctx.save();ctx.globalAlpha=p.o;ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.scale(1,.62+Math.sin(p.sw*2)*.25);
-      ctx.fillStyle=p.c;ctx.beginPath();ctx.moveTo(0,-p.s);ctx.bezierCurveTo(p.s,-p.s,p.s*.9,p.s*.5,0,p.s);ctx.bezierCurveTo(-p.s*.9,p.s*.5,-p.s,-p.s,0,-p.s);ctx.fill();
-      ctx.globalAlpha=p.o*.5;ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(-p.s*.2,-p.s*.25,p.s*.18,p.s*.38,0,0,6.28);ctx.fill();ctx.restore();
+  /* 1. Toast */
+  var toastTimer;
+  function showToast(msg) {
+    var t = $('#toast');
+    $('#toast-message').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3000);
+  }
+
+  /* 2. Mobile drawer (menu cloned from desktop) */
+  var drawer = $('#mobile-drawer');
+  $('#mobile-nav').innerHTML = $('#desktop-nav').innerHTML;
+  function toggleDrawer(show) {
+    drawer.classList.toggle('open', show);
+    drawer.setAttribute('aria-hidden', show ? 'false' : 'true');
+    document.body.classList.toggle('lock', show);
+  }
+  $('#mobile-menu-btn').addEventListener('click', function () { toggleDrawer(true); });
+  $('#close-mobile-menu').addEventListener('click', function () { toggleDrawer(false); });
+  $('#mobile-backdrop').addEventListener('click', function () { toggleDrawer(false); });
+  $$('#mobile-nav a').forEach(function (a) { a.addEventListener('click', function () { toggleDrawer(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggleDrawer(false); });
+
+  /* 3. Scroll spy + reading progress */
+  var sections = $$('section[id^="sec-"]');
+  var navLinks = $$('.steps a');
+  var rp = $('#rp');
+  var ticking = false;
+  function onScroll() {
+    var y = window.scrollY + 160, cur = -1;
+    sections.forEach(function (s, i) {
+      if (s.getBoundingClientRect().top + window.scrollY <= y) cur = i;
     });
-    wind*=.96; if(!document.hidden) requestAnimationFrame(draw); else hiddenStop=true;
+    navLinks.forEach(function (a) {
+      var i = +a.getAttribute('data-i');
+      a.classList.toggle('active', i === cur);
+      a.classList.toggle('done', i < cur);
+      a.parentNode.classList.toggle('done', i < cur);
+    });
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    rp.style.width = (h > 0 ? Math.min(100, window.scrollY / h * 100) : 0) + '%';
+    ticking = false;
   }
-  var hiddenStop=false; document.addEventListener('visibilitychange',function(){if(!document.hidden&&hiddenStop){hiddenStop=false;requestAnimationFrame(draw)}});
-  if(!reduce) draw();
-  addEventListener('mousemove',function(e){wind+=(e.movementX||0)*.004});
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  window.addEventListener('resize', onScroll);
 
-  /* ---------- Cursor glow ---------- */
-  var g=document.getElementById('glow');
-  var gx=0,gy=0,gq=false;addEventListener('pointermove',function(e){gx=e.clientX;gy=e.clientY;if(!gq){gq=true;requestAnimationFrame(function(){g.style.transform='translate3d('+gx+'px,'+gy+'px,0)';gq=false})}},{passive:true});
-
-  /* ---------- Day data ---------- */
-  var DAYS={
-    '2026-11-09':{label:'Thứ Hai · 09/11/2026',short:'09/11',
-      stats:[[14,'','hạng mục đã làm'],[5,'','trang tự sửa được'],[13,'','block trên trang chủ'],[78,'%','video trang chủ nhẹ hơn']],
-      lines:['Rà lỗi CSS, sửa menu, dựng 5 trang tự sửa được trong Shopify.','Thêm breadcrumb, FAQ, CTA đồng nhất và dữ liệu SEO cho Google.','Giảm video trang chủ từ ~60 MB xuống 13 MB (máy tính) và 4,7 MB (điện thoại).']},
-    '2026-11-10':{label:'Thứ Ba – Thứ Năm · 10–12/11/2026',short:'10–12/11',
-      stats:[[18,'','hạng mục ghi nhận'],[4,'','trang làm mới'],[3,'','trang trùng đã gộp'],[4,'','luồng form (2 đã kiểm thử)']],
-      lines:['Contact Quote và Door Quote đã kiểm thử: Shopify → Apps Script → Zoho Mail (+ Google Drive).','Làm mới trang Liên hệ, Door Swing Guide, Tìm kiếm và Danh mục cửa.','Product Quote, Trade và tự cuộn trên Contact còn chờ kiểm thử. Odoo CRM chưa triển khai.']}
-    /* MẪU NGÀY (thêm dấu phẩy sau dòng trên rồi dán):
-    '2026-11-10':{label:'Thứ Ba · 10/11/2026',short:'10/11',
-      stats:[[2,'','việc hoàn thành'],[1,'','trang cập nhật'],[0,'','lỗi còn lại'],[100,'%','đã kiểm tra']],
-      lines:['Dòng chữ tự gõ 1.','Dòng chữ tự gõ 2.']} */
-  };
-  var keys=Object.keys(DAYS).sort(), cur=null, active=null;
-  var dpLabel=document.getElementById('dpLabel'), dpMenu=document.getElementById('dpMenu'), dpCur=document.getElementById('dpCur');
-  var statsEl=document.getElementById('stats'), arrows=[].slice.call(document.querySelectorAll('.dp-arrow'));
-  keys.forEach(function(k,i){var li=document.createElement('li');li.setAttribute('role','option');li.dataset.k=k;
-    li.innerHTML='<span>'+DAYS[k].label+'<br><small>'+DAYS[k].lines[0]+'</small></span>'+(i===keys.length-1?'<span class="now">Hôm nay</span>':'');
-    li.addEventListener('click',function(){setDay(k,true);closeMenu()});dpMenu.appendChild(li)});
-  function closeMenu(){dpMenu.classList.remove('open');dpCur.setAttribute('aria-expanded','false')}
-  dpCur.addEventListener('click',function(e){e.stopPropagation();var o=!dpMenu.classList.contains('open');dpMenu.classList.toggle('open',o);dpCur.setAttribute('aria-expanded',String(o))});
-  document.addEventListener('click',function(e){if(!e.target.closest('#daypick'))closeMenu()});
-  addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
-  arrows.forEach(function(b){b.addEventListener('click',function(){var i=keys.indexOf(cur)+(+b.dataset.dir);if(i>=0&&i<keys.length)setDay(keys[i],true)})});
-
-  function runCounters(scope){scope.querySelectorAll('[data-count]').forEach(function(el){var to=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
-    if(reduce){el.textContent=to+suf;return}
-    function step(t){if(!t0)t0=t;var k=Math.min((t-t0)/1400,1);k=1-Math.pow(1-k,3);el.textContent=Math.round(to*k)+suf;if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
-
-  /* ---------- Reveal ---------- */
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
-    e.target.querySelectorAll && e.target.querySelectorAll('[data-w]').forEach(function(b){b.style.width=b.dataset.w+'%'});
-  }})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  function observe(scope){scope.querySelectorAll('.rv:not(.in)').forEach(function(el,i){el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)})}
-  observe(document.querySelector('header.hero')); document.querySelectorAll('section[data-sec="rules"],section[data-sec="gloss"]').forEach(observe);
-
-  /* ---------- Tilt + shine ---------- */
-  function tilt(scope){scope.querySelectorAll('.card:not([data-t])').forEach(function(c){c.dataset.t=1;
-    c.addEventListener('pointermove',function(e){if(c._q)return;c._q=1;requestAnimationFrame(function(){c._q=0});var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-      c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
-      if(!reduce) c.style.transform='perspective(900px) rotateX('+((.5-y)*5)+'deg) rotateY('+((x-.5)*6)+'deg) translateY(-3px)'});
-    c.addEventListener('pointerleave',function(){c.style.transform=''})})}
-
-  /* ---------- Per-day widgets (arch, phone) ---------- */
-  function widgets(day){
-    var arch=day.querySelector('.arch');
-    if(arch&&!arch.dataset.w){arch.dataset.w=1;arch.querySelectorAll('.node').forEach(function(n,i){n.style.transitionDelay=(i*90)+'ms'});
-      new IntersectionObserver(function(e,o){if(e[0].isIntersecting){arch.classList.add('in');o.disconnect()}},{threshold:.25}).observe(arch)}
-    var scr=day.querySelector('.scr');
-    if(scr&&!scr.dataset.w){scr.dataset.w=1;var blks=[].slice.call(scr.querySelectorAll('.blk'));
-      var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.s;blks.forEach(function(b,k){b.classList.toggle('act',k===i)});
-}})},{rootMargin:'-45% 0px -45% 0px'});
-      day.querySelectorAll('[data-s]').forEach(function(el){sio.observe(el)})}
+  /* 4. Reveal on scroll */
+  var rev = $$('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    rev.forEach(function (r) { io.observe(r); });
+  } else {
+    rev.forEach(function (r) { r.classList.add('in'); });
   }
 
-  /* ---------- Typewriter ---------- */
-  var te=document.getElementById('typed'), lines=[], li=0, ci=0, del=false, tTimer=null;
-  function type(){var s=lines[li]; te.innerHTML=s.slice(0,ci)+'<span class="cur"></span>';
-    if(!del){ci++; if(ci>s.length){del=true; tTimer=setTimeout(type,2200); return}} else {ci-=2; if(ci<=0){del=false; ci=0; li=(li+1)%lines.length}}
-    tTimer=setTimeout(type, del?18:34)}
-
-  /* ---------- Switch day ---------- */
-  function setDay(k,user){
-    if(!DAYS[k]||k===cur)return; cur=k; var d=DAYS[k];
-    dpLabel.innerHTML=d.label+'<span class="dp-site"> · texasglassdoor.com</span>';
-    document.getElementById('navDate').textContent=d.short;
-    document.getElementById('ftDate').textContent=d.label.split('· ')[1];
-    document.title='Nhật ký '+d.short+' · Texas Glass Door';
-    dpMenu.querySelectorAll('li').forEach(function(x){x.setAttribute('aria-selected',String(x.dataset.k===k))});
-    var i=keys.indexOf(k); arrows[0].disabled=i<=0; arrows[1].disabled=i>=keys.length-1;
-    statsEl.classList.remove('swap'); void statsEl.offsetWidth;
-    statsEl.innerHTML=d.stats.map(function(x){return '<div class="stat in"><b data-count="'+x[0]+'" data-suffix="'+x[1]+'">0</b><span>'+x[2]+'</span></div>'}).join('');
-    statsEl.classList.add('swap'); runCounters(statsEl);
-    document.querySelectorAll('.day').forEach(function(el){el.hidden=el.dataset.day!==k});
-    active=document.querySelector('.day[data-day="'+k+'"]');
-    observe(active); tilt(active); widgets(active);
-    clearTimeout(tTimer); lines=d.lines; li=0; ci=0; del=false; if(reduce) te.textContent=lines[0]; else type();
-    try{history.replaceState(null,'','#d='+k)}catch(e){}
-    if(user){var top=document.querySelector('header.hero').getBoundingClientRect().top+scrollY; if(scrollY>innerHeight) scrollTo({top:top,behavior:'smooth'})}
-    cacheTargets(); onScroll();
+  /* 5. Checklist (saved in this browser) */
+  var KEY = 'ai_agent_playbook_checklist_v1';
+  var boxes = $$('.prep-checkbox');
+  function isChecked(b) { return b.checked; }
+  function updateUI() {
+    var total = boxes.length, n = boxes.filter(isChecked).length;
+    var pct = Math.round(n / total * 100);
+    $('#checklist-badge').textContent = n + ' / ' + total + ' mục';
+    $('#sidebar-progress-text').textContent = pct + '%';
+    $('#sidebar-progress-bar').style.width = pct + '%';
+    $$('[data-group]').forEach(function (g) {
+      var gb = $$('.prep-checkbox', g), gn = gb.filter(isChecked).length;
+      var done = gn === gb.length;
+      $('.gcount', g).textContent = gn + '/' + gb.length;
+      $('.gbar i', g).style.width = Math.round(gn / gb.length * 100) + '%';
+      g.classList.toggle('complete', done);
+      var gate = $('#gate-' + g.getAttribute('data-group'));
+      if (gate) { gate.classList.toggle('ok', done); $('.gc', gate).textContent = gn + '/' + gb.length; }
+    });
+    $('#gate-final').classList.toggle('ok', n === total);
   }
-
-  /* ---------- Scroll progress + nav ---------- */
-  var bar=document.getElementById('progress'), links=[].slice.call(document.querySelectorAll('nav.top a[data-go]'));
-  function target(n){return (active&&active.querySelector('[data-sec="'+n+'"]'))||document.querySelector('section[data-sec="'+n+'"]:not(.day section)')}
-  document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){var t=target(a.dataset.go);if(t){e.preventDefault();scrollTo({top:t.getBoundingClientRect().top+scrollY-60,behavior:'smooth'})}})});
-  var tg=[];function cacheTargets(){tg=links.map(function(a){var t=target(a.dataset.go);a.style.display=t?'':'none';return t})}
-  function onScroll(){
-    var h=document.documentElement,y=scrollY,vh=innerHeight;
-    var tl=active&&active.querySelector('.tl'),fill=tl&&tl.querySelector('.fill'),r=tl&&tl.getBoundingClientRect();
-    var tops=tg.map(function(t){return t?t.getBoundingClientRect().top:1e9});
-    bar.style.transform='scaleX('+(y/(h.scrollHeight-vh))+')';
-    if(fill){var f=Math.min(Math.max((vh*.6-r.top)/r.height,0),1);fill.style.transform='scaleY('+f+')'}
-    var c=-1;tops.forEach(function(t,i){if(t<vh*.4)c=i});links.forEach(function(a,i){a.classList.toggle('on',i===c)});
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || '{}');
+      boxes.forEach(function (b) { if (s[b.getAttribute('data-id')]) b.checked = true; });
+    } catch (e) {}
+    updateUI();
   }
-  var sq=false;addEventListener('scroll',function(){if(!sq){sq=true;requestAnimationFrame(function(){onScroll();sq=false})}},{passive:true});
+  function save() {
+    try {
+      var st = {};
+      boxes.forEach(function (b) { st[b.getAttribute('data-id')] = b.checked; });
+      localStorage.setItem(KEY, JSON.stringify(st));
+    } catch (e) {}
+    updateUI();
+  }
+  boxes.forEach(function (b) { b.addEventListener('change', save); });
+  $('#reset-btn').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    save();
+    showToast('Đã đặt lại tiến độ chuẩn bị!');
+  });
 
-  var m=(location.hash.match(/d=(\d{4}-\d{2}-\d{2})/)||[])[1];
-  setDay(DAYS[m]?m:keys[keys.length-1],false);
+  /* 6. Copy summary as Markdown */
+  var MD = `# LỘ TRÌNH TRIỂN KHAI AI AGENT DOANH NGHIỆP (TÓM TẮT CHO GIÁM ĐỐC)
 
-  /* ---------- Marquee duplicate ---------- */
-  var mq=document.getElementById('mq'); mq.innerHTML+=mq.innerHTML;
+## Đọc nhanh
+- AI soạn nháp, người duyệt: AI làm phần việc thô, người giỏi chốt bản cuối.
+- Nhân viên AI trực 24/7: khách nhắn lúc nào cũng được đáp ngay, ca khó chuyển cho người thật.
+- Bắt đầu từ 1 việc lặp lại nhỏ, chạy thử rồi mới nhân rộng.
 
-  /* ---------- Click bloom ---------- */
-  addEventListener('click',function(e){ if(reduce) return; for(var i=0;i<8;i++){var s=document.createElement('span');s.textContent=['🌸','✿','❀'][i%3];
-    s.style.cssText='position:fixed;left:'+e.clientX+'px;top:'+e.clientY+'px;pointer-events:none;z-index:60;font-size:'+(12+Math.random()*12)+'px;transition:transform 1s cubic-bezier(.19,1,.22,1),opacity 1s';
-    document.body.appendChild(s); var a=Math.random()*6.28,d=40+Math.random()*60;
-    requestAnimationFrame(function(s,a,d){return function(){s.style.transform='translate('+Math.cos(a)*d+'px,'+Math.sin(a)*d+'px) rotate('+(a*90)+'deg)';s.style.opacity='0'}}(s,a,d));
-    setTimeout(function(s){return function(){s.remove()}}(s),1100)}});
+## 1. AI giúp gì cho công ty
+- **Làm nhanh phần việc thô:** AI gánh phần lớn (khoảng 80%) khối lượng việc thô như viết nội dung, code, tổng hợp số liệu.
+- **Tiết kiệm công sức:** 1 người + AI có thể gánh khối lượng việc của một nhóm nhỏ, ra thị trường nhanh hơn.
+- **Cần lưu ý:** AI không tự chịu trách nhiệm, thiếu trực giác kinh doanh và vẫn có sai sót, nên luôn cần người duyệt cuối.
+- **Quy tắc vận hành:** AI soạn nháp (~80%) – Con người duyệt (~20%).
+
+## 2. Nhân viên AI trực 24/7
+- **Cách cũ:** Khách nhắn -> Nhân viên đọc & copy -> Dán hỏi AI -> Nhân viên tự trả lời.
+- **Cách mới:** Khách nhắn -> AI Agent xử lý theo quy tắc -> Trả lời ngay 24/7 và lưu CRM; ca khó chuyển nhân viên thật.
+- **Lợi ích:** Xóa việc lặp lại, khách tăng nhiều lần vẫn đáp ứng tức thì mà chưa cần tuyển thêm người.
+- **Lưu ý:** Mất công dạy ban đầu, chỉ giỏi việc có kịch bản, ca khó vẫn cần người thật.
+
+## 3. 4 nguyên tắc cốt lõi (góc nhìn Dương Võ - CAIO)
+1. **Quy trình trước – công cụ sau:** Chuẩn hóa quy trình (SOP) và luồng dữ liệu trước khi gắn AI.
+2. **Mỗi AI một vai:** Lọc khách, báo giá, chăm sóc sau bán, đúc kết từ người giỏi nhất.
+3. **Dữ liệu là tài sản:** Bảng giá, lịch sử chốt đơn, thông số kỹ thuật dùng để "nuôi" AI.
+4. **Luôn có người duyệt (Human-in-the-loop):** AI lo việc lặp lại, người lo ca khó và quyết định quan trọng.
+
+## 4. AI làm được gì & nối vào hệ thống
+- **4 nhóm việc:** Soạn "sổ tay" cho nhân viên AI; viết code & nối kỹ thuật; viết nội dung & marketing; phân tích & viết quy trình.
+- **Nâng cấp gói (Pro/Enterprise):** Làm liền mạch, đọc file lớn, suy nghĩ sâu hơn, lưu sẵn nhiều nhân viên AI (Custom Gems).
+- **3 cách nối:**
+  1. Gắn thẳng vào website/phần mềm qua Gemini API (kèm System Instructions).
+  2. Form web -> Make/Zapier -> AI phân tích & phản hồi -> Lưu Zoho CRM + báo nhân viên.
+  3. AI Agent trực trên Zalo, Facebook, Telegram.
+- Lưu ý: cần công cụ trung gian (Zoho, Make, Zapier...) để AI chạy ngầm 24/7.
+
+## 5. Cần chuẩn bị gì
+1. **Công ty bán gì, cho ai:** Sản phẩm, khách hàng, điểm mạnh, khâu tốn công nhất.
+2. **Công cụ đang dùng:** Website (Shopify, WordPress...), nơi quản lý khách/tin nhắn (Zoho CRM, Zalo, Facebook, Sheets...).
+3. **Cách trả lời khách:** 10-20 câu hỏi-đáp mẫu, quy tắc xử lý (báo giá, khách VIP, chuyển người thật), giọng điệu thương hiệu.
+4. **Kết quả mong muốn:** Bản kỹ thuật (code chạy ngay, form), bản cho quản lý (tóm tắt, SOP), sổ tay quy tắc (System Prompt) đóng gói sẵn.
+
+## 6. Làm trong 3 bước
+- **Bước 1 (Bạn làm):** Chọn 1 việc lặp lại + đưa tài liệu mẫu (bảng giá, câu trả lời chuẩn).
+- **Bước 2 (AI làm):** AI soạn "sổ tay" (System Prompt), thiết kế form và code kết nối (Web, Zoho CRM, kênh chat).
+- **Bước 3 (Cùng vận hành):** Chạy thử tình huống thật -> chỉnh sửa -> bật tự động 24/7. Chưa đạt thì quay lại Bước 2.
+
+## 7. AI tự học mỗi cuối ngày (nâng cấp thêm)
+- **Ý chính:** AI không nhìn màn hình nhân viên, mà học từ dấu vết làm việc đã được ghi lại (chat, CRM, báo giá). Cuối ngày AI so sánh câu trả lời của mình với nhân viên thật, rút ra tình huống mới và ghi vào Kho kiến thức cho ngày mai.
+- **Điều kiện bắt buộc:** Mọi việc tư vấn, chốt đơn phải được ghi lại trên hệ thống số (CRM, chat, form, Sheet).
+- **Chạy ngầm từ 18:00:** 18:00 Gom dữ liệu (Make/Zapier) -> 18:05 AI phân tích (Gemini API) -> 18:10 Cập nhật Kho kiến thức -> 18:15 Gửi báo cáo cho Giám đốc (dưới 15 dòng: chỉ số trong ngày, vấn đề nổi cộm, số quy tắc AI vừa học).
+- **An toàn:** Quy tắc mới để trạng thái "Chờ duyệt" hoặc chỉ áp dụng ngay với nhóm câu hỏi thông thường. Nên để "Chờ duyệt" trong những tuần đầu.
+- **Độ phức tạp:** Trung bình, nối đường ống khoảng 3-5 ngày.
+- **Lộ trình:** Ngày 1-2 chuẩn hóa đầu vào; ngày 3-4 nối đường ống & viết bộ não; ngày 5-7 chạy thử 3 ngày liên tiếp & tinh chỉnh.`;
+
+  function copyFallback() {
+    var ta = document.createElement('textarea');
+    ta.value = MD;
+    ta.style.cssText = 'position:fixed;left:-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    showToast(ok ? 'Đã sao chép bản tóm tắt dạng Markdown!' : 'Không sao chép được, vui lòng thử lại.');
+  }
+  function copyMarkdown() {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(MD).then(function () {
+        showToast('Đã sao chép bản tóm tắt dạng Markdown!');
+      }, copyFallback);
+    } else { copyFallback(); }
+  }
+  $$('[data-act="copy"]').forEach(function (b) { b.addEventListener('click', copyMarkdown); });
+  $$('[data-act="print"]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
+
+  /* 7. Print: open all "chi tiết" blocks */
+  var opened = [];
+  window.addEventListener('beforeprint', function () {
+    opened = [];
+    $$('details.more').forEach(function (d) { if (!d.open) { d.open = true; opened.push(d); } });
+  });
+  window.addEventListener('afterprint', function () {
+    opened.forEach(function (d) { d.open = false; });
+  });
+
+  load();
+  onScroll();
 })();
 </script>
 </body>
